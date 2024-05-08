@@ -35,7 +35,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-car"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Couvoiturage</div>
+                <div class="sidebar-brand-text mx-3">Covoiturage</div>
             </a>
 
             <!-- Divider -->
