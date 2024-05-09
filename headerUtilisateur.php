@@ -63,16 +63,6 @@
 
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="rechercheTrajet.php">
-                     <i class="fas fa-search"></i>
-                    <span>RECHERCHE TRAJET</span></a>
-                
-            </li>
-
-            <hr class="sidebar-divider my-0">
-
             
             <!-- Divider -->
             <hr class="sidebar-divider">

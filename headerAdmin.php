@@ -69,17 +69,6 @@
                    <i class="fas fa-road"></i>
                     <span>LISTES DES TRAJETS</span></a>
             </li>
-
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="contact.php">
-                     <i class="fas fa-envelope"></i>
-                    <span>CONTACT</span></a>
-                
-            </li>
-
             <hr class="sidebar-divider my-0">
 
            
@@ -217,8 +206,7 @@
     </div>
     <!---->
 
-
-            <!-- Bootstrap core JavaScript-->
+<!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
