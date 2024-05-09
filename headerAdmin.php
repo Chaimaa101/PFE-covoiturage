@@ -51,14 +51,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="profil.php">
-                  <i class="fas fa-address-card"></i>
-                    <span>INFOS PERSONNEL</span></a>
-            </li>
-
-            <hr class="sidebar-divider my-0">
+           
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
@@ -78,13 +71,7 @@
 
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="contact.php">
-                     <i class="fas fa-envelope"></i>
-                    <span>CONTACT</span></a>
-                
-            </li>
+           
 
             <hr class="sidebar-divider my-0">
 
