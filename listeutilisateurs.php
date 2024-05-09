@@ -53,9 +53,8 @@
                                             <td>Jonas </td>
                                             <td>Alexander</td>
                                             <td>San Francisco</td>
-                                            <td><a href="infutilisateur.html"><i class="fa fa-eye" style='font-size:28px;color:bleu'></i><a></td>
+                                            <td><a class="dropdown-item" href="#" data-toggle="modal" data-target="#profilModal"><i class="fa fa-eye" style='font-size:28px;color:bleu'></i><a></td>
                                         </tr>
-                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -67,6 +66,75 @@
                
         <!-- End of Content Wrapper -->
 
-                    
+                    <!-- INFO Modal-->
+    <div class="modal fade" id="profilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">INFORMATION PERSONNEL</h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <table>
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> Nom</td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> Prenom</td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> Email</td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                    </table>
+
+
+
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+    <!---->
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
 
              
