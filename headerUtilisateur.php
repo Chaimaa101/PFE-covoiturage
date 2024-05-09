@@ -41,12 +41,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="profil.php">
-                    <i class="fas fa-address-card"></i>
-                    <span>INFOS PERSONNEL</span></a>
-            </li>
+        
 
             <hr class="sidebar-divider my-0">
 
@@ -63,7 +58,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="listetrajets.php">
                    <i class="fa fa-road"></i>
-                    <span>LISTES DES TRAJETS</span></a>
+                    <span>AJOUTER TRAJET</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -213,13 +208,6 @@
         </div>
     </div>
     <!---->
-
-
-
-
-
-
-
 
 
 <!-- Bootstrap core JavaScript-->

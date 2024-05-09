@@ -51,13 +51,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="profil.php">
-                  <i class="fas fa-address-card"></i>
-                    <span>INFOS PERSONNEL</span></a>
-            </li>
-
+            
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
@@ -137,9 +131,9 @@
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Name</span>
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="profil.html">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profilModal">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -177,6 +171,51 @@
             </div>
         </div>
     </div>
+<!-- INFO Modal-->
+    <div class="modal fade" id="profilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">INFORMATION PERSONNEL</h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <table>
+                        <tr>
+                            <td> </td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> Nom</td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> Prenom</td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                        <tr>
+                            <td> Email</td>
+                            <td> </td>
+                            <td> </td>
+                        </tr>
+                    </table>
+
+
+
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+    <!---->
 
 
             <!-- Bootstrap core JavaScript-->
