@@ -62,7 +62,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="trajets.php">
                    <i class="fa fa-road"></i>
-<<<<<<< HEAD
+<<<<<<< H
                     <span>AJOUTER TRAJET</span></a>
 =======
                     <span>TRAJETS</span></a>
@@ -76,7 +76,7 @@
                      <i class="fas fa-search"></i>
                     <span>RECHERCHE TRAJET</span></a>
                 
->>>>>>> 5e9212eb379d7914ad95192fec795a72163ed3e6
+
             </li>
 
             <hr class="sidebar-divider my-0">
