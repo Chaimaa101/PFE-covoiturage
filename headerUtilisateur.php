@@ -46,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="listesconduc.php">
+                <a class="nav-link" href="listescondu.php">
                     <i class="fa fa-users"></i>
                     <span>LISTES CONDUCTEURS</span></a>
             </li>
@@ -55,7 +55,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="listetrajets.php">
+                <a class="nav-link" href="trajets.php">
                    <i class="fa fa-road"></i>
                     <span>TRAJETS</span></a>
             </li>
