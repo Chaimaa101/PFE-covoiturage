@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,8 +63,7 @@
 
             <hr class="sidebar-divider my-0">
 
-
-            <hr class="sidebar-divider my-0">
+    
 
             
             <!-- Divider -->
@@ -77,6 +77,7 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
+            
             
 
         </ul>
@@ -225,3 +226,5 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+</body>
+</html>
