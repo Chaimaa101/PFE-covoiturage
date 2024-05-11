@@ -41,17 +41,12 @@
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-<<<<<<< HEAD
-        
-
+         
             <hr class="sidebar-divider my-0">
-=======
-           
->>>>>>> 5e9212eb379d7914ad95192fec795a72163ed3e6
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="listesconduc.php">
+                <a class="nav-link" href="listescondu.php">
                     <i class="fa fa-users"></i>
                     <span>LISTES CONDUCTEURS</span></a>
             </li>
@@ -62,22 +57,11 @@
             <li class="nav-item active">
                 <a class="nav-link" href="trajets.php">
                    <i class="fa fa-road"></i>
-<<<<<<< H
-                    <span>AJOUTER TRAJET</span></a>
-=======
                     <span>TRAJETS</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="rechercheTrajet.php">
-                     <i class="fas fa-search"></i>
-                    <span>RECHERCHE TRAJET</span></a>
-                
-
-            </li>
 
             <hr class="sidebar-divider my-0">
 
@@ -216,6 +200,13 @@
         </div>
     </div>
     <!---->
+
+
+
+
+
+
+
 
 
 <!-- Bootstrap core JavaScript-->
