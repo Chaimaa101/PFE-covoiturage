@@ -47,36 +47,30 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Les Trajets</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Ajouter Un Trajet</h6>
     </div>
-    <div class="card-body">
-        <div class="card-ajout">
-            <a href="ajoutertrajet.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-4"><i class="fa fa-plus"></i>Ajouter un trajet</a>
+    <div class="col-sm-12 col-xl-6">
+                        <div class="rounded h-100 p-4">
+                            <h4 class="mb-4">Ajouter un Marché</h4>
+                            <form>
+                                <div class="mb-3">
+                                    <label for="InputM" class="form-label">Départ du trajet</label>
+                                    <input type="text" class="form-control" id="InputM">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="InputF" class="form-label">Fin du trajet</label>
+                                    <input type="text" class="form-control" id="InputF">
+                                </div>
+
+                                
+                                <div class="mb-3">
+                                    <label for="floatingTextarea" class="form-label">Description</label>
+                                    <textarea class="form-control" id="floatingTextarea" style="height: 150px;"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Ajouter</button>
+                            </form>
+                        </div>
         </div>
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                 <thead>
-                    <tr>
-                        <th>Depart</th>
-                        <th>Destination</th>
-                        <th></th>
-                        
-                       
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ain chok</td>
-                        <td>Hay Hassani</td>
-                        <td></td>
-                    </tr>
-                
-                 
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 
 </div>
 <!-- /.container-fluid -->
