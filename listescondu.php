@@ -26,6 +26,20 @@
         require("headerUtilisateur.php");
 ?>
 
+<?php
+
+include 'connection.php';
+
+// sql to to display students
+$sql = "SELECT * FROM conducteur";
+
+$result = mysqli_query($conn, $sql);
+?>
+
+
+
+
+
 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -46,16 +60,15 @@
                                             <th>information</th>
                                         </tr>
                                     </thead>
-                                    
-                                    <tbody>
-                                        
+                                    <?php while($row = mysqli_fetch_assoc($result)) { ?>
+                                    <tbody>   
                                         <tr>
-                                            <td>Jonas </td>
-                                            <td>Alexander</td>
-                                            <td>San Francisco</td> 
+                                            <td><?php echo ($row['nom'])?></td>
+                                            <td><?php echo ($row['prenom'])?></td>
+                                            <td><?php echo ($row['email'])?></td>
                                             <td><a href="infocond.html"><i class="fa fa-eye" style='font-size:28px;color:bleu'></i><a></td>
                                         </tr>
-                                        
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>

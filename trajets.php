@@ -43,6 +43,15 @@
 </div>
 </div>
 
+<?php
+
+include 'connection.php';
+
+// sql to to display students
+$sql = "SELECT * FROM trajet";
+
+$result = mysqli_query($conn, $sql);
+?>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -65,13 +74,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php while($row = mysqli_fetch_assoc($result)) { ?> 
                     <tr>
-                        <td>Ain chok</td>
-                        <td>Hay Hassani</td>
+                        <td><?php echo ($row['lieu_depart']) ?></td>
+                        <td><?php echo ($row['lieu_darrivee']) ?></td>
                         <td></td>
                     </tr>
-                
-                 
+                  <?php } ?>         
+             
                 </tbody>
             </table>
         </div>
