@@ -23,6 +23,10 @@
 </head>
 <?php
         require("headerAcceuil.php");
+
+       
+       
+             
 ?>
 
                 <!-- Begin Page Content -->
