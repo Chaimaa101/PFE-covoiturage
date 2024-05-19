@@ -1,19 +1,24 @@
-<?php
-require_once '../connection.php';
-if(isset($_POST['login'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenom'];
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_BCRYPT);
+    $role = $_POST['role'];
+    $telephone = $_POST['telephone'];
+    $adresse = $_POST['adresse'];
+    $date_naissance = $_POST['date_naissance'];
 
-    $sql = "SELECT * FROM passager WHERE email='$email' AND mdp='$password'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-       header('location:../utilisateur.php');
+    $sql = "INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $pdo->prepare($sql);
+    if ($stmt->execute([$nom, $prenom, $email, $mot_de_passe, $role, $telephone, $adresse, $date_naissance])) {
+        echo "Inscription réussie. Veuillez attendre la validation de l'administrateur.";
     } else {
-        echo "Login failed";
+        echo "Erreur lors de l'inscription.";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

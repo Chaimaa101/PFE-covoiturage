@@ -1,14 +1,14 @@
 <?php
 
-
 if(isset($_POST['submit'])){
-    $Input1 = $_POST['Input1'];
-    $Input2 = $_POST['Input2'];
-    $Input3 = $_POST['Input3'];
-    $Input4 = $_POST['Input4'];
-    $Input5 = $_POST['Input5'];
-    $Input6 = $_POST['Input6'];
+    $lieu_depart = $_POST['lieu_depart'];
+    $lieu_darrivee = $_POST['lieu_darrivee'];
+    $date_heure_depart = $_POST['date_heure_depart'];
+    $statut = $_POST['statut'];
+    $id_cond = $_POST['id_cond'];
+    $id_passager = $_POST['id_passager'];
 
+<<<<<<< HEAD
         $host ='localhost';    
         $user ='root';
         $pass ='';
@@ -18,9 +18,20 @@ if(isset($_POST['submit'])){
 
         $sql = "INSERT INTO trajet(Input1, Input2, Input3, Input4, Input5, Input6) values('$Input1', '$Input2', '$Input3', '$Input4', '$Input5', '$Input6')";
         mysqli_query($conn,$sql);
+=======
+    $host ='localhost';    
+    $user ='root';
+    $pass ='';
+    $dbname='covoiturage';
+    $conn = mysqli_connect($host,$user,$pass,$dbname);
+	$sql = "INSERT INTO trajet (lieu_depart, lieu_darrivee, date_heure_depart, statut, id_cond, id_passager) values('$lieu_depart', '$lieu_darrivee', '$date_heure_depart', '$statut', '$id_cond', '$id_passager')"; 
+    
+
+>>>>>>> 003910d322a1cb1dcfa6ff11092455c20bef4304
 }
         
      ?>   
+     
   
 
 <!DOCTYPE html>
@@ -89,43 +100,45 @@ if(isset($_POST['submit'])){
                             <h4 class="mb-4">Ajouter un Marché</h4>
                             <form action="#" method="post"> 
                                 <div class="mb-3">
-                                    <label for="Input1" class="form-label">Départ du trajet</label>
-                                    <input type="text" class="form-control" id="Input1" name="Input1" />
+                                    <label for="lieu_depart" class="form-label">Départ du trajet</label>
+                                    <input type="text" class="form-control" id="lieu_depart" name="lieu_depart" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="Input2" class="form-label">Fin du trajet</label>
-                                    <input type="text" class="form-control" id="Input2" name="Input2">
+                                    <label for="lieu_darrivee" class="form-label">Fin du trajet</label>
+                                    <input type="text" class="form-control" id="lieu_darrivee" name="lieu_darrivee">
                                     
                                 </div>
                                 <div class="mb-3">
-                                    <label for="Input3" class="form-label">Heure du depart</label>
-                                    <input type="text" class="form-control" id="Input3" name="Input3" />
+                                    <label for="date_heure_depart" class="form-label">Heure et Date du depart</label>
+                                    <input type="datetime-local" class="form-control" id="date_heure_depart" name="date_heure_depart" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="Input4" class="form-label">La date</label>
-                                    <input type="date" class="form-control" id="Input4" name="Input4" />
-                                </div>
-                               <div class="mb-3">
-                                    <label for="Input5" class="form-label">Places disponibles</label>
-                                    <input type="text" class="form-control" id="Input5" name="Input5" />
-                                </div>
+                                    <label for="email">statut</label>
+                                 <div>
+                              <br> <label for="Input4" class="radio-inline"><input type="radio" name="statut" id="Input4">proposé</label></br>
+                              <br> <label for="Input5" class="radio-inline"><input type="radio" name="statut" id="Input5">choisi</label></br>
+                              <br> <label for="Input6" class="radio-inline"><input type="radio" name="statut" id="Input6">validé</label></br>
+ </div>
+ </div>                        
                                 
-                                <div class="mb-3">
-                                    <label for="Input6" class="form-label">Prix</label>
-                                    <input type="text" class="form-control" id="Input6" name="Input6" />
+                               <div class="mb-3">
+                                    <label for="id_cond" class="form-label"id>id conducteur</label>
+                                    <input type="text" class="form-control" id="id_cond" name="id_cond" />
                                 </div>
 
                                 
                                 <div class="mb-3">
-                                    <label for="floatingTextarea" class="form-label">Description</label>
-                                    <textarea class="form-control" id="floatingTextarea" style="height: 150px;"></textarea>
+                                    <label for="id_passager" class="form-label">id passager</label>
+                                    <input type="text" class="form-control" id="id_passager" name="id_passager" />
+                                    
                                 </div>
                                 <input type="submit" name="submit" value="Envoyer">
                             </form>
                         </div>
         </div>
-
 </div>
+
+
 <!-- /.container-fluid -->
 
     

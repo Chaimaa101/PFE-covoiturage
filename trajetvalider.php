@@ -49,10 +49,10 @@ include 'connection.php';
 
         // Fonction pour récupérer les trajets choisi par le conducteur
     function getTrajetsPassagers($conn) {
-        $sql = "SELECT trajet.*, passager.nom, passager.prenom 
-                FROM trajet 
-                JOIN passager ON trajet.id_passager = passager.id_passager 
-                WHERE trajet.statut = 'validé'";
+        $sql = "SELECT trajets.*, passager.nom, passager.prenom 
+                FROM trajets 
+                JOIN passager ON trajets.id_passager = passager.id_passager 
+                WHERE trajets.statut = 'validé'";
         $result = $conn->query($sql);
         $trajets = [];
         if ($result->num_rows > 0) {
