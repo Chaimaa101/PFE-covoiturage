@@ -1,25 +1,16 @@
 <?php
-
+require('connection.php');
 if(isset($_POST['submit'])){
     $lieu_depart = $_POST['lieu_depart'];
     $lieu_darrivee = $_POST['lieu_darrivee'];
     $date_heure_depart = $_POST['date_heure_depart'];
     $statut = $_POST['statut'];
-    $id_cond = $_POST['id_cond'];
-    $id_passager = $_POST['id_passager'];
-    $host ='localhost';    
-    $user ='root';
-    $pass ='';
-    $dbname='covoiturage';
-    $conn = mysqli_connect($host,$user,$pass,$dbname);
-	$sql = "INSERT INTO trajet (lieu_depart, lieu_darrivee, date_heure_depart, statut, id_cond, id_passager) values('$lieu_depart', '$lieu_darrivee', '$date_heure_depart', '$statut', '$id_cond', '$id_passager')"; 
-    
 
-}
-        
+	$sql = "INSERT INTO trajet (lieu_depart, lieu_darrivee, date_heure_depart, statut, id_cond, id_passager) values('$lieu_depart', '$lieu_darrivee', '$date_heure_depart', '$statut', '$id_cond', '$id_passager')"; 
+
+}      
      ?>   
-     
-  
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,17 +38,8 @@ if(isset($_POST['submit'])){
 <?php
         require("header.php");
 ?>
-             
 
-
-            
-    
-    
 <body>
-
-
-          
-          
 
  <!-- Begin Page Content -->
  <div class="container-fluid">
@@ -75,7 +57,6 @@ if(isset($_POST['submit'])){
             class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
 </div>
 </div>
-
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
