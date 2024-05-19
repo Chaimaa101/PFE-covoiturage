@@ -12,11 +12,11 @@ if(isset($_POST['submit'])){
         $host ='localhost';    
         $user ='root';
         $pass ='';
-        $dbname='cecio';
+        $dbname='covoiturage';
         
         $conn = mysqli_connect($host,$user,$pass,$dbname);
 
-        $sql = "INSERT INTO etudiant(Input1, Input2, Input3, Input4, Input5, Input6) values('$Input1', '$Input2', '$Input3', '$Input4', '$Input5', '$Input6')";
+        $sql = "INSERT INTO trajet(Input1, Input2, Input3, Input4, Input5, Input6) values('$Input1', '$Input2', '$Input3', '$Input4', '$Input5', '$Input6')";
         mysqli_query($conn,$sql);
 }
         
