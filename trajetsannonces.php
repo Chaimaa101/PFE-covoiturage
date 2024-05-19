@@ -22,9 +22,6 @@
 
 </head>
 <?php
-<<<<<<< HEAD
-        require("header.php");
-=======
 
 session_start();
 include 'connection.php';
@@ -56,7 +53,6 @@ $result = $conn->query($sql);
         }
     }
 
->>>>>>> 6f1b36d37eb228a80dda70cc6f3770f3ca38ca95
 ?>
 
 
@@ -79,27 +75,6 @@ $result = $conn->query($sql);
 
 
 
-<<<<<<< HEAD
-        // Fonction pour récupérer les trajets proposés par les passagers
-    function getTrajetsPassagers($conn) {
-        $sql = "SELECT trajets.*, utilisateur.nom, utilisateur.prenom 
-                FROM trajets 
-                JOIN utilisateur ON trajets.id_passager = passagers.id_passager 
-                WHERE trajets.statut = 'proposé'";
-        $result = $conn->query($sql);
-        $trajets = [];
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $trajets[] = $row;
-            }
-        }
-        return $trajets;
-    }
-
-    $trajetsPassagers = getTrajetsPassagers($conn);
- 
-=======
->>>>>>> 6f1b36d37eb228a80dda70cc6f3770f3ca38ca95
  
 
 
