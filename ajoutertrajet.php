@@ -2,7 +2,7 @@
 
 
 if(isset($_POST['submit'])){
-    $Input1 = $_POST['Input1'];
+    $lieu_depart = $_POST['lieu_depart'];
     $Input2 = $_POST['Input2'];
     $Input3 = $_POST['Input3'];
     $Input4 = $_POST['Input4'];
@@ -16,7 +16,7 @@ if(isset($_POST['submit'])){
         
         $conn = mysqli_connect($host,$user,$pass,$dbname);
 
-        $sql = "INSERT INTO etudiant(Input1, Input2, Input3, Input4, Input5, Input6) values('$Input1', '$Input2', '$Input3', '$Input4', '$Input5', '$Input6')";
+        $sql = "INSERT INTO etudiant(lieu_depart, Input2, Input3, Input4, Input5, Input6) values('$lieu_depart', '$Input2', '$Input3', '$Input4', '$Input5', '$Input6')";
         mysqli_query($conn,$sql);
 }
         
@@ -90,24 +90,32 @@ if(isset($_POST['submit'])){
                             <form action="#" method="post"> 
                                 <div class="mb-3">
                                     <label for="Input1" class="form-label">Départ du trajet</label>
-                                    <input type="text" class="form-control" id="Input1" name="Input1" />
+                                    <input type="text" class="form-control" id="Input1" name="lieu_depart" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="Input2" class="form-label">Fin du trajet</label>
-                                    <input type="text" class="form-control" id="Input2" name="Input2">
+                                    <input type="text" class="form-control" id="Input2" name="lieu_darrivee">
                                     
                                 </div>
                                 <div class="mb-3">
-                                    <label for="Input3" class="form-label">Heure du depart</label>
-                                    <input type="text" class="form-control" id="Input3" name="Input3" />
+                                    <label for="Input3" class="form-label">Heure et Date du depart</label>
+                                    <input type="datetime-local" class="form-control" id="Input3" name="date_heure_depart" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="Input4" class="form-label">La date</label>
-                                    <input type="date" class="form-control" id="Input4" name="Input4" />
-                                </div>
+                                    <label for="email">statut</label>
+                                 add<div>
+                               <label for="Input4" class="radio-inline"><input type="radio" name="statut" id="Input4">proposé</label>
+                               <label for="Input5" class="radio-inline"><input type="radio" name="statut" id="Input5">choisi</label>
+                               <label for="Input6" class="radio-inline"><input type="radio" name="statut" id="Input6">validé</label>
+ </div>
+ </div>
+                               
+
+
+                                
                                <div class="mb-3">
                                     <label for="Input5" class="form-label">Places disponibles</label>
-                                    <input type="text" class="form-control" id="Input5" name="Input5" />
+                                    <input type="text" class="form-control" id="Input5" name="statut />
                                 </div>
                                 
                                 <div class="mb-3">
