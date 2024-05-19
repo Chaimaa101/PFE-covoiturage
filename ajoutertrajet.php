@@ -1,6 +1,5 @@
 <?php
 
-
 if(isset($_POST['submit'])){
     $lieu_depart = $_POST['lieu_depart'];
     $lieu_darrivee = $_POST['lieu_darrivee'];
@@ -9,17 +8,18 @@ if(isset($_POST['submit'])){
     $id_cond = $_POST['id_cond'];
     $id_passager = $_POST['id_passager'];
 
-        $host ='localhost';    
-        $user ='root';
-        $pass ='';
-        $dbname='covoiturage';
-        $conn = mysqli_connect($host,$user,$pass,$dbname);
+    $host ='localhost';    
+    $user ='root';
+    $pass ='';
+    $dbname='covoiturage';
+    $conn = mysqli_connect($host,$user,$pass,$dbname);
+	$sql = "INSERT INTO trajet (lieu_depart, lieu_darrivee, date_heure_depart, statut, id_cond, id_passager) values('$lieu_depart', '$lieu_darrivee', '$date_heure_depart', '$statut', '$id_cond', '$id_passager')"; 
+    
 
-        $sql = "INSERT INTO trajet(lieu_depart, lieu_darrivee, date_heure_depart, statut, id_cond, id_passager) values('$lieu_depart', '$lieu_darrivee', '$date_heure_depart', '$statut', '$id_cond', '$id_passager')";
-        mysqli_query($conn,$sql);
 }
         
      ?>   
+     
   
 
 <!DOCTYPE html>
