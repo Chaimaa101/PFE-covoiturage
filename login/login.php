@@ -1,24 +1,48 @@
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $email = $_POST['email'];
-    $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_BCRYPT);
-    $role = $_POST['role'];
-    $telephone = $_POST['telephone'];
-    $adresse = $_POST['adresse'];
-    $date_naissance = $_POST['date_naissance'];
+<?php
+require_once '../connection.php';
+session_start();
 
-    $sql = "INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    $stmt = $pdo->prepare($sql);
-    if ($stmt->execute([$nom, $prenom, $email, $mot_de_passe, $role, $telephone, $adresse, $date_naissance])) {
-        echo "Inscription réussie. Veuillez attendre la validation de l'administrateur.";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $mot_de_passe = $_POST['mot_de_passe'];
+
+
+    $sql = "SELECT * FROM utilisateur WHERE email='$email'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows == 1) {
+        $user = $result->fetch_assoc();
+        if (password_verify($mot_de_passe, $user['mot_de_passe'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['user_role'] = $user['role'];
+            $_SESSION['nom'] = $user['nom'];
+            $_SESSION['prenom'] = $user['prenom'];
+               if ($remember_me) {
+                setcookie('user_id', $user['id'], time() + (86400 * 30), "/"); // 86400 = 1 day
+                setcookie('user_role', $user['role'], time() + (86400 * 30), "/");
+                setcookie('user_nom', $user['nom'], time() + (86400 * 30), "/");
+                setcookie('user_prenom', $user['prenom'], time() + (86400 * 30), "/");
+            }
+            if ($user['role'] == 'passager') {
+                header("Location: ../trajets.php");
+            } elseif ($user['role'] == 'conducteur') {
+                header("Location: ../trajetsannonces.php");
+            } elseif ($user['role'] == 'admin') {
+                header("Location: ../admin.php");
+            } else {
+                echo "Rôle utilisateur non reconnu.";
+            }
+            exit;
+        } else {
+            echo "Mot de passe incorrect.";
+        }
     } else {
-        echo "Erreur lors de l'inscription.";
+        echo "Utilisateur non trouvé.";
     }
+
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,11 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="text" class="form-input" name="email" id="email" placeholder="email"/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="password" id="password" placeholder="Mot de passe"/>
+                            <input type="password" class="form-input" name="mot_de_passe" id="password" placeholder="Mot de passe"/>
                         </div>
                          <div class="form-group">
-                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                            <input type="checkbox" name="remember_me" id="agree-term" class="agree-term" />
+                            <label for="remember_me" class="label-agree-term"><span><span></span></span>Se souvenir de moi </label>
                         </div>
                         <div class="form-group">
                             <input type="submit" name="login" id="submit" class="form-submit" value="se connecter"/>

@@ -23,7 +23,7 @@
 </head>
 
 <?php
-        require("headerConducteur.php");
+        require("header.php");
 ?>
 
  <!-- Begin Page Content -->
@@ -49,10 +49,10 @@ include 'connection.php';
 
         // Fonction pour récupérer les trajets proposés par les passagers
     function getTrajetsPassagers($conn) {
-        $sql = "SELECT trajet.*, passager.nom, passager.prenom 
-                FROM trajet 
-                JOIN passager ON trajet.id_passager = passager.id_passager 
-                WHERE trajet.statut = 'proposé'";
+        $sql = "SELECT trajets.*, utilisateur.nom, utilisateur.prenom 
+                FROM trajets 
+                JOIN utilisateur ON trajets.id_passager = passagers.id_passager 
+                WHERE trajets.statut = 'proposé'";
         $result = $conn->query($sql);
         $trajets = [];
         if ($result->num_rows > 0) {

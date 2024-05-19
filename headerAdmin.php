@@ -1,3 +1,6 @@
+<?php
+require ( 'session.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,67 +30,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-car"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Covoiturage</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="admin.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-
-            <!-- Divider -->
-
-
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="listeutilisateurs.php">
-                    <i class="fa fa-users"></i>
-                    <span>LISTES UTILISATEURS</span></a>
-            </li>
-
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="listetrajets.php">
-                   <i class="fas fa-road"></i>
-                    <span>LISTES DES TRAJETS</span></a>
-            </li>
-
-            <hr class="sidebar-divider my-0">
-
-           
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            
-
-            
-
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-            
-
-        </ul>
+        
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -117,7 +60,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Name</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo  htmlspecialchars($user_nom) ;?></span>
                             </a>
                             <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

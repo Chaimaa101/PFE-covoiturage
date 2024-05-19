@@ -23,7 +23,7 @@
 
 </head>
 <?php
-        require("headerAdmin.php");
+        require("header.php");
 ?>
    
    <!-- End of Topbar -->

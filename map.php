@@ -14,7 +14,7 @@
     </style>
 </head>
 <body>
-    <?php require("headerUtilisateur.php");?>
+    <?php require("header.php");?>
     <div class="container-fluid">
 
 <h1>page Recherche trajet </h1>  

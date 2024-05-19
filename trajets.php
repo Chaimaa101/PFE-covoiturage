@@ -23,7 +23,7 @@
 </head>
 
 <?php
-        require("headerUtilisateur.php");
+        require("header.php");
 ?>
 
  <!-- Begin Page Content -->
@@ -48,7 +48,7 @@
 include 'connection.php';
 
 // sql to to display students
-$sql = "SELECT * FROM trajets";
+$sql = "SELECT * FROM trajet";
 
 $result = mysqli_query($conn, $sql);
 ?>

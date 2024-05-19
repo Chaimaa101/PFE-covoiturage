@@ -1,18 +1,33 @@
 <?php 
 require_once '../connection.php';
-if(isset($_POST['register'])) {
-    $name = $_POST['name'];
-    $surname = $_POST['surname'];
-    $email = $_POST['email'];
-    $phone = $_POST['phone'];
-    $password = $_POST['password'];
 
-    $sql = "INSERT INTO passager (nom,prenom,email,telephone,login, mdp) VALUES ('$name', '$surname','$email','$phone','$surname','$password')";
-    if ($conn->query($sql) === TRUE) {
-        header('location:login.php');
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenom'];
+    $email = $_POST['email'];
+    $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_BCRYPT);
+    $role = $_POST['role'];
+    $telephone = $_POST['tel'];
+    $adresse = $_POST['adress'];
+    $date_naissance = $_POST['date_naissance'];
+
+    
+     $stmt = $conn->prepare(" INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance) VALUES (?, ?, ?, ?,?, ?, ?, ?)");
+    if ($stmt === false) {
+        die("Erreur de préparation de la requête: " . $conn->error);
+    }
+
+    // Lie les paramètres
+    $stmt->bind_param("ssssssss",$nom, $prenom, $email, $mot_de_passe, $role, $telephone, $adresse, $date_naissance);
+
+    // Exécute la requête
+    if ($stmt->execute()) {
+        header('location: login.php');
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }}
+        echo "Erreur: " . $stmt->error;
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,36 +52,42 @@ if(isset($_POST['register'])) {
             <div class="container">
                 <div class="signup-content">
                     <form method="POST" id="signup-form" class="signup-form">
-                        <h2 class="form-title">S'inscrire</h2>
+                        <h2 class="form-title">Inscriptione</h2>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="name" id="name" placeholder="Nom"/>
+                            <input type="text" class="form-input" name="nom" id="name" placeholder="Nom" require/>
                         </div>
                          <div class="form-group">
-                            <input type="text" class="form-input" name="surname" id="surname" placeholder="Prènom"/>
+                            <input type="text" class="form-input" name="prenom" id="surname" placeholder="Prènom" require/>
                         </div>
                          <div class="form-group">
-                            <input type="text" class="form-input" name="phone" id="phone" placeholder="Téléphone"/>
+                            <input type="text" class="form-input" name="tel" id="phone" placeholder="Téléphone" require/>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-input" name="email" id="email" placeholder="Email"/>
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Email" require/>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="password" id="password" placeholder="Mot de passe"/>
+                            <input type="text" class="form-input" name="mot_de_passe" id="password" placeholder="Mot de passe" require/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-input" name="re_password" id="re_password" placeholder="confirm "/>
+                             <input type="text" class="form-input" name="adress" id="adress" placeholder="Adresse" require/>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                             <input type="date" class="form-input" name="date_naissance" id="date_naissance" placeholder="Date de naissance" require/>
+                        </div>
+                        <div class="form-group" >
+                            <select class="form-input" name="role" id="role" placeholder="Rôle" required>
+                                <option class="form-input" value="passager">Passager</option>
+                                <option  class="form-input" value="conducteur">Conducteur</option>
+                                <option  class="form-input" value="admin">Admin</option>
+        </select>
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="register" id="submit" class="form-submit" value="Créer compte"/>
+                            <input type="submit" name="register" id="submit" class="form-submit" value="S'inscrire"/>
                         </div>
                     </form>
                     <p class="loginhere">
-                        Have already an account ? <a href="login.php" class="loginhere-link">Login here</a>
+                        Vous avez déjà un compte? <a href="login.php" class="loginhere-link">Login here</a>
                     </p>
                 </div>
             </div>
