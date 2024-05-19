@@ -48,7 +48,7 @@
 include 'connection.php';
 
 // sql to to display students
-$sql = "SELECT * FROM trajet";
+$sql = "SELECT * FROM trajets";
 
 $result = mysqli_query($conn, $sql);
 ?>

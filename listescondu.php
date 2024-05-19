@@ -31,7 +31,7 @@
 include 'connection.php';
 
 // sql to to display students
-$sql = "SELECT * FROM conducteur";
+$sql = "SELECT * FROM utilisateur WHERE role = 'conducteur'";
 
 $result = mysqli_query($conn, $sql);
 ?>
