@@ -17,9 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['role'] = $user['role'];
 
             if ($user['role'] == 'passager') {
-                header("Location: passager_dashboard.php");
+                header("Location: trajets.php");
             } elseif ($user['role'] == 'conducteur') {
-                header("Location: conducteur_dashboard.php");
+                header("Location: trajetsannonces.php");
             } else {
                 echo "Rôle utilisateur non reconnu.";
             }

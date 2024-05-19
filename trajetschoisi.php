@@ -21,10 +21,37 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-
 <?php
-        require("headerConducteur.php");
-?>
+session_start();
+include 'connection.php';
+require("headerConducteur.php");
+
+
+
+if ($_SESSION['role'] != 'conducteur') {
+    echo "Accès non autorisé";
+    exit;
+}
+
+        // Fonction pour récupérer les trajets choisi par le conducteur
+    function getTrajetsPassagers($conn) {
+        $sql = "SELECT trajets.*
+                FROM trajets  
+                WHERE trajets.statut = 'choisi'";
+        $result = $conn->query($sql);
+        $trajets = [];
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $trajets[] = $row;
+            }
+        }
+        return $trajets;
+    }
+
+    $trajetsPassagers = getTrajetsPassagers($conn);
+ 
+ 
+ ?>
 
  <!-- Begin Page Content -->
  <div class="container-fluid">
@@ -43,30 +70,6 @@
 </div>
 </div>
 
-<?php
-
-include 'connection.php';
-
-        // Fonction pour récupérer les trajets choisi par le conducteur
-    function getTrajetsPassagers($conn) {
-        $sql = "SELECT trajet.*, passager.nom, passager.prenom 
-                FROM trajet 
-                JOIN passager ON trajet.id_passager = passager.id_passager 
-                WHERE trajet.statut = 'choisi'";
-        $result = $conn->query($sql);
-        $trajets = [];
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $trajets[] = $row;
-            }
-        }
-        return $trajets;
-    }
-
-    $trajetsPassagers = getTrajetsPassagers($conn);
- 
- 
- ?>
 
 
 
@@ -84,7 +87,6 @@ include 'connection.php';
                         <th>Depart</th>
                         <th>Destination</th>
                         <th>Date Depart</th>
-                        <th>Nom & Prenom </th>
                         
                        
                     </tr>
@@ -92,10 +94,10 @@ include 'connection.php';
                 <tbody>
                 <?php foreach ($trajetsPassagers as $trajet)  { ?> 
                     <tr>
-                        <td><?php echo ($trajet['lieu_depart']) ?></td>
-                        <td><?php echo ($trajet['lieu_darrivee']) ?></td>
-                        <td><?php echo ($trajet['date_heure_depart']) ?></td>
-                        <td><?php echo ($trajet['nom']. " " . $trajet['prenom']) ?></td>
+                        <td><?php echo ($trajet['depart']) ?></td>
+                        <td><?php echo ($trajet['destination']) ?></td>
+                        <td><?php echo ($trajet['date_depart']) ?></td>
+                        
                     </tr>
                   <?php 
             
