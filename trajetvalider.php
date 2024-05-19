@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>TRAJETS Valider</title>
+    <title>TRAJETS CHOISIS</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -21,37 +21,22 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-
 <?php
-        require("headerConducteur.php");
-?>
-
- <!-- Begin Page Content -->
- <div class="container-fluid">
-
-<!-- Page Heading -->
-
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"></h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-             <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Trajets Realisés</h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-</div>
-</div>
-
-<?php
-
+session_start();
 include 'connection.php';
+require("headerConducteur.php");
+
+
+
+if ($_SESSION['role'] != 'conducteur') {
+    echo "Accès non autorisé";
+    exit;
+}
 
         // Fonction pour récupérer les trajets choisi par le conducteur
     function getTrajetsPassagers($conn) {
-        $sql = "SELECT trajets.*, passager.nom, passager.prenom 
-                FROM trajets 
-                JOIN passager ON trajets.id_passager = passager.id_passager 
+        $sql = "SELECT trajets.*
+                FROM trajets  
                 WHERE trajets.statut = 'validé'";
         $result = $conn->query($sql);
         $trajets = [];
@@ -68,12 +53,30 @@ include 'connection.php';
  
  ?>
 
+ <!-- Begin Page Content -->
+ <div class="container-fluid">
+
+<!-- Page Heading -->
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+             <!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Trajets Choisis</h1>
+    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+</div>
+</div>
+
+
 
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Les Trajets Realisés</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Les Trajets Choisis</h6>
     </div>
     <div class="card-body">
         
@@ -84,7 +87,6 @@ include 'connection.php';
                         <th>Depart</th>
                         <th>Destination</th>
                         <th>Date Depart</th>
-                        <th>Nom & Prenom </th>
                         
                        
                     </tr>
@@ -92,10 +94,10 @@ include 'connection.php';
                 <tbody>
                 <?php foreach ($trajetsPassagers as $trajet)  { ?> 
                     <tr>
-                        <td><?php echo ($trajet['lieu_depart']) ?></td>
-                        <td><?php echo ($trajet['lieu_darrivee']) ?></td>
-                        <td><?php echo ($trajet['date_heure_depart']) ?></td>
-                        <td><?php echo ($trajet['nom']. " " . $trajet['prenom']) ?></td>
+                        <td><?php echo ($trajet['depart']) ?></td>
+                        <td><?php echo ($trajet['destination']) ?></td>
+                        <td><?php echo ($trajet['date_depart']) ?></td>
+                        
                     </tr>
                   <?php 
             
