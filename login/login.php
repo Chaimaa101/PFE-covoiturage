@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mot_de_passe = $_POST['mot_de_passe'];
 
 
-    $sql = "SELECT * FROM utilisateur WHERE email='$email'";
+    $sql = "SELECT * FROM utilisateurs WHERE email='$email'";
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {

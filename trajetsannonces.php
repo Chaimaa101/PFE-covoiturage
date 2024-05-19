@@ -23,16 +23,9 @@
 </head>
 <?php
 
-session_start();
 include 'connection.php';
-require("headerConducteur.php");
+require("header.php");
 
-
-
-if ($_SESSION['role'] != 'conducteur') {
-    echo "Accès non autorisé";
-    exit;
-}
 
 $sql = "SELECT * FROM trajets WHERE statut='proposé'";
 $result = $conn->query($sql);

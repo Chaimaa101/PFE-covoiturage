@@ -22,41 +22,10 @@
 
 </head>
 <?php
-<<<<<<< HEAD
-        require("header.php");
-?>
-
- <!-- Begin Page Content -->
- <div class="container-fluid">
-
-<!-- Page Heading -->
-
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"></h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-             <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Trajets Realisés</h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-</div>
-</div>
-
-<?php
-
-=======
-session_start();
->>>>>>> 6f1b36d37eb228a80dda70cc6f3770f3ca38ca95
 include 'connection.php';
-require("headerConducteur.php");
+require("header.php");
 
 
-
-if ($_SESSION['role'] != 'conducteur') {
-    echo "Accès non autorisé";
-    exit;
-}
 
         // Fonction pour récupérer les trajets choisi par le conducteur
     function getTrajetsPassagers($conn) {
