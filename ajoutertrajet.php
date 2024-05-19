@@ -8,6 +8,17 @@ if(isset($_POST['submit'])){
     $id_cond = $_POST['id_cond'];
     $id_passager = $_POST['id_passager'];
 
+<<<<<<< HEAD
+        $host ='localhost';    
+        $user ='root';
+        $pass ='';
+        $dbname='covoiturage';
+        
+        $conn = mysqli_connect($host,$user,$pass,$dbname);
+
+        $sql = "INSERT INTO trajet(Input1, Input2, Input3, Input4, Input5, Input6) values('$Input1', '$Input2', '$Input3', '$Input4', '$Input5', '$Input6')";
+        mysqli_query($conn,$sql);
+=======
     $host ='localhost';    
     $user ='root';
     $pass ='';
@@ -16,6 +27,7 @@ if(isset($_POST['submit'])){
 	$sql = "INSERT INTO trajet (lieu_depart, lieu_darrivee, date_heure_depart, statut, id_cond, id_passager) values('$lieu_depart', '$lieu_darrivee', '$date_heure_depart', '$statut', '$id_cond', '$id_passager')"; 
     
 
+>>>>>>> 003910d322a1cb1dcfa6ff11092455c20bef4304
 }
         
      ?>   

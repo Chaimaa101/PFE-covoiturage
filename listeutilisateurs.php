@@ -43,12 +43,19 @@
                                             <th>Nom</th>
                                             <th>Prenom</th>
                                             <th>Email</th>
-                                            <th>info</th>
+                                            <th>Telephone</th>
+                                            <th>adresse</th>
+                                            <th>Date de Naissance</th>
+                                            <th>Date d'inscription</th>
+                                            <th>role</th>
                                         </tr>
                                     </thead>
                                     
                                     <tbody>
-                                        
+<?php
+ $sql = "SELECT *FROM utilisateur WHERE role NOT IN 'admin'"
+
+?> 
                                         <tr>
                                             <td>Jonas </td>
                                             <td>Alexander</td>
