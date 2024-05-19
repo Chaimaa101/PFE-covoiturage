@@ -1,3 +1,28 @@
+<?php
+
+
+if(isset($_POST['submit'])){
+    $Input1 = $_POST['Input1'];
+    $Input2 = $_POST['Input2'];
+    $Input3 = $_POST['Input3'];
+    $Input4 = $_POST['Input4'];
+    $Input5 = $_POST['Input5'];
+    $Input6 = $_POST['Input6'];
+
+        $host ='localhost';    
+        $user ='root';
+        $pass ='';
+        $dbname='cecio';
+        
+        $conn = mysqli_connect($host,$user,$pass,$dbname);
+
+        $sql = "INSERT INTO etudiant(Input1, Input2, Input3, Input4, Input5, Input6) values('$Input1', '$Input2', '$Input3', '$Input4', '$Input5', '$Input6')";
+        mysqli_query($conn,$sql);
+}
+        
+     ?>   
+  
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,10 +46,20 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-
 <?php
-        require("headerUtilisateur.php");
+        require("headerAdmin.php");
 ?>
+             
+
+
+            
+    
+    
+<body>
+
+
+          
+          
 
  <!-- Begin Page Content -->
  <div class="container-fluid">
@@ -52,14 +87,32 @@
     <div class="col-sm-12 col-xl-6">
                         <div class="rounded h-100 p-4">
                             <h4 class="mb-4">Ajouter un Marché</h4>
-                            <form>
+                            <form action="#" method="post"> 
                                 <div class="mb-3">
-                                    <label for="InputM" class="form-label">Départ du trajet</label>
-                                    <input type="text" class="form-control" id="InputM">
+                                    <label for="Input1" class="form-label">Départ du trajet</label>
+                                    <input type="text" class="form-control" id="Input1" name="Input1" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="InputF" class="form-label">Fin du trajet</label>
-                                    <input type="text" class="form-control" id="InputF">
+                                    <label for="Input2" class="form-label">Fin du trajet</label>
+                                    <input type="text" class="form-control" id="Input2" name="Input2">
+                                    
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Input3" class="form-label">Heure du depart</label>
+                                    <input type="text" class="form-control" id="Input3" name="Input3" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="Input4" class="form-label">La date</label>
+                                    <input type="date" class="form-control" id="Input4" name="Input4" />
+                                </div>
+                               <div class="mb-3">
+                                    <label for="Input5" class="form-label">Places disponibles</label>
+                                    <input type="text" class="form-control" id="Input5" name="Input5" />
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="Input6" class="form-label">Prix</label>
+                                    <input type="text" class="form-control" id="Input6" name="Input6" />
                                 </div>
 
                                 
@@ -67,7 +120,7 @@
                                     <label for="floatingTextarea" class="form-label">Description</label>
                                     <textarea class="form-control" id="floatingTextarea" style="height: 150px;"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Ajouter</button>
+                                <input type="submit" name="submit" value="Envoyer">
                             </form>
                         </div>
         </div>
