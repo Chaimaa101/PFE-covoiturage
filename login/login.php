@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             //     setcookie('user_prenom', $user['prenom'], time() + (86400 * 30), "/");
             // }
             if ($user['role'] == 'passager') {
-                header("Location: ../trajets.php");
+                header("Location: ../historiquetrajets.php");
             } elseif ($user['role'] == 'conducteur') {
                 header("Location: ../trajetsannonces.php");
             } elseif ($user['role'] == 'administrateur') {

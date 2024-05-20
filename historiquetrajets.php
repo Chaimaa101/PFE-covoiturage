@@ -74,12 +74,10 @@ $trajetsUtilises = getTrajetsUtilises($conn, $user_id);
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Historique Des Trajets</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Historique Des Trajets Réalisés</h6>
     </div>
     <div class="card-body">
-        <div class="card-ajout">
-            <a href="ajoutertrajet.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-4"><i class="fa fa-plus"></i>Ajouter un trajet</a>
-        </div>
+        
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                  <thead>
@@ -98,7 +96,7 @@ $trajetsUtilises = getTrajetsUtilises($conn, $user_id);
                         <td><?= $trajet['depart'] ?></td>
                         <td><?php echo ($trajet['destination']) ?></td>
                         <td><?= $trajet['date_depart'] ?></td>
-
+                        <td></td>
                     </tr>
                   <?php } ?>         
              
