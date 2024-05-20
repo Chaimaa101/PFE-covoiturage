@@ -18,17 +18,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_role'] = $user['role'];
             $_SESSION['nom'] = $user['nom'];
             $_SESSION['prenom'] = $user['prenom'];
-               if ($remember_me) {
-                setcookie('user_id', $user['id'], time() + (86400 * 30), "/"); // 86400 = 1 day
-                setcookie('user_role', $user['role'], time() + (86400 * 30), "/");
-                setcookie('user_nom', $user['nom'], time() + (86400 * 30), "/");
-                setcookie('user_prenom', $user['prenom'], time() + (86400 * 30), "/");
-            }
+            //    if ($remember_me) {
+            //     setcookie('user_id', $user['id'], time() + (86400 * 30), "/"); // 86400 = 1 day
+            //     setcookie('user_role', $user['role'], time() + (86400 * 30), "/");
+            //     setcookie('user_nom', $user['nom'], time() + (86400 * 30), "/");
+            //     setcookie('user_prenom', $user['prenom'], time() + (86400 * 30), "/");
+            // }
             if ($user['role'] == 'passager') {
                 header("Location: ../trajets.php");
             } elseif ($user['role'] == 'conducteur') {
                 header("Location: ../trajetsannonces.php");
-            } elseif ($user['role'] == 'admin') {
+            } elseif ($user['role'] == 'administrateur') {
                 header("Location: ../admin.php");
             } else {
                 echo "Rôle utilisateur non reconnu.";
@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="password" class="form-input" name="mot_de_passe" id="password" placeholder="Mot de passe"/>
                         </div>
                          <div class="form-group">
-                            <input type="checkbox" name="remember_me" id="agree-term" class="agree-term" />
+                            <input type="checkbox" name="remember_me" id="remember_me" class="agree-term" />
                             <label for="remember_me" class="label-agree-term"><span><span></span></span>Se souvenir de moi </label>
                         </div>
                         <div class="form-group">

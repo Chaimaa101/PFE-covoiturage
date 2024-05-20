@@ -47,6 +47,11 @@
 
 include 'connection.php';
 
+<<<<<<< HEAD
+=======
+// sql to to display students
+$sql = "SELECT * FROM trajets";
+>>>>>>> e862fadd8258a1e8d818ff94600e97dc22dbd6a4
 
 function getTrajetsUtilises($conn, $id_passager) {
     $sql = "SELECT trajets.*
@@ -81,7 +86,14 @@ $trajetsUtilises = getTrajetsUtilises($conn, $user_id);
                     <tr>
                         <th>Depart</th>
                         <th>Destination</th>
+<<<<<<< HEAD
                         <th>Date Depart</th>
+=======
+                        <th>Destination</th>
+                        <th>Destination</th>
+                        <th>Destination</th>
+                        <th></th>
+>>>>>>> e862fadd8258a1e8d818ff94600e97dc22dbd6a4
                         
                        
                     </tr>
@@ -89,10 +101,20 @@ $trajetsUtilises = getTrajetsUtilises($conn, $user_id);
                 <tbody>
                 <?php foreach ($trajetsUtilises as $trajet) { ?>
                     <tr>
+<<<<<<< HEAD
                         <td><?= $trajet['depart'] ?></td>
                         <td><?php echo ($trajet['destination']) ?></td>
                         <td><?= $trajet['date_depart'] ?></td>
                         
+=======
+                        <td><?php echo ($row['lieu_depart']) ?></td>
+                        <td><?php echo ($row['lieu_darrivee']) ?></td>
+                        <td><?php echo ($row['lieu_depart']) ?></td>
+                        <td><?php echo ($row['lieu_darrivee']) ?>
+                    </td><td><?php echo ($row['lieu_depart']) ?></td>
+                        <td><?php echo ($row['lieu_darrivee']) ?></td>
+                        <td></td>
+>>>>>>> e862fadd8258a1e8d818ff94600e97dc22dbd6a4
                     </tr>
                   <?php } ?>         
              

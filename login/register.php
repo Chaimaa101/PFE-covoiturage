@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <select class="form-input" name="role" id="role" placeholder="Rôle" required>
                                 <option class="form-input" value="passager">Passager</option>
                                 <option  class="form-input" value="conducteur">Conducteur</option>
-                                <option  class="form-input" value="admin">Admin</option>
+                                <option  class="form-input" value="administrateur">Administrateur</option>
         </select>
                         </div>
                         <div class="form-group">

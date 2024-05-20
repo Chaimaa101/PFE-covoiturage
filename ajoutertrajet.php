@@ -67,29 +67,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
  <!-- Begin Page Content -->
  <div class="container-fluid">
-
-<!-- Page Heading -->
-
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"></h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-             <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Listes Des Trajets</h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-</div>
-</div>
-
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Ajouter Un Trajet</h6>
     </div>
+    <?php require('map.php');?>
     <div class="col-sm-12 col-xl-6">
                         <div class="rounded h-100 p-4">
+<<<<<<< HEAD
                             <h4 class="mb-4">Ajouter un Trajet</h4>
+=======
+>>>>>>> e862fadd8258a1e8d818ff94600e97dc22dbd6a4
                             <form action="#" method="post"> 
                                 <div class="mb-3">
                                     <label for="lieu_depart" class="form-label">Départ du trajet</label>
