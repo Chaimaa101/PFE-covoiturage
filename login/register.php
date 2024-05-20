@@ -39,7 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
-
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
     <!-- Main css -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -52,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="container">
                 <div class="signup-content">
                     <form method="POST" id="signup-form" class="signup-form">
-                        <h2 class="form-title">Inscriptione</h2>
+                        <h2 class="form-title">Inscription</h2>
                         <div class="form-group">
                             <input type="text" class="form-input" name="nom" id="name" placeholder="Nom" require/>
                         </div>
@@ -79,7 +81,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <select class="form-input" name="role" id="role" placeholder="Rôle" required>
                                 <option class="form-input" value="passager">Passager</option>
                                 <option  class="form-input" value="conducteur">Conducteur</option>
-                                <option  class="form-input" value="administrateur">Administrateur</option>
         </select>
                         </div>
                         <div class="form-group">

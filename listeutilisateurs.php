@@ -1,4 +1,13 @@
 
+<?php 
+
+include 'connection.php';
+
+// sql to to display students
+$sql = "SELECT * FROM utilisateurs ";
+
+$result = mysqli_query($conn, $sql);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,18 +59,19 @@
                                             <th>role</th>
                                         </tr>
                                     </thead>
-                                    
+                                    <?php while($row = mysqli_fetch_assoc($result)) { ?>
                                     <tbody>
-<?php
- $sql = "SELECT *FROM utilisateur WHERE role NOT IN 'admin'"
-
-?> 
-                                        <tr>
-                                            <td>Jonas </td>
-                                            <td>Alexander</td>
-                                            <td>San Francisco</td>
-                                            <td><a class="dropdown-item" href="#" data-toggle="modal" data-target="#profilModal"><i class="fa fa-eye" style='font-size:28px;color:bleu'></i><a></td>
+                                       <tr>
+                                            <td><?php echo ($row['nom'])?></td>
+                                            <td><?php echo ($row['prenom'])?></td>
+                                            <td><?php echo ($row['email'])?></td>
+                                            <td><?php echo ($row['telephone'])?></td>
+                                            <td><?php echo ($row['adresse'])?></td>
+                                            <td><?php echo ($row['date_naissance'])?></td>
+                                            <td><?php echo ($row['date_inscription'])?></td>
+                                            <td><a href="infocond.html"><i class="fa fa-eye" style='font-size:28px;color:bleu'></i><a></td>
                                         </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>

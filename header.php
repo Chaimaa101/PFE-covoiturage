@@ -59,7 +59,7 @@ $user_role = $_SESSION['user_role'];
                 </div>
                 <div class="sidebar-brand-text mx-3">Covoiturage</div>
             </a>
-            <?php if($user_role == 'admin'){ ?>
+            <?php if($user_role == 'administrateur'){ ?>
                 
 
             <!-- Nav Item - Dashboard -->
@@ -71,7 +71,6 @@ $user_role = $_SESSION['user_role'];
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="listeutilisateurs.php">
                     <i class="fa fa-users"></i>
