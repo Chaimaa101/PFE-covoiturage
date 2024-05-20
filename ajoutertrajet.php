@@ -1,15 +1,5 @@
 <?php
 require('connection.php');
-if(isset($_POST['submit'])){
-    $lieu_depart = $_POST['lieu_depart'];
-    $lieu_darrivee = $_POST['lieu_darrivee'];
-    $date_heure_depart = $_POST['date_heure_depart'];
-    $statut = $_POST['statut'];
-
-	$sql = "INSERT INTO trajet (lieu_depart, lieu_darrivee, date_heure_depart, statut, id_cond, id_passager) values('$lieu_depart', '$lieu_darrivee', '$date_heure_depart', '$statut', '$id_cond', '$id_passager')"; 
-
-} 
-
 
 
 
@@ -75,23 +65,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php require('map.php');?>
     <div class="col-sm-12 col-xl-6">
                         <div class="rounded h-100 p-4">
-<<<<<<< HEAD
+
                             <h4 class="mb-4">Ajouter un Trajet</h4>
-=======
->>>>>>> e862fadd8258a1e8d818ff94600e97dc22dbd6a4
+
                             <form action="#" method="post"> 
                                 <div class="mb-3">
                                     <label for="lieu_depart" class="form-label">Départ du trajet</label>
-                                    <input type="text" class="form-control" id="lieu_depart" name="lieu_depart" />
+                                    <input type="text" class="form-control" id="lieu_depart" name="depart" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="lieu_darrivee" class="form-label">Fin du trajet</label>
-                                    <input type="text" class="form-control" id="lieu_darrivee" name="lieu_darrivee">
+                                    <input type="text" class="form-control" id="lieu_darrivee" name="destination">
                                     
                                 </div>
                                 <div class="mb-3">
                                     <label for="date_heure_depart" class="form-label">Heure et Date du depart</label>
-                                    <input type="datetime-local" class="form-control" id="date_heure_depart" name="date_heure_depart" />
+                                    <input type="datetime-local" class="form-control" id="date_depart" name="date_heure_depart" />
                                 </div>
                                 
 
