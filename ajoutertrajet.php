@@ -1,13 +1,14 @@
 <?php
 require('connection.php');
 
+        require("header.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $depart = $_POST['depart'];
     $destination = $_POST['destination'];
     $date_depart = $_POST['date_depart'];
-    $passager_id = $_SESSION['user_id'];
+    $passager_id = $user_id;
     $statut = 'proposé';
 
     $sql = "INSERT INTO trajets (depart, destination, date_depart, statut, passager_id) VALUES ('$depart', '$destination', '$date_depart', '$statut', '$passager_id')";
@@ -49,9 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-<?php
-        require("header.php");
-?>
+
 
 <body>
 
@@ -80,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                                 <div class="mb-3">
                                     <label for="date_heure_depart" class="form-label">Heure et Date du depart</label>
-                                    <input type="datetime-local" class="form-control" id="date_depart" name="date_heure_depart" />
+                                    <input type="datetime-local" class="form-control" id="date_depart" name="date_depart" />
                                 </div>
                                 
 
