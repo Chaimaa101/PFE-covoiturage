@@ -1,33 +1,27 @@
 <?php
 
 if(isset($_POST['submit'])){
-    $lieu_depart = $_POST['lieu_depart'];
-    $lieu_darrivee = $_POST['lieu_darrivee'];
-    $date_heure_depart = $_POST['date_heure_depart'];
+    $depart = $_POST['depart'];
+    $destination = $_POST['destination'];
+    $date_depart = $_POST['date_depart'];
     $statut = $_POST['statut'];
-    $id_cond = $_POST['id_cond'];
-    $id_passager = $_POST['id_passager'];
+    $passager_id = $_POST['passager_id'];
+    $prix = $_POST['prix'];
+    $nbr_places = $_POST['nbr_places'];
 
-<<<<<<< HEAD
         $host ='localhost';    
         $user ='root';
         $pass ='';
-        $dbname='covoiturage';
-        
+        $dbname='covoiturage_db';
         $conn = mysqli_connect($host,$user,$pass,$dbname);
 
-        $sql = "INSERT INTO trajet(Input1, Input2, Input3, Input4, Input5, Input6) values('$Input1', '$Input2', '$Input3', '$Input4', '$Input5', '$Input6')";
-        mysqli_query($conn,$sql);
-=======
-    $host ='localhost';    
-    $user ='root';
-    $pass ='';
-    $dbname='covoiturage';
-    $conn = mysqli_connect($host,$user,$pass,$dbname);
-	$sql = "INSERT INTO trajet (lieu_depart, lieu_darrivee, date_heure_depart, statut, id_cond, id_passager) values('$lieu_depart', '$lieu_darrivee', '$date_heure_depart', '$statut', '$id_cond', '$id_passager')"; 
+        $sql = "INSERT INTO trajets(depart, destination, date_depart, statut, passager_id, prix, nbr_places) values('$depart', '$destination', '$date_depart', '$statut', '$passager_id', '$prix', '$nbr_places',)";
+        
+
+    
     
 
->>>>>>> 003910d322a1cb1dcfa6ff11092455c20bef4304
+
 }
         
      ?>   
@@ -100,17 +94,17 @@ if(isset($_POST['submit'])){
                             <h4 class="mb-4">Ajouter un Marché</h4>
                             <form action="#" method="post"> 
                                 <div class="mb-3">
-                                    <label for="lieu_depart" class="form-label">Départ du trajet</label>
-                                    <input type="text" class="form-control" id="lieu_depart" name="lieu_depart" />
+                                    <label for="depart" class="form-label">Départ du trajet</label>
+                                    <input type="text" class="form-control" id="depart" name="depart" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="lieu_darrivee" class="form-label">Fin du trajet</label>
-                                    <input type="text" class="form-control" id="lieu_darrivee" name="lieu_darrivee">
+                                    <input type="text" class="form-control" id="lieu_darrivee" name="destination">
                                     
                                 </div>
                                 <div class="mb-3">
                                     <label for="date_heure_depart" class="form-label">Heure et Date du depart</label>
-                                    <input type="datetime-local" class="form-control" id="date_heure_depart" name="date_heure_depart" />
+                                    <input type="datetime-local" class="form-control" id="date_heure_depart" name="date_depart" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="email">statut</label>
@@ -121,15 +115,20 @@ if(isset($_POST['submit'])){
  </div>
  </div>                        
                                 
-                               <div class="mb-3">
-                                    <label for="id_cond" class="form-label"id>id conducteur</label>
-                                    <input type="text" class="form-control" id="id_cond" name="id_cond" />
-                                </div>
-
                                 
                                 <div class="mb-3">
                                     <label for="id_passager" class="form-label">id passager</label>
-                                    <input type="text" class="form-control" id="id_passager" name="id_passager" />
+                                    <input type="text" class="form-control" id="id_passager" name="passager_id" />
+</div>
+                                    <div class="mb-3">
+                                    <label for="prix" class="form-label"id>Prix</label>
+                                    <input type="text" class="form-control" id="prix" name="prix" />
+                                </div>
+
+                                    <div class="mb-3">
+                                    <label for="places" class="form-label"id>Places Disponibles</label>
+                                    <input type="text" class="form-control" id="places" name="nbr_places" />
+</div>
                                     
                                 </div>
                                 <input type="submit" name="submit" value="Envoyer">
