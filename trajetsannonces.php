@@ -40,6 +40,8 @@ $result = $conn->query($sql);
             // Mettre à jour le statut du trajet
             $sql = "UPDATE trajets SET statut = 'choisi' WHERE id = $id_trajet";
             $conn->query($sql);
+
+            
             echo "Trajet choisi avec succès.";
         } else {
             echo "Erreur: " . $conn->error;
