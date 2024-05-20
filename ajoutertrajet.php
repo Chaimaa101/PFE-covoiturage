@@ -1,7 +1,7 @@
 <?php
 require('connection.php');
+require("header.php");
 
-        require("header.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
