@@ -1,5 +1,5 @@
 <?php
-<<<<<<< HEAD
+
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     $nom = $_POST['nom'];
     $prenom = $_POST['prenom'];
@@ -9,10 +9,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $telephone = $_POST['telephone'];
     $adresse = $_POST['adresse'];
     $date_naissance = $_POST['date_naissance'];
-=======
+
 require_once '../connection.php';
 session_start();
->>>>>>> a1806e94602664f5d5471c0620608450e93e9e01
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -53,14 +53,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Utilisateur non trouvé.";
     }
 
+
+}
 }
 ?>
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> a1806e94602664f5d5471c0620608450e93e9e01
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

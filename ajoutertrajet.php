@@ -1,10 +1,12 @@
 <?php
 
+        require("header.php");
+        
 
 if(isset($_POST['submit'])){
     $depart = $_POST['depart'];
     $destination = $_POST['destination'];
-    $date_depart = $_POST['date_depart'];
+    $date_depart = $_POST['date_depar'];
     $statut = $_POST['statut'];
     $passager_id = $_POST['passager_id'];
     $prix = $_POST['prix'];
@@ -25,6 +27,10 @@ if(isset($_POST['submit'])){
 
 
 
+
+
+    $passager_id = $user_id;
+    $statut = 'proposé';
 
 
 }
@@ -60,9 +66,7 @@ if(isset($_POST['submit'])){
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-<?php
-        require("header.php");
-?>
+
 
 <body>
 
@@ -81,13 +85,12 @@ if(isset($_POST['submit'])){
 
                             <form action="#" method="post"> 
                                 <div class="mb-3">
-<<<<<<< HEAD
+ 
                                     <label for="depart" class="form-label">Départ du trajet</label>
                                     <input type="text" class="form-control" id="depart" name="depart" />
-=======
+
                                     <label for="lieu_depart" class="form-label">Départ du trajet</label>
-                                    <input type="text" class="form-control" id="lieu_depart" name="depart" />
->>>>>>> a1806e9460266
+                                    <input type="text" class="form-control" id="lieu_depart" name="depart" />>>>>>>> a1806e9460266
                                 </div>
                                 <div class="mb-3">
                                     <label for="lieu_darrivee" class="form-label">Fin du trajet</label>
@@ -96,14 +99,17 @@ if(isset($_POST['submit'])){
                                 </div>
                                 <div class="mb-3">
                                     <label for="date_heure_depart" class="form-label">Heure et Date du depart</label>
-<<<<<<< HEAD
+
                                     <input type="datetime-local" class="form-control" id="date_heure_depart" name="date_depart" />
-=======
+
                                     <input type="datetime-local" class="form-control" id="date_depart" name="date_heure_depart" />
->>>>>>> a1806e94602664f5d5471c0620608450e93e9e01
+>
+
+                                    <input type="datetime-local" class="form-control" id="date_depart" name="date_depart" />
+>
                                 </div>
                                 
-<<<<<<< HEAD
+
                                 
                                 <div class="mb-3">
                                     <label for="id_passager" class="form-label">id passager</label>
@@ -122,7 +128,7 @@ if(isset($_POST['submit'])){
                                 </div>
 =======
 
->>>>>>> a1806e94602664f5d5471c0620608450e93e9e01
+
                                 <input type="submit" name="submit" value="Envoyer">
                             </form>
                         </div>
