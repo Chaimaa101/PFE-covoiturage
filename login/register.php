@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date_naissance = $_POST['date_naissance'];
 
     
-     $stmt = $conn->prepare(" INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance) VALUES (?, ?, ?, ?,?, ?, ?, ?)");
+     $stmt = $conn->prepare(" INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance) VALUES (?, ?, ?, ?,?, ?, ?, ?)");
     if ($stmt === false) {
         die("Erreur de préparation de la requête: " . $conn->error);
     }

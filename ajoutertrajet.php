@@ -8,7 +8,31 @@ if(isset($_POST['submit'])){
 
 	$sql = "INSERT INTO trajet (lieu_depart, lieu_darrivee, date_heure_depart, statut, id_cond, id_passager) values('$lieu_depart', '$lieu_darrivee', '$date_heure_depart', '$statut', '$id_cond', '$id_passager')"; 
 
-}      
+} 
+
+
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $depart = $_POST['depart'];
+    $destination = $_POST['destination'];
+    $date_depart = $_POST['date_depart'];
+    $passager_id = $_SESSION['user_id'];
+    $statut = 'proposé';
+
+    $sql = "INSERT INTO trajets (depart, destination, date_depart, statut, passager_id) VALUES ('$depart', '$destination', '$date_depart', '$statut', '$passager_id')";
+    if ($conn->query($sql) === TRUE) {
+        echo "Trajet ajouté avec succès";
+    } else {
+        echo "Erreur: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+
+
+
+
+
      ?>   
 
 
@@ -65,7 +89,7 @@ if(isset($_POST['submit'])){
     </div>
     <div class="col-sm-12 col-xl-6">
                         <div class="rounded h-100 p-4">
-                            <h4 class="mb-4">Ajouter un Marché</h4>
+                            <h4 class="mb-4">Ajouter un Trajet</h4>
                             <form action="#" method="post"> 
                                 <div class="mb-3">
                                     <label for="lieu_depart" class="form-label">Départ du trajet</label>
@@ -80,26 +104,8 @@ if(isset($_POST['submit'])){
                                     <label for="date_heure_depart" class="form-label">Heure et Date du depart</label>
                                     <input type="datetime-local" class="form-control" id="date_heure_depart" name="date_heure_depart" />
                                 </div>
-                                <div class="mb-3">
-                                    <label for="email">statut</label>
-                                 <div>
-                              <br> <label for="Input4" class="radio-inline"><input type="radio" name="statut" id="Input4">proposé</label></br>
-                              <br> <label for="Input5" class="radio-inline"><input type="radio" name="statut" id="Input5">choisi</label></br>
-                              <br> <label for="Input6" class="radio-inline"><input type="radio" name="statut" id="Input6">validé</label></br>
- </div>
- </div>                        
                                 
-                               <div class="mb-3">
-                                    <label for="id_cond" class="form-label"id>id conducteur</label>
-                                    <input type="text" class="form-control" id="id_cond" name="id_cond" />
-                                </div>
 
-                                
-                                <div class="mb-3">
-                                    <label for="id_passager" class="form-label">id passager</label>
-                                    <input type="text" class="form-control" id="id_passager" name="id_passager" />
-                                    
-                                </div>
                                 <input type="submit" name="submit" value="Envoyer">
                             </form>
                         </div>

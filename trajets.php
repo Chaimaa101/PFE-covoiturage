@@ -47,16 +47,29 @@
 
 include 'connection.php';
 
-// sql to to display students
-$sql = "SELECT * FROM trajet";
 
-$result = mysqli_query($conn, $sql);
+function getTrajetsUtilises($conn, $id_passager) {
+    $sql = "SELECT trajets.*
+            FROM trajets 
+                        WHERE trajets.passager_id = $id_passager AND trajets.statut = 'valide'";
+    $result = $conn->query($sql);
+    $trajets = [];
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $trajets[] = $row;
+        }
+    }
+    return $trajets;
+}
+
+$trajetsUtilises = getTrajetsUtilises($conn, $user_id);
+
 ?>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Les Trajets</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Historique Des Trajets</h6>
     </div>
     <div class="card-body">
         <div class="card-ajout">
@@ -68,17 +81,18 @@ $result = mysqli_query($conn, $sql);
                     <tr>
                         <th>Depart</th>
                         <th>Destination</th>
-                        <th></th>
+                        <th>Date Depart</th>
                         
                        
                     </tr>
                 </thead>
                 <tbody>
-                <?php while($row = mysqli_fetch_assoc($result)) { ?> 
+                <?php foreach ($trajetsUtilises as $trajet) { ?>
                     <tr>
-                        <td><?php echo ($row['lieu_depart']) ?></td>
-                        <td><?php echo ($row['lieu_darrivee']) ?></td>
-                        <td></td>
+                        <td><?= $trajet['depart'] ?></td>
+                        <td><?php echo ($trajet['destination']) ?></td>
+                        <td><?= $trajet['date_depart'] ?></td>
+                        
                     </tr>
                   <?php } ?>         
              
