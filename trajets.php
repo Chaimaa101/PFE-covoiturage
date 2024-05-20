@@ -48,7 +48,7 @@
 include 'connection.php';
 
 // sql to to display students
-$sql = "SELECT * FROM trajet";
+$sql = "SELECT * FROM trajets";
 
 $result = mysqli_query($conn, $sql);
 ?>
@@ -68,6 +68,9 @@ $result = mysqli_query($conn, $sql);
                     <tr>
                         <th>Depart</th>
                         <th>Destination</th>
+                        <th>Destination</th>
+                        <th>Destination</th>
+                        <th>Destination</th>
                         <th></th>
                         
                        
@@ -77,6 +80,10 @@ $result = mysqli_query($conn, $sql);
                 <?php while($row = mysqli_fetch_assoc($result)) { ?> 
                     <tr>
                         <td><?php echo ($row['lieu_depart']) ?></td>
+                        <td><?php echo ($row['lieu_darrivee']) ?></td>
+                        <td><?php echo ($row['lieu_depart']) ?></td>
+                        <td><?php echo ($row['lieu_darrivee']) ?>
+                    </td><td><?php echo ($row['lieu_depart']) ?></td>
                         <td><?php echo ($row['lieu_darrivee']) ?></td>
                         <td></td>
                     </tr>

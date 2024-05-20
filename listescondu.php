@@ -31,14 +31,10 @@
 include 'connection.php';
 
 // sql to to display students
-$sql = "SELECT * FROM utilisateur WHERE role = 'conducteur'";
+$sql = "SELECT * FROM utilisateurs WHERE role = 'conducteur'";
 
 $result = mysqli_query($conn, $sql);
 ?>
-
-
-
-
 
 <!-- Begin Page Content -->
                 <div class="container-fluid">
