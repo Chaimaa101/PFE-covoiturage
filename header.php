@@ -129,18 +129,26 @@ $user_role = $_SESSION['user_role'];
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="listescondu.php">
-                    <i class="fa fa-users"></i>
-                    <span>LISTES CONDUCTEURS</span></a>
+                <a class="nav-link" href="ajoutertrajet.php">
+                    <i class="fa fa-road"></i>
+                    <span>AJOUT TRAJETS</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="validertrajet.php">
+                    <i class="fa fa-road"></i>
+                    <span>TRAJETS CHOISIS</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="trajets.php">
+                <a class="nav-link" href="historiquetrajets.php">
                    <i class="fa fa-road"></i>
-                    <span>TRAJETS</span></a>
+                    <span>HISTORIQUE TRAJETS</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">

@@ -100,14 +100,14 @@ $result = $conn->query($sql);
                         <td><?php echo ($row['depart']) ?></td>
                         <td><?php echo ($row['destination']) ?></td>
                         <td><?php echo ($row['date_depart']) ?></td>
-                        <td><i class="bi bi-check2-square"></i><a href='trajetsannonces.php?id_trajet= <?php echo ($row['id'])?>&id_cond= <?php echo $user_id?>'>Choisir</a></td>
+                        <td><a href='trajetsannonces.php?id_trajet= <?php echo ($row['id'])?>&id_cond= <?php echo $user_id?>'>Choisir <i class="fa fa-check" style="color: #69d2ec;"></i></a></td>
                     </tr>
                   <?php 
                 if (isset($_GET['id_trajet']) && isset($_GET['id_cond'])) {
                     choisirTrajet($conn, $_GET['id_cond'], $_GET['id_trajet']);
                 }
             
-                $conn->close();
+               
             
                
                 } ?>         
