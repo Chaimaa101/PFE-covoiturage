@@ -31,6 +31,7 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    
 
                     
                     <h1>Page d'acceuil</h1>
