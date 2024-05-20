@@ -23,16 +23,9 @@
 </head>
 <?php
 
-session_start();
 include 'connection.php';
-require("headerConducteur.php");
+require("header.php");
 
-
-
-if ($_SESSION['role'] != 'conducteur') {
-    echo "Accès non autorisé";
-    exit;
-}
 
 $sql = "SELECT * FROM trajets WHERE statut='proposé'";
 $result = $conn->query($sql);
@@ -47,6 +40,8 @@ $result = $conn->query($sql);
             // Mettre à jour le statut du trajet
             $sql = "UPDATE trajets SET statut = 'choisi' WHERE id = $id_trajet";
             $conn->query($sql);
+
+            
             echo "Trajet choisi avec succès.";
         } else {
             echo "Erreur: " . $conn->error;
@@ -105,7 +100,7 @@ $result = $conn->query($sql);
                         <td><?php echo ($row['depart']) ?></td>
                         <td><?php echo ($row['destination']) ?></td>
                         <td><?php echo ($row['date_depart']) ?></td>
-                        <td><i class="bi bi-check2-square"></i><a href='trajetsannonces.php?id_trajet= <?php echo ($row['id'])?>'>Choisir</a></td>
+                        <td><i class="bi bi-check2-square"></i><a href='trajetsannonces.php?id_trajet= <?php echo ($row['id'])?>&id_cond= <?php echo $user_id?>'>Choisir</a></td>
                     </tr>
                   <?php 
                 if (isset($_GET['id_trajet']) && isset($_GET['id_cond'])) {

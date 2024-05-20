@@ -22,16 +22,10 @@
 
 </head>
 <?php
-session_start();
+
 include 'connection.php';
-require("headerConducteur.php");
+require("header.php");
 
-
-
-if ($_SESSION['role'] != 'conducteur') {
-    echo "Accès non autorisé";
-    exit;
-}
 
         // Fonction pour récupérer les trajets choisi par le conducteur
     function getTrajetsPassagers($conn) {

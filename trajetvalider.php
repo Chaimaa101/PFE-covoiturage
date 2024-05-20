@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>TRAJETS CHOISIS</title>
+    <title>TRAJETS VALIDES</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -22,16 +22,10 @@
 
 </head>
 <?php
-session_start();
 include 'connection.php';
-require("headerConducteur.php");
+require("header.php");
 
 
-
-if ($_SESSION['role'] != 'conducteur') {
-    echo "Accès non autorisé";
-    exit;
-}
 
         // Fonction pour récupérer les trajets choisi par le conducteur
     function getTrajetsPassagers($conn) {
@@ -64,7 +58,7 @@ if ($_SESSION['role'] != 'conducteur') {
             class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
              <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Trajets Choisis</h1>
+    <h1 class="h3 mb-0 text-gray-800">Trajets Valider</h1>
     <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
 </div>
@@ -76,7 +70,7 @@ if ($_SESSION['role'] != 'conducteur') {
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Les Trajets Choisis</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Les Trajets Réalisés</h6>
     </div>
     <div class="card-body">
         

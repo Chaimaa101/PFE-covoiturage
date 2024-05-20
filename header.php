@@ -1,3 +1,27 @@
+
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id']) && isset($_COOKIE['id'])) {
+    $_SESSION['user_id'] = $_COOKIE['id'];
+    $_SESSION['user_role'] = $_COOKIE['user_role'];
+    $_SESSION['nom'] = $_COOKIE['nom'];
+    $_SESSION['prenom'] = $_COOKIE['prenom'];
+}
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login/login.php");
+    exit;
+}
+
+// Récupérer les informations de l'utilisateur connecté
+$user_id = $_SESSION['user_id'];
+$user_nom = $_SESSION['nom'];
+$user_role = $_SESSION['user_role'];
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +42,6 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -30,15 +53,14 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-car"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">Covoiturage</div>
             </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <?php if($user_role == 'admin'){ ?>
+                
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
@@ -46,11 +68,7 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
-
             <!-- Divider -->
-
-
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
@@ -70,25 +88,78 @@
             </li>
 
             <hr class="sidebar-divider my-0">
-
-           
+<?php  }elseif($user_role == 'conducteur'){ ?>
             <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="trajetsannonces.php">
+                   <i class="fa fa-road"></i>
+                    <span>TRAJETS ANNONCES</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="trajetschoisi.php">
+                   <i class="fa fa-road"></i>
+                    <span>TRAJETS CHOISIS</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="trajetvalider.php">
+                   <i class="fa fa-road"></i>
+                    <span>TRAJETS REALISES</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+  
+            
+            
+<?php  }elseif($user_role == 'passager'){ ?>
+<!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="listescondu.php">
+                    <i class="fa fa-users"></i>
+                    <span>LISTES CONDUCTEURS</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="trajets.php">
+                   <i class="fa fa-road"></i>
+                    <span>TRAJETS</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+
+<?php  }?><!-- Divider -->
             <hr class="sidebar-divider">
-
-            
-
-            
-
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-            
+             <!-- Sidebar Toggle (Topbar) -->
+             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+             </button>
 
         </ul>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -117,7 +188,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Name</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo  htmlspecialchars($user_nom) ;?></span>
                             </a>
                             <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -128,12 +199,12 @@
                                 </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    Paramètres
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Déconnexion
                                 </a>
                             </div>
                         </li>
@@ -147,15 +218,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Prêt à partir?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Sélectionnez "Déconnexion" ci-dessous si vous êtes prêt à mettre fin à votre session en cours.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="login/logout.php">Déconnexion</a>
                 </div>
             </div>
         </div>

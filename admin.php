@@ -20,14 +20,10 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
 </head>
 <?php
-        require("headerAdmin.php");
+        require("header.php");
 ?>
-        <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
 <div class="container-fluid">
 
  <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -122,8 +118,7 @@
            
 
                 </div>
-        <!-- End of Content Wrapper -->
-
+      
     </div>
     </div>
     <!-- End of Page Wrapper -->

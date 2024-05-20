@@ -8,29 +8,16 @@
    
     <style>
         #map {
-            height: 400px;
-            width: 50%;
+            height: 500px;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <?php require("headerUtilisateur.php");?>
     <div class="container-fluid">
 
-<h1>page Recherche trajet </h1>  
-  
     <div id="map"></div>
-    <form id="routeForm">
-        <label for="startLat">Latitude de départ :</label>
-        <input type="text" id="startLat" name="startLat" required>
-        <label for="startLng">Longitude de départ :</label>
-        <input type="text" id="startLng" name="startLng" required>
-        <label for="endLat">Latitude d'arrivée :</label>
-        <input type="text" id="endLat" name="endLat" required>
-        <label for="endLng">Longitude d'arrivée :</label>
-        <input type="text" id="endLng" name="endLng" required>
-        <button type="submit">Ajouter Trajet</button>
-    </form>
+
 
 </div>
              <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -39,7 +26,7 @@
     <script>
         
         // Initialisation de la carte
-        var map = L.map('map').setView([31.792305849269, -7.080168000000015],11); 
+        var map = L.map('map').setView([31.792305849269, -7.080168000000015],13); 
 
         // Ajout de la couche de tuiles OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

@@ -23,7 +23,7 @@
 </head>
 <body>
 <?php
-        require("headerAdmin.php");
+        require("header.php");
 ?>
                     
 

@@ -1,5 +1,6 @@
 <?php
 
+
 if(isset($_POST['submit'])){
     $depart = $_POST['depart'];
     $destination = $_POST['destination'];
@@ -22,11 +23,19 @@ if(isset($_POST['submit'])){
     
 
 
+
+
+
+
 }
-        
+
+
+
+
+
+
      ?>   
-     
-  
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,50 +61,33 @@ if(isset($_POST['submit'])){
 
 </head>
 <?php
-        require("headerAdmin.php");
+        require("header.php");
 ?>
-             
 
-
-            
-    
-    
 <body>
-
-
-          
-          
 
  <!-- Begin Page Content -->
  <div class="container-fluid">
-
-<!-- Page Heading -->
-
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"></h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-             <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Listes Des Trajets</h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-</div>
-</div>
-
-
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Ajouter Un Trajet</h6>
     </div>
+    <?php require('map.php');?>
     <div class="col-sm-12 col-xl-6">
                         <div class="rounded h-100 p-4">
-                            <h4 class="mb-4">Ajouter un Marché</h4>
+
+                            <h4 class="mb-4">Ajouter un Trajet</h4>
+
                             <form action="#" method="post"> 
                                 <div class="mb-3">
+<<<<<<< HEAD
                                     <label for="depart" class="form-label">Départ du trajet</label>
                                     <input type="text" class="form-control" id="depart" name="depart" />
+=======
+                                    <label for="lieu_depart" class="form-label">Départ du trajet</label>
+                                    <input type="text" class="form-control" id="lieu_depart" name="depart" />
+>>>>>>> a1806e9460266
                                 </div>
                                 <div class="mb-3">
                                     <label for="lieu_darrivee" class="form-label">Fin du trajet</label>
@@ -104,17 +96,14 @@ if(isset($_POST['submit'])){
                                 </div>
                                 <div class="mb-3">
                                     <label for="date_heure_depart" class="form-label">Heure et Date du depart</label>
+<<<<<<< HEAD
                                     <input type="datetime-local" class="form-control" id="date_heure_depart" name="date_depart" />
+=======
+                                    <input type="datetime-local" class="form-control" id="date_depart" name="date_heure_depart" />
+>>>>>>> a1806e94602664f5d5471c0620608450e93e9e01
                                 </div>
-                                <div class="mb-3">
-                                    <label for="email">statut</label>
-                                 <div>
-                              <br> <label for="Input4" class="radio-inline"><input type="radio" name="statut" id="Input4">proposé</label></br>
-                              <br> <label for="Input5" class="radio-inline"><input type="radio" name="statut" id="Input5">choisi</label></br>
-                              <br> <label for="Input6" class="radio-inline"><input type="radio" name="statut" id="Input6">validé</label></br>
- </div>
- </div>                        
                                 
+<<<<<<< HEAD
                                 
                                 <div class="mb-3">
                                     <label for="id_passager" class="form-label">id passager</label>
@@ -131,6 +120,9 @@ if(isset($_POST['submit'])){
 </div>
                                     
                                 </div>
+=======
+
+>>>>>>> a1806e94602664f5d5471c0620608450e93e9e01
                                 <input type="submit" name="submit" value="Envoyer">
                             </form>
                         </div>
