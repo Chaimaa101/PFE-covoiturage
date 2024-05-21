@@ -48,7 +48,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 500px;
+        }
+        #search {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+        }
+    </style>
 </head>
 
 
@@ -59,9 +72,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Ajouter Un Trajet</h6>
     </div>
-    <?php require('map.php');?>
+     <div id="map"></div>
     <div class="col-sm-12 col-xl-6">
                         <div class="rounded h-100 p-4">
 
@@ -70,11 +82,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <form action="#" method="post"> 
                                 <div class="mb-3">
                                     <label for="lieu_depart" class="form-label">Départ du trajet</label>
-                                    <input type="text" class="form-control" id="lieu_depart" name="depart" />
+                                    <input type="text" class="form-control" id="start" name="depart" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="lieu_darrivee" class="form-label">Fin du trajet</label>
-                                    <input type="text" class="form-control" id="lieu_darrivee" name="destination">
+                                    <input type="text" class="form-control" id="end" name="destination">
                                     
                                 </div>
                                 <div class="mb-3">
@@ -83,14 +95,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                                 
 
-                                <input type="submit" name="submit" value="Envoyer">
+                                <input type="submit" name="submit" onclick=" geocodePoints()" value="Envoyer">
                             </form>
                         </div>
         </div>
 </div>
-
-
-<!-- /.container-fluid -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="js/map.js"></script>
 
 </body>
 

@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </form>
                     <p class="loginhere">
-                        Vous avez déjà un compte? <a href="login.php" class="loginhere-link">Login here</a>
+                        Vous avez déjà un compte? <a href="login.php" class="loginhere-link">Se connecter ici</a>
                     </p>
                 </div>
             </div>
