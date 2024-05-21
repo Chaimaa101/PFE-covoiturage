@@ -95,9 +95,7 @@
 
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
-  <?php
-        require("footer.php");
-?>
+  
 
 <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

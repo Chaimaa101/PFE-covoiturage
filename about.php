@@ -19,17 +19,35 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="prop.css" rell="stylessheet">
 
 </head>
 <?php
         require("headerAcceuil.php");
 ?>
-
+<body>
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+             <section class="hero">
+                    <div class="heading">
 
-                    
-                    <h1>Page a propos</h1>
+                <div class="container-fluid">
+                      <h1>A propos nous</h1>
+</div>
+
+                   <div class="container">
+                    <div class="hero-content">
+                        <h2>Notre Vision</h2>
+
+                    <p>Nous repensons la mobilité et voulons ancrer le covoiturage <br>
+                    comme partie intégrante des déplacements quotidiens et de la mobilité<br>
+                     de tous les jours . davantage de covoiturage et moins de transport individuel</p>
+</div>
+<div class="hero-image">
+    <img src="joj.jpg" >
+</div>
+</div>
+</section>
+
 
              
 
@@ -37,8 +55,8 @@
 
            
 
-                </div>
-</div>
+         
+
               <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -47,7 +65,9 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    
+                
+                <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
@@ -55,6 +75,9 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-                <?php
-        require("footer.php");
-?>
+    
+</body>
+
+</html>
+
+                
