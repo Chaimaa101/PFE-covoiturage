@@ -59,7 +59,7 @@ $user_role = $_SESSION['user_role'];
                 </div>
                 <div class="sidebar-brand-text mx-3">Covoiturage</div>
             </a>
-            <?php if($user_role == 'admin'){ ?>
+            <?php if($user_role == 'administrateur'){ ?>
                 
 
             <!-- Nav Item - Dashboard -->
@@ -71,7 +71,6 @@ $user_role = $_SESSION['user_role'];
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
                 <a class="nav-link" href="listeutilisateurs.php">
                     <i class="fa fa-users"></i>
@@ -130,18 +129,26 @@ $user_role = $_SESSION['user_role'];
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="listescondu.php">
-                    <i class="fa fa-users"></i>
-                    <span>LISTES CONDUCTEURS</span></a>
+                <a class="nav-link" href="ajoutertrajet.php">
+                    <i class="fa fa-road"></i>
+                    <span>AJOUT TRAJETS</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="validertrajet.php">
+                    <i class="fa fa-road"></i>
+                    <span>TRAJETS CHOISIS</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="trajets.php">
+                <a class="nav-link" href="historiquetrajets.php">
                    <i class="fa fa-road"></i>
-                    <span>TRAJETS</span></a>
+                    <span>HISTORIQUE TRAJETS</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -293,3 +300,5 @@ $user_role = $_SESSION['user_role'];
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+</body>
+</html>
