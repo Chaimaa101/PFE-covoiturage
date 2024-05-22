@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,300&display=swap');
 
-
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
 body{
     height: 100vh;
@@ -8,29 +13,23 @@ body{
     background: #111;
     color: white;
 }
-
-.container{
+container{
     height: 100%;
-    padding-top: 10px;
+    padding-top: 30px;
     width: 80%;
     position: absolute;
-    top: 60%;
-    left: 60%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%,-50%);
-
-
-    
 }
+
 .container h2{
-    font-weight: bold;
-    text-decoration: underline;
     text-align: center;
     text-transform: uppercase;
     font-size: 35px;
     margin-bottom: 25px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-
 .container .services{
     justify-content: space-around;
     display: flex;
@@ -48,14 +47,14 @@ body{
     cursor: pointer;
     transition: 0.3s;
 }
-container .services .card:hover{
+
+.container .services .card:hover{
     background: blueviolet;
 }
 
 .container .services .card .content{
     transition: 0.3s;
 }
-
 .container .services .card:hover .content{
     transform: scale(1.07);
 }
@@ -68,6 +67,7 @@ container .services .card:hover{
 .container .services .card .content .icon i{
     font-size: 40px;
 }
+
 .container .services .card:hover .content .title{
     color: white;
 }

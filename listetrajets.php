@@ -46,29 +46,27 @@
                                             <th>Piaces disponibles</th>
                                             <th>Date</th>
                                             <th>Temps</th>
-                                            <th>commentaires</th>
+                                            <th>Modifier</th>
                                             <th>supprimer</th>
                                     </thead>
                                 </tr><tbody>
-                                        
+                                    <?php while($row = mysqli_fetch_assoc($result)) { ?>  
                                     <tr>
-                                        <td>2</td>
-                                        <td>25</td>
-                                        <td>hay hassani</td>
-                                        <td>tamaris</td>
-                                        <td> 200DH</td>
-                                        <td>6</td>
-                                        <td>12 avril</td>
-                                        <td>8:00</td>
-                                        <td>BON</td>
+                                       <td><?php echo ($row['id'])?></td>
+                                       <td><?php echo ($row['passager_id'])?>
+                                       </td><td><?php echo ($row['email'])?>
+                                       </td><td><?php echo ($row['email'])?>
+                                       </td><td><?php echo ($row['email'])?></td>
+                                       <td><?php echo ($row['email'])?></td>
+                                       <td><?php echo ($row['email'])?></td>
+                                       <td><?php echo ($row['email'])?></td>
+                                       <td><?php echo ($row['email'])?></td>
+                                       <td><?php echo ($row['email'])?></td>
                                         <td><a href="#"><i class="fa fa-trash"></i></td>
-
-                                    
-                                    
-                                        
+<?php }?>
                                    
                                 </table>
-                            </div>
+                            </div><td><?php echo ($row['email'])?></td><td><?php echo ($row['email'])?></td><td><?php echo ($row['email'])?></td><td><?php echo ($row['email'])?></td>
                         </div>
                     </div>
                           

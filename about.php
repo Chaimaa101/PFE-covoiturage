@@ -19,7 +19,8 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="prop.css" rell="stylessheet">
+    <link href="abb.css" rel="stylesheet">
+    
 
 </head>
 <?php
@@ -27,10 +28,11 @@
 ?>
 <body>
                 <!-- Begin Page Content -->
-             <section class="hero">
+                
+                <section class="hero">
                     <div class="heading">
 
-                <div class="container-fluid">
+                
                       <h1>A propos nous</h1>
 </div>
 
@@ -46,7 +48,11 @@
     <img src="joj.jpg" >
 </div>
 </div>
+
+
 </section>
+                   
+
 
 
              

@@ -30,19 +30,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_role'] = $user['role'];
             $_SESSION['nom'] = $user['nom'];
             $_SESSION['prenom'] = $user['prenom'];
-            //    if ($remember_me) {
-            //     setcookie('user_id', $user['id'], time() + (86400 * 30), "/"); // 86400 = 1 day
-            //     setcookie('user_role', $user['role'], time() + (86400 * 30), "/");
-            //     setcookie('user_nom', $user['nom'], time() + (86400 * 30), "/");
-            //     setcookie('user_prenom', $user['prenom'], time() + (86400 * 30), "/");
-            // }
+               if ($remember_me) {
+                setcookie('user_id', $user['id'], time() + (86400 * 30), "/"); // 86400 = 1 day
+                setcookie('user_role', $user['role'], time() + (86400 * 30), "/");
+                setcookie('user_nom', $user['nom'], time() + (86400 * 30), "/");
+                setcookie('user_prenom', $user['prenom'], time() + (86400 * 30), "/");
+            }
             if ($user['role'] == 'passager') {
-                header("Location: ../trajets.php");
+                header("Location: ../historiquetrajets.php");
             } elseif ($user['role'] == 'conducteur') {
                 header("Location: ../trajetsannonces.php");
-            } elseif ($user['role'] == 'administrateur') {
-                header("Location: ../admin.php");
-            } else {
+            }  else {
                 echo "Rôle utilisateur non reconnu.";
             }
             exit;
@@ -69,6 +67,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
     <title>LOGIN</title>
 
     <!-- Font Icon -->
