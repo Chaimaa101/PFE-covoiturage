@@ -41,6 +41,8 @@
     font-size: 38px;
     margin-bottom: 20px;
     color: #333;
+    font-weight: bold;
+
 
 
 }
@@ -83,6 +85,11 @@ img{
     .hero-content{
         flex: 100%;
         width: 100%;
+<<<<<<< HEAD
+=======
+        margin: 35px 0px;
+
+>>>>>>> 1db7a62f9b6acfb33ccb1468327a65fe360397f4
        
         
     }
