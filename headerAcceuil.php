@@ -122,13 +122,18 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="login/login.php" ">
                                 
-                               <span>se connecter</span>
+                            <span>se connecter</span>
                             </a>
                         </li>
                          <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="login/register.php" >
                                 <span>s'inscrire</span>
+
+
+
                                
+                            
+                         
                             </a>
                         </li>
                         
@@ -137,6 +142,9 @@
                 </nav>
                 <!-- End of Topbar -->
                  <!-- Bootstrap core JavaScript-->
+                 
+
+
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
