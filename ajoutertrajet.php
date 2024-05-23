@@ -18,15 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Erreur: " . $sql . "<br>" . $conn->error;
     }
 }
-
-
-
-
-
-
-     ?>   
-
-
+?>   
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 
     <title>TRAJETS</title>
 
@@ -82,11 +77,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <form action="#" method="post"> 
                                 <div class="mb-3">
                                     <label for="lieu_depart" class="form-label">Départ du trajet</label>
-                                    <input type="text" class="form-control" id="start" name="depart" />
+                                    <input type="text" class="form-control" id="startAddress" name="depart" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="lieu_darrivee" class="form-label">Fin du trajet</label>
-                                    <input type="text" class="form-control" id="end" name="destination">
+                                    <input type="text" class="form-control" id="endAddress" name="destination">
                                     
                                 </div>
                                 <div class="mb-3">
@@ -95,12 +90,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                                 
 
-                                <input type="submit" name="submit" onclick=" geocodePoints()" value="Envoyer">
+                                <input type="submit" name="submit"  value="Envoyer" onclick="geocodeAddresses()">
                             </form>
                         </div>
         </div>
 </div>
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 <script src="js/map.js"></script>
 
 </body>
