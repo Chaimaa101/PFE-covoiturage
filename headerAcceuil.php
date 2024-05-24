@@ -120,31 +120,47 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="login/login.php" ">
-                                
-                            <span>se connecter</span>
+                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Se connecter
                             </a>
+                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profilModal">
+                                    <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Administrateur
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-parson-seat fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Conducteur
+                                </a>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Passager
+                                </a>
+                            </div>
                         </li>
-                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="login/register.php" >
-                                <span>s'inscrire</span>
-
-
-
-                               
-                            
-                         
+                           <li class="nav-item dropdown no-arrow">
+                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                S'inscrire
                             </a>
+                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-parson-seat fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Conducteur
+                                </a>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Passager
+                                </a>
+                            </div>
                         </li>
                         
                     </ul>
 
                 </nav>
-                <!-- End of Topbar -->
-                 <!-- Bootstrap core JavaScript-->
-                 
-
-
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
