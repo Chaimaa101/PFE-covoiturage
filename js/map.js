@@ -1,6 +1,5 @@
-
-         // Initialize the map
-        var map = L.map('map').setView([51.505, -0.09], 13); // Centered on London
+ // Initialize the map
+        var map = L.map('map').setView([31.794525 ,-7.0849336],6); // Centered on London
 
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -66,11 +65,13 @@
                     if (!startPoint) {
                         startPoint = latlng;
                         routingControl.spliceWaypoints(0, 1, startPoint);
-                        startMarker = L.marker(startPoint).addTo(map).bindPopup(result.name).openPopup();
+                        startMarker = L.marker(startPoint).addTo(map);
+                        document.getElementById("startAddress").value = result.name;
                     } else if (!endPoint) {
                         endPoint = latlng;
                         routingControl.spliceWaypoints(routingControl.getWaypoints().length - 1, 1, endPoint);
-                        endMarker = L.marker(endPoint).addTo(map).bindPopup(result.name).openPopup();
+                        endMarker = L.marker(endPoint).addTo(map);
+                        document.getElementById("endAddress").value = result.name;
                         calculateDistance(); // Calculate distance once both points are set
                     } else {
                         // Reset start and end points
@@ -146,7 +147,7 @@
             var options = {units: 'kilometers'};
 
             var distance = turf.distance(from, to, options);
-            alert("Direct Distance: " + distance.toFixed(2) + " km");
+            document.getElementById("distance").value = distance.toFixed(2) + " km";
             
             // Optionally, you can display the distance on the map as a popup
             var midpoint = L.latLng(
@@ -158,5 +159,10 @@
                 .setContent("Direct Distance: " + distance.toFixed(2) + " km")
                 .openOn(map);
         }
+  document.getElementById('routeForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission behavior
 
+        // Call the function to geocode addresses and update the map
+        geocodeAddresses();
+    });
         map.on('click', onMapClick);
