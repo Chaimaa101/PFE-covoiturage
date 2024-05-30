@@ -141,13 +141,22 @@
             }
         }
 
+         fetch('config.json')
+            .then(response => response.json())
+            .then(data => {
+                prixKilometer = data.prixKilometer;
+            })
+            .catch(error => console.error('Error loading configuration:', error));
+
         function calculateDistance() {
             var from = turf.point([startPoint.lng, startPoint.lat]);
             var to = turf.point([endPoint.lng, endPoint.lat]);
             var options = {units: 'kilometers'};
 
             var distance = turf.distance(from, to, options);
+            var cost = distance * prixKilometer;
             document.getElementById("distance").value = distance.toFixed(2) + " km";
+             document.getElementById("cost").value = cost.toFixed(2);
             
             // Optionally, you can display the distance on the map as a popup
             var midpoint = L.latLng(
@@ -159,10 +168,4 @@
                 .setContent("Direct Distance: " + distance.toFixed(2) + " km")
                 .openOn(map);
         }
-  document.getElementById('routeForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission behavior
-
-        // Call the function to geocode addresses and update the map
-        geocodeAddresses();
-    });
-        map.on('click', onMapClick);
+map.on('click', onMapClick);

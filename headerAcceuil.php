@@ -48,7 +48,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="about.php">
                     <i class="fa fa-info"></i>
                     <span>A PROPOS NOUS</span></a>
@@ -57,7 +57,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="service.php">
                    <i class="fa fa-wrench"></i>
                     <span>SERVICES</span></a>
@@ -66,9 +66,9 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-           <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="contact.php">
-                     <i class="fas fa-envelope"></i>
+                    <i class="fas fa-envelope"></i>
                     <span>CONTACT</span></a>
                 
             </li>
@@ -80,17 +80,10 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            
-
-            
-
-
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-            
 
         </ul>
         <!-- End of Sidebar -->
@@ -107,14 +100,9 @@
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
-                    </button>
-
-                    
+                    </button>                
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        
-
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -126,15 +114,15 @@
                             </a>
                              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#profilModal">
+                                <a class="dropdown-item" href="login/login.php" data-toggle="modal" data-target="#profilModal">
                                     <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Administrateur
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="login/login.php">
                                     <i class="fas fa-parson-seat fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Conducteur
                                 </a>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="login/login.php" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Passager
                                 </a>
@@ -147,11 +135,11 @@
                             </a>
                              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="login/register.php">
                                     <i class="fas fa-parson-seat fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Conducteur
                                 </a>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="login/register.php" >
                                     <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Passager
                                 </a>

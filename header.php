@@ -71,7 +71,7 @@ $user_role = $_SESSION['user_role'];
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="listeutilisateurs.php">
                     <i class="fa fa-users"></i>
                     <span>LISTES UTILISATEURS</span></a>
@@ -80,7 +80,7 @@ $user_role = $_SESSION['user_role'];
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="listetrajets.php">
                    <i class="fas fa-road"></i>
                     <span>LISTES DES TRAJETS</span></a>
@@ -94,7 +94,7 @@ $user_role = $_SESSION['user_role'];
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="trajetsannonces.php">
                    <i class="fa fa-road"></i>
                     <span>TRAJETS ANNONCES</span></a>
@@ -103,7 +103,7 @@ $user_role = $_SESSION['user_role'];
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="trajetschoisi.php">
                    <i class="fa fa-road"></i>
                     <span>TRAJETS CHOISIS</span></a>
@@ -111,16 +111,12 @@ $user_role = $_SESSION['user_role'];
 
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="trajetvalider.php">
-                   <i class="fa fa-road"></i>
+                <i class="fa fa-road"></i>
                     <span>TRAJETS REALISES</span></a>
             </li>
-
-            <hr class="sidebar-divider my-0">
-  
-            
-            
+            <hr class="sidebar-divider my-0">     
 <?php  }elseif($user_role == 'passager'){ ?>
 <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -128,7 +124,7 @@ $user_role = $_SESSION['user_role'];
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="ajoutertrajet.php">
                     <i class="fa fa-road"></i>
                     <span>AJOUT TRAJETS</span></a>
@@ -136,7 +132,7 @@ $user_role = $_SESSION['user_role'];
 
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="validertrajet.php">
                     <i class="fa fa-road"></i>
                     <span>TRAJETS CHOISIS</span></a>
@@ -145,7 +141,7 @@ $user_role = $_SESSION['user_role'];
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="historiquetrajets.php">
                    <i class="fa fa-road"></i>
                     <span>HISTORIQUE TRAJETS</span></a>
@@ -271,9 +267,6 @@ $user_role = $_SESSION['user_role'];
                             <td> </td>
                         </tr>
                     </table>
-
-
-
                 </div>
                 
                 

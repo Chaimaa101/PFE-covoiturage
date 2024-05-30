@@ -1,3 +1,25 @@
+<?php
+include 'connection.php';
+
+
+$attribut = $_GET['attribut'];
+$search = $_GET['search'];
+
+
+$attribute = $conn->real_escape_string($attribut);
+$search = $conn->real_escape_string($search);
+
+if(isset($attribut) && isset($search)){
+
+$sql = "SELECT * FROM trajets WHERE $attribut LIKE '%$search%'";
+}else{
+$sql = "SELECT * FROM trajets ";
+
+}$result = $conn->query($sql);
+    
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,42 +56,66 @@
                             <h6 class="m-0 font-weight-bold text-primary">Listes Des trajets</h6>
                         </div>
                         <div class="card-body">
+                                                        <form method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <label for="attribut">Filtrer par:</label>
+                            <select class="form-control bg-light border-0 small" name="attribut" id="attribut" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                                <option value="depart">Départ</option>
+                                <option value="destination">Déstination</option>
+                                <option value="status">Status</option>
+                                <option value="date-depart">Date de départ</option>
+                                <option value="distance">Distance</option>
+                                
+                                </select>
+                <div style="width: 10px;"></div>
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="rechercher..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                        </div>
+                    </form> 
+                    <div style="height: 10PX;"></div>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>id trajet</th>
-                                            <th>id utilisateur</th>
-                                            <th>Departure</th>
+                                            <th>id passager</th>
+                                            <th>Depart</th>
                                             <th>Destination</th>
-                                            <th>Prix</th>
-                                            <th>Piaces disponibles</th>
-                                            <th>Date</th>
+                                            <th>Date de depart</th>
+                                            <th>Date d'arrivée</th>
+                                            <th>status</th>
+                                            <th>Distance</th>
                                             <th>Temps</th>
-                                            <th>Modifier</th>
-                                            <th>supprimer</th>
+                                            <th>Prix</th>
+                                            <th> </th>
                                     </thead>
                                 </tr><tbody>
                                     <?php while($row = mysqli_fetch_assoc($result)) { ?>  
                                     <tr>
-                                       <td><?php echo ($row['id'])?></td>
-                                       <td><?php echo ($row['passager_id'])?>
-                                       </td><td><?php echo ($row['email'])?>
-                                       </td><td><?php echo ($row['email'])?>
-                                       </td><td><?php echo ($row['email'])?></td>
-                                       <td><?php echo ($row['email'])?></td>
-                                       <td><?php echo ($row['email'])?></td>
-                                       <td><?php echo ($row['email'])?></td>
-                                       <td><?php echo ($row['email'])?></td>
-                                       <td><?php echo ($row['email'])?></td>
-                                        <td><a href="#"><i class="fa fa-trash"></i></td>
+                                    <td><?php echo ($row['id'])?></td>
+                                    <td><?php echo ($row['passager_id'])?></td>
+                                    <td><?php echo ($row['depat'])?></td>
+                                    <td><?php echo ($row['destination'])?></td>
+                                    <td><?php echo ($row['date_depart'])?></td>
+                                    <td><?php echo ($row['date_arrivee'])?></td>
+                                    <td><?php echo ($row['status'])?></td>
+                                    <td><?php echo ($row['email'])?></td>
+                                    <td><?php echo ($row['email'])?></td>
+                                    <td><?php echo ($row['email'])?></td>
+                                    <td><a href="profil.php"><i class="fa fa-eye" style='font-size:20px;color:bleu'></i><a></td>
 <?php }?>
-                                   
                                 </table>
                             </div><td><?php echo ($row['email'])?></td><td><?php echo ($row['email'])?></td><td><?php echo ($row['email'])?></td><td><?php echo ($row['email'])?></td>
                         </div>
                     </div>
-                          
                 </div>
 
 
