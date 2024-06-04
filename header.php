@@ -104,14 +104,6 @@ $user_role = $_SESSION['user_role'];
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="trajetschoisi.php">
-                   <i class="fa fa-road"></i>
-                    <span>TRAJETS CHOISIS</span></a>
-            </li>
-
-            <hr class="sidebar-divider my-0">
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
                 <a class="nav-link" href="trajetvalider.php">
                    <i class="fa fa-road"></i>
                     <span>TRAJETS REALISES</span></a>
@@ -139,7 +131,7 @@ $user_role = $_SESSION['user_role'];
             <li class="nav-item active">
                 <a class="nav-link" href="validertrajet.php">
                     <i class="fa fa-road"></i>
-                    <span>TRAJETS CHOISIS</span></a>
+                    <span>TRAJETS ANNONCES</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">

@@ -26,28 +26,41 @@
 include 'connection.php';
 require("header.php");
 
+$point_depart = isset($_GET['point_depart']) ? $_GET['point_depart'] : '';
+$point_arrivee = isset($_GET['point_arrivee']) ? $_GET['point_arrivee'] : '';
+$statut = isset($_GET['statut']) ? $_GET['statut'] : '';
 
-$sql = "SELECT * FROM trajets WHERE statut='proposé'";
-$result = $conn->query($sql);
-
-
-
-     // Fonction pour qu'un conducteur choisisse un trajet
-     function choisirTrajet($conn, $id_cond, $id_trajet) {
-        // Insérer dans trajets_conducteurs
-        $sql = "INSERT INTO trajets_conducteurs (trajet_id, conducteur_id, choisi) VALUES ($id_trajet, $id_cond, TRUE)";
-        if ($conn->query($sql) === TRUE) {
-            // Mettre à jour le statut du trajet
-            $sql = "UPDATE trajets SET statut = 'choisi' WHERE id = $id_trajet";
-            $conn->query($sql);
-
-            
-            echo "Trajet choisi avec succès.";
-        } else {
-            echo "Erreur: " . $conn->error;
+$sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.choisi, Trajets_Conducteurs.valide
+        FROM Trajets
+        LEFT JOIN Trajets_Conducteurs ON Trajets.id = Trajets_Conducteurs.trajet_id AND Trajets_Conducteurs.conducteur_id = $user_id
+        WHERE
+        (Trajets.statut = 'proposé'
+        OR (Trajets_Conducteurs.conducteur_id = $user_id AND Trajets_Conducteurs.choisi = 1)
+        OR (Trajets_Conducteurs.conducteur_id = $user_id AND Trajets_Conducteurs.choisi = 0)
+        OR (Trajets_Conducteurs.conducteur_id = $user_id AND Trajets_Conducteurs.valide = 1))";
+        
+        if ($point_depart) {
+            $sql .= " AND Trajets.depart LIKE '%$point_depart%'";
         }
-    }
 
+        if ($point_arrivee) {
+            $sql .= " AND Trajets.destination LIKE '%$point_arrivee%'";
+        }
+
+        
+        if ($statut) {
+            if ($statut == 'choisi') {
+                $sql .= " AND Trajets_Conducteurs.choisi = 1 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 0";
+            } elseif ($statut == 'annulé') {
+                $sql .= " AND Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 1";
+            } elseif ($statut == 'validé') {
+                $sql .= " AND Trajets_Conducteurs.valide = 1 AND Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.annuler = 0";
+            } else {
+                $sql .= " AND Trajets.statut = '$statut'";
+            }
+        }
+    $sql .= " ORDER BY Trajets.date_depart DESC";       
+$result = $conn->query($sql);
 ?>
 
 
@@ -58,20 +71,23 @@ $result = $conn->query($sql);
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"></h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-             <!-- Page Heading -->
+    <form method="get" action="trajetsannonces.php" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0">
+        <select class="form-control bg-light" name="statut">
+                <option value="">Tous les trajets</option>
+                    <option value="proposé" <?php if ($statut == 'proposé') echo 'selected'; ?>>Proposé</option>
+                    <option value="choisi" <?php if ($statut == 'choisi') echo 'selected'; ?>>Choisi</option>
+                    <option value="annulé" <?php if ($statut == 'annulé') echo 'selected'; ?>>Annulé</option>
+                    <option value="validé" <?php if ($statut == 'validé') echo 'selected'; ?>>Validé</option>
+        </select>
+            <input type="text" class="form-control bg-light border-1" id="point_depart" placeholder="Départ" name="point_depart" value="<?php echo htmlspecialchars($point_depart); ?>">
+            <input type="text" class="form-control bg-light border-1" id="point_arrivee" placeholder="Arrivée" name="point_arrivee" value="<?php echo htmlspecialchars($point_arrivee); ?>">
+
+        <button type="submit" class="btn btn-primary"><i class="fas fa-search fa-sm"></i></button>
+    </form>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Trajets Annonces</h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+   </div>
 </div>
-</div>
-
-
-
- 
-
 
 
 
@@ -91,6 +107,7 @@ $result = $conn->query($sql);
                         <th>Destination</th>
                         <th>Date Depart</th>
                         <th>Choisir</th>
+                        <th>Annuler</th>
                        
                     </tr>
                 </thead>
@@ -100,13 +117,33 @@ $result = $conn->query($sql);
                         <td><?php echo ($row['depart']) ?></td>
                         <td><?php echo ($row['destination']) ?></td>
                         <td><?php echo ($row['date_depart']) ?></td>
-                        <td><a href='trajetsannonces.php?id_trajet= <?php echo ($row['id'])?>&id_cond= <?php echo $user_id?>'>Choisir <i class="fa fa-check" style="color: #69d2ec;"></i></a></td>
+                        <td>
+                           <?php 
+                           if ($row['choisi'] == 1) {
+                            echo "Choisi";
+                        } else {
+                            echo "<form method='post' action='trajetsannonces.php'>
+                                <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
+                                <input type='hidden' name='action' value='choisir'>
+                                <input type='submit' value='Choisir'>
+                            </form>";
+                        }
+                        echo "</td>";
+                        echo "<td>";
+                        if ($row['choisi'] == 1) {
+                            echo "<form method='post' action='trajetsannonces.php'>
+                                <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
+                                <input type='hidden' name='action' value='annuler'>
+                                <input type='submit' value='Annuler'>
+                            </form>";
+                        } else {
+                            echo "Non choisi";
+                        }
+                           ?> 
+                           
+                        </td>
                     </tr>
                   <?php 
-                if (isset($_GET['id_trajet']) && isset($_GET['id_cond'])) {
-                    choisirTrajet($conn, $_GET['id_cond'], $_GET['id_trajet']);
-                }
-            
                
             
                
@@ -121,7 +158,31 @@ $result = $conn->query($sql);
 </div>
 <!-- /.container-fluid -->
 
-    
+<?php
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id_trajet = $_POST['id_trajet'];
+    $action = $_POST['action'];
+
+
+    if ($action == 'choisir') {
+        $sql = "INSERT INTO Trajets_Conducteurs (trajet_id, conducteur_id, choisi, valide) VALUES ('$id_trajet', '$user_id', TRUE, FALSE)
+        ON DUPLICATE KEY UPDATE choisi=TRUE, valide=FALSE";
+    } elseif ($action == 'annuler') {
+        $sql = "UPDATE Trajets_Conducteurs SET choisi=FALSE, valide=FALSE, annuler=TRUE WHERE trajet_id='$id_trajet' AND conducteur_id='$user_id'";
+    }
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Action réussie";
+    } else {
+        echo "Erreur: " . $sql . "<br>" . $conn->error;
+    }
+
+    $conn->close();
+    exit();
+}
+?>
 
 
 </body>

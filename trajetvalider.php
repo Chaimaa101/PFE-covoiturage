@@ -28,11 +28,12 @@ require("header.php");
 
 
         // Fonction pour récupérer les trajets choisi par le conducteur
-    function getTrajetsPassagers($conn) {
-        $sql = "SELECT trajets.*
-                FROM trajets  
-                WHERE trajets.statut = 'validé'";
-        $result = $conn->query($sql);
+    function getTrajetsPassagers($conn, $user_id) {
+        $sql = "SELECT t.id, t.depart, t.destination, t.date_depart
+            FROM trajets_conducteurs tc
+            JOIN trajets t ON tc.trajet_id = t.id
+            WHERE tc.conducteur_id = $user_id AND tc.valide = TRUE ";
+    $result = $conn->query($sql);
         $trajets = [];
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
@@ -42,7 +43,7 @@ require("header.php");
         return $trajets;
     }
 
-    $trajetsPassagers = getTrajetsPassagers($conn);
+    $trajetsPassagers = getTrajetsPassagers($conn, $user_id);
  
  
  ?>
@@ -51,16 +52,24 @@ require("header.php");
  <div class="container-fluid">
 
 <!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Trajets Valider</h1>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"></h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+            <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
              <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Trajets Valider</h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+
 </div>
 </div>
 

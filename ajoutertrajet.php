@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <input type="text" class="form-control" id="start" name="depart" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="lieu_darrivee" class="form-label">Fin du trajet</label>
+                                    <label for="lieu_darrivee" class="form-label">Destination du trajet</label>
                                     <input type="text" class="form-control" id="end" name="destination">
                                     
                                 </div>
