@@ -1,7 +1,13 @@
 <?php
-require_once '../connection.php';
 session_start();
 
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    $email = $_POST['email'];
+    $mot_de_passe = $_POST['mot_de_passe'];
+
+
+require_once '../connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
@@ -25,10 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 setcookie('user_prenom', $user['prenom'], time() + (86400 * 30), "/");
             }
             if ($user['role'] == 'passager') {
-                header("Location: ../historiquetrajets.php");
+                header("Location: ../historiquetrajets.php?success=1");
             } elseif ($user['role'] == 'conducteur') {
-                header("Location: ../trajetsannonces.php");
-            }  else {
+                header("Location: ../trajetsannonces.php?success=1");
+             } elseif ($user['role'] == 'conducteur') {
+                header("Location: ../admin.php?success=1");
+            } else {
                 echo "Rôle utilisateur non reconnu.";
             }
             exit;
@@ -38,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Utilisateur non trouvé.";
     }
-
+}
 }
 ?>
 <!DOCTYPE html>
@@ -59,9 +67,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
+    
     <div class="main">
-
+<?php
+    if (isset($_GET['success']) && $_GET['success'] == '1') {
+        echo "<p style='color:green;'>Création de compte réussie ! Vous pouvez maintenant vous connecter.</p>";
+    }
+    ?>
         <section class="signup">
         
             <div class="container">
@@ -74,7 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="form-group">
                             <input type="password" class="form-input" name="mot_de_passe" id="password" placeholder="Mot de passe"/>
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
+                            <input type="checkbox" name="oublier" id="oublier" class="agree-term" />
+                            <label for="oublier" class="label-agree-term"><a href="">Mot de Passe Oublié? </a></label>
+                        <div class="form-group">
                             <input type="checkbox" name="remember_me" id="remember_me" class="agree-term" />
                             <label for="remember_me" class="label-agree-term"><span><span></span></span>Se souvenir de moi </label>
                         </div>

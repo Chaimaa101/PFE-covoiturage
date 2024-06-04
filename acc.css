@@ -1,0 +1,62 @@
+
+
+
+.home{
+    position: relative;
+    width:100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8% 0;
+    overflow: hidden; 
+
+
+}
+.container-fluid h1{
+    font-weight: bold;
+    text-decoration: underline;
+
+}
+
+
+.container-fluid h2{
+    font-family: 'Times New Roman';
+    font-size: 30px;
+    padding-left: 10px;
+    margin-top: 3%;
+    letter-spacing: 1px;
+    color:black ;
+
+}
+.container-fluid span{
+color: rgba(211, 59, 13, 0.877);
+font-size: 40px;
+}
+.home-img{
+    position: relative;
+    right: -7%;
+    width: 60%;
+    height: 60%;
+    transform: rotate(45deg);
+}
+.home-img .rhombus{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border: 25px solid #1743e3;
+    box-shadow: -15px 15px 15px rgba(0, 0, 0, .2);
+
+
+}
+.home-img .rhombus img {
+    position: absolute;
+    top: 100px;
+    left: -200px;
+    max-width: 500px;
+    transform: rotate(-45deg);
+}
+
+
+

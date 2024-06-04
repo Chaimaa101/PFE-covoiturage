@@ -6,28 +6,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $prenom = $_POST['prenom'];
     $email = $_POST['email'];
     $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_BCRYPT);
-    $role = $_POST['role'];
+    $role = 'passager';
     $telephone = $_POST['tel'];
     $adresse = $_POST['adress'];
     $date_naissance = $_POST['date_naissance'];
+      $hasError = false;
+    // Validate email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $emailError = "Format d'e-mail non valide";
+        $hasError = true;
+    }
 
-    
-     $stmt = $conn->prepare(" INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance) VALUES (?, ?, ?, ?,?, ?, ?, ?)");
+    // Validate phone
+    if (!preg_match("/^\d{10}$/", $telephone)) {
+        $phoneError = "Numéro de téléphone invalide";
+        $hasError = true;
+    }
+    // Validate password
+    if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/",$mot_de_passe)) {
+        $passwordError = "Mot de passe invalide";
+        $hasError = true;
+    }
+    if (!$hasError) {
+        // Hash the password
+        $hashed_password = password_hash($mot_de_passe, PASSWORD_DEFAULT);
+
+    $stmt = $conn->prepare(" INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance) VALUES (?, ?, ?, ?,?, ?, ?, ?)");
     if ($stmt === false) {
         die("Erreur de préparation de la requête: " . $conn->error);
     }
 
     // Lie les paramètres
     $stmt->bind_param("ssssssss",$nom, $prenom, $email, $mot_de_passe, $role, $telephone, $adresse, $date_naissance);
-
-    // Exécute la requête
+}
     if ($stmt->execute()) {
-        header('location: login.php');
+    header('Location: login.php?success=1');
     } else {
         echo "Erreur: " . $stmt->error;
-    }
+    }  
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LOGIN</title>
+    <title>S'inscrire</title>
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
@@ -45,6 +62,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Main css -->
     <link rel="stylesheet" href="css/style.css">
 </head>
+<style>
+    .error {
+            color: red;
+        }
+</style>
 <body>
 
     <div class="main">
@@ -56,32 +78,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <form method="POST" id="signup-form" class="signup-form">
                         <h2 class="form-title">Inscription</h2>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="nom" id="name" placeholder="Nom" require/>
+                            
+                            <input type="text" class="form-input" name="nom" id="name"  placeholder="Nom" required/>
                         </div>
                          <div class="form-group">
-                            <input type="text" class="form-input" name="prenom" id="surname" placeholder="Prènom" require/>
+                            <input type="text" class="form-input" name="prenom" id="surname" placeholder="Prènom" required/>
                         </div>
                          <div class="form-group">
-                            <input type="text" class="form-input" name="tel" id="phone" placeholder="Téléphone" require/>
+                            <span class="error"><?php echo $phoneError ?? ''; ?></span>
+                            <input type="text" class="form-input" name="tel" id="phone" placeholder="Téléphone" required/>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-input" name="email" id="email" placeholder="Email" require/>
+                             <span class="error"><?php echo $emailError ?? ''; ?></span>
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Email" required/>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-input" name="mot_de_passe" id="password" placeholder="Mot de passe" require/>
+                             <span class="error"><?php echo $passwordError ?? ''; ?></span>
+                            <input type="text" class="form-input" name="mot_de_passe" id="password" placeholder="Mot de passe" required/>
                             <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
                         </div>
                         <div class="form-group">
-                             <input type="text" class="form-input" name="adress" id="adress" placeholder="Adresse" require/>
+                             <input type="text" class="form-input" name="adress" id="adress" placeholder="Adresse" required/>
                         </div>
                         <div class="form-group">
-                             <input type="date" class="form-input" name="date_naissance" id="date_naissance" placeholder="Date de naissance" require/>
-                        </div>
-                        <div class="form-group" >
-                            <select class="form-input" name="role" id="role" placeholder="Rôle" required>
-                                <option class="form-input" value="passager">Passager</option>
-                                <option  class="form-input" value="conducteur">Conducteur</option>
-        </select>
+                             <input type="date" class="form-input" name="date_naissance" id="date_naissance" placeholder="Date de naissance" required/>
                         </div>
                         <div class="form-group">
                             <input type="submit" name="register" id="submit" class="form-submit" value="S'inscrire"/>

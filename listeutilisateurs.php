@@ -3,10 +3,22 @@
 
 include 'connection.php';
 
-// sql to to display students
+
+$attribut = $_GET['attribut'];
+$search = $_GET['search'];
+
+
+$attribute = $conn->real_escape_string($attribut);
+$search = $conn->real_escape_string($search);
+
+if(isset($attribut) && isset($search)){
+
+$sql = "SELECT * FROM utilisateurs WHERE $attribut LIKE '%$search%'";
+}else{
 $sql = "SELECT * FROM utilisateurs ";
 
-$result = mysqli_query($conn, $sql);
+}$result = $conn->query($sql);
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,39 +49,63 @@ $result = mysqli_query($conn, $sql);
    
    <!-- End of Topbar -->
                  <div class="container-fluid">
-
-
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Listes Des Utilisateurs</h6>
                         </div>
                         <div class="card-body">
+                            
+                            <form method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <label for="attribut">Filtrer par:</label>
+                            <select class="form-control bg-light border-0 small" name="attribut" id="attribut" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                                <option value="nom">Nom</option>
+                                <option value="email">Email</option>
+                                <option value="telephone">Téléphone</option>
+                                <option value="date_naissance">Date de naissance</option>
+                                <option value="role">Rôle</option>
+                                </select>
+                <div style="width: 10px;"></div>
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="rechercher..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                        </div>
+                    </form> 
+                    <div style="height: 10PX;"></div>
+
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Nom</th>
-                                            <th>Prenom</th>
+                                            <th>Nom et prenom</th>
                                             <th>Email</th>
                                             <th>Telephone</th>
                                             <th>adresse</th>
                                             <th>Date de Naissance</th>
                                             <th>Date d'inscription</th>
                                             <th>role</th>
+                                            <th> </th>
                                         </tr>
                                     </thead>
                                     <?php while($row = mysqli_fetch_assoc($result)) { ?>
                                     <tbody>
-                                       <tr>
-                                            <td><?php echo ($row['nom'])?></td>
-                                            <td><?php echo ($row['prenom'])?></td>
+                                    <tr>
+                                            <td><?php echo ($row['nom'])." ".($row['prenom'])?></td>
                                             <td><?php echo ($row['email'])?></td>
                                             <td><?php echo ($row['telephone'])?></td>
                                             <td><?php echo ($row['adresse'])?></td>
                                             <td><?php echo ($row['date_naissance'])?></td>
+                                            <td><?php echo ($row['role'])?></td>
                                             <td><?php echo ($row['date_inscription'])?></td>
-                                            <td><a href="infocond.html"><i class="fa fa-eye" style='font-size:28px;color:bleu'></i><a></td>
+                                            <td><a class="dropdown-item" href="profilModal.php?id={$row['id']}" data-toggle="modal" data-target="#profilModal"><i class="fa fa-eye" style='font-size:20px;color:bleu'></i><a></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>
@@ -79,65 +115,5 @@ $result = mysqli_query($conn, $sql);
                     </div>
 
                 </div>
-                
-               
-        <!-- End of Content Wrapper -->
-
-                    <!-- INFO Modal-->
-    <div class="modal fade" id="profilModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="exampleModalLabel">INFORMATION PERSONNEL</h4>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <table>
-                        <tr>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td> Nom</td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td> Prenom</td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td> Email</td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                    </table>
-
-
-
-                </div>
-                
-                
-            </div>
-        </div>
-    </div>
-   
-    <!---->
-
-
-
-
-
-
-
-
-
-
     </body> 
     </html>     

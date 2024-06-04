@@ -71,7 +71,7 @@ $user_role = $_SESSION['user_role'];
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="listeutilisateurs.php">
                     <i class="fa fa-users"></i>
                     <span>LISTES UTILISATEURS</span></a>
@@ -80,7 +80,7 @@ $user_role = $_SESSION['user_role'];
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="listetrajets.php">
                    <i class="fas fa-road"></i>
                     <span>LISTES DES TRAJETS</span></a>
@@ -94,7 +94,7 @@ $user_role = $_SESSION['user_role'];
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="trajetsannonces.php">
                    <i class="fa fa-road"></i>
                     <span>TRAJETS ANNONCES</span></a>
@@ -103,16 +103,23 @@ $user_role = $_SESSION['user_role'];
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
+
             <li class="nav-item active">
-                <a class="nav-link" href="trajetvalider.php">
+
+            <li class="nav-item ">
+                <a class="nav-link" href="trajetschoisi.php">
                    <i class="fa fa-road"></i>
-                    <span>TRAJETS REALISES</span></a>
+                    <span>TRAJETS CHOISIS</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
-  
-            
-            
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item ">
+                <a class="nav-link" href="trajetvalider.php">
+                <i class="fa fa-road"></i>
+                    <span>TRAJETS REALISES</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">     
 <?php  }elseif($user_role == 'passager'){ ?>
 <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -120,7 +127,7 @@ $user_role = $_SESSION['user_role'];
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="ajoutertrajet.php">
                     <i class="fa fa-road"></i>
                     <span>AJOUT TRAJETS</span></a>
@@ -128,7 +135,7 @@ $user_role = $_SESSION['user_role'];
 
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="validertrajet.php">
                     <i class="fa fa-road"></i>
                     <span>TRAJETS ANNONCES</span></a>
@@ -137,7 +144,7 @@ $user_role = $_SESSION['user_role'];
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="historiquetrajets.php">
                    <i class="fa fa-road"></i>
                     <span>HISTORIQUE TRAJETS</span></a>
@@ -179,8 +186,6 @@ $user_role = $_SESSION['user_role'];
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        
-
                         <div class="topbar-divider d-none d-sm-block"></div>
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
@@ -265,9 +270,6 @@ $user_role = $_SESSION['user_role'];
                             <td> </td>
                         </tr>
                     </table>
-
-
-
                 </div>
                 
                 
@@ -292,3 +294,5 @@ $user_role = $_SESSION['user_role'];
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
+</body>
+</html>

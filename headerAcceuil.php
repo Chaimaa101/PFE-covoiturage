@@ -11,8 +11,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
@@ -49,7 +48,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="about.php">
                     <i class="fa fa-info"></i>
                     <span>A PROPOS NOUS</span></a>
@@ -58,7 +57,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="service.php">
                    <i class="fa fa-wrench"></i>
                     <span>SERVICES</span></a>
@@ -67,9 +66,9 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-           <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link" href="contact.php">
-                     <i class="fas fa-envelope"></i>
+                    <i class="fas fa-envelope"></i>
                     <span>CONTACT</span></a>
                 
             </li>
@@ -81,17 +80,10 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            
-
-            
-
-
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-            
 
         </ul>
         <!-- End of Sidebar -->
@@ -108,36 +100,55 @@
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
-                    </button>
-
-                    
+                    </button>                
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
-                        
-
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="login/login.php" ">
-                                
-                               <span>se connecter</span>
+                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Se connecter
                             </a>
+                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="login/login.php" data-toggle="modal" data-target="#profilModal">
+                                    <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Administrateur
+                                </a>
+                                <a class="dropdown-item" href="login/login.php">
+                                    <i class="fas fa-parson-seat fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Conducteur
+                                </a>
+                                <a class="dropdown-item" href="login/login.php" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Passager
+                                </a>
+                            </div>
                         </li>
-                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="login/register.php" >
-                                <span>s'inscrire</span>
-                               
+                           <li class="nav-item dropdown no-arrow">
+                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                S'inscrire
                             </a>
+                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="login/register.php">
+                                    <i class="fas fa-parson-seat fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Conducteur
+                                </a>
+                                <a class="dropdown-item" href="login/register.php" >
+                                    <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Passager
+                                </a>
+                            </div>
                         </li>
                         
                     </ul>
 
                 </nav>
-                <!-- End of Topbar -->
-                 <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -153,6 +164,6 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-    
-        </html>
     </body>
+        </html>
+    
