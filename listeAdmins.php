@@ -4,9 +4,9 @@ if(isset($_GET['search']) && isset($_GET['attribut'])){
 $attribut = $_GET['attribut'];
 $search = $_GET['search'];
 
-$sql = "SELECT * FROM utilisateurs WHERE $attribut LIKE '%$search%' ORDER BY date_inscription";
+$sql = "SELECT * FROM utilisateurs WHERE $attribut LIKE '%$search%' AND role = administrateur ORDER BY date_inscription";
 }else{
-$sql = "SELECT * FROM utilisateurs ORDER BY date_inscription";
+$sql = "SELECT * FROM utilisateurs WHERE role = 'administrateur' ORDER BY date_inscription";
 
 }$result = $conn->query($sql);
     ?>

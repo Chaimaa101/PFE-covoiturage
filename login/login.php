@@ -31,10 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 setcookie('user_prenom', $user['prenom'], time() + (86400 * 30), "/");
             }
             if ($user['role'] == 'passager') {
-                header("Location: ../historiquetrajets.php?success=1");
+                header("Location: ../ajoutertrajet.php?success=1");
             } elseif ($user['role'] == 'conducteur') {
                 header("Location: ../trajetsannonces.php?success=1");
-             } elseif ($user['role'] == 'conducteur') {
+             } elseif ($user['role'] == 'administrateur') {
                 header("Location: ../admin.php?success=1");
             } else {
                 echo "Rôle utilisateur non reconnu.";

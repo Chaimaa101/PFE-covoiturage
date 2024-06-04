@@ -49,7 +49,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item ">
-                <a class="nav-link" href="about.php">
+                <a class="nav-link" href="#statistics">
                     <i class="fa fa-info"></i>
                     <span>A PROPOS NOUS</span></a>
             </li>

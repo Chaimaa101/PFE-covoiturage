@@ -74,7 +74,7 @@ $user_role = $_SESSION['user_role'];
             <li class="nav-item ">
                 <a class="nav-link" href="listeutilisateurs.php">
                     <i class="fa fa-users"></i>
-                    <span>LISTES UTILISATEURS</span></a>
+                    <span>Gestion utilisateurs</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -83,7 +83,14 @@ $user_role = $_SESSION['user_role'];
             <li class="nav-item ">
                 <a class="nav-link" href="listetrajets.php">
                    <i class="fas fa-road"></i>
-                    <span>LISTES DES TRAJETS</span></a>
+                    <span>Gestion Trajets</span></a>
+            </li>
+             <hr class="sidebar-divider my-0">
+
+            <li class="nav-item ">
+                <a class="nav-link" href="listeadmins.php">
+                    <i class="fa fa-users"></i>
+                    <span>Gestion Admins</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">

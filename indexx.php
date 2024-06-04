@@ -1,15 +1,14 @@
-<!doctype html>
-<html class="no-js" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
-    <head>
-        <!-- meta data -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<head>
 
-        <!--font-family-->
-		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
         
         <!-- title of site -->
         <title>Directory Landing Page</title>
@@ -37,28 +36,35 @@
         <link rel="stylesheet" href="  css/bootstrap.min.css">
 		
 		<!-- bootsnav -->
-		<link rel="stylesheet" href="css/bootsnav.css" >	
+		<link rel="stylesheet" href="  css/bootsnav.css" >	
         
         <!--style.css-->
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="  css/style.css">
         
         <!--responsive.css-->
-        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="  css/responsive.css">
         
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		
-        <!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-			<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+
+    <title>ACCEUIL</title>    
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="acc.css" rel="stylesheet">
+    
 
     </head>
+    <body>
+<?php
+        require("headerAcceuil.php");
+?>
 	
 	<body>
-		<?php require('headerAcceuil.php');?>
-
-
 		<!--welcome-hero start -->
 		<section id="home" class="welcome-hero">
 			<div class="container">
@@ -98,7 +104,7 @@
 			</div>
 
 		</section><!--/.welcome-hero-->
-	
+
 		<!--works start -->
 		<section id="works" class="works">
 			<div class="container">
@@ -157,6 +163,7 @@
 		</section><!--/.works-->
 		<!--works end -->
 
+		
 		<!--reviews start -->
 		<section id="reviews" class="reviews">
 			<div class="section-header">
@@ -323,6 +330,31 @@
 								</div><!--/.testimonial-img-->
 								<div class="testimonial-person">
 									<h2>Shohrab Hossain</h2>
+									<h4>london, UK</h4>
+									<div class="testimonial-person-star">
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</div>
+								</div><!--/.testimonial-person-->
+							</div><!--/.testimonial-info-->
+							<div class="testimonial-comment">
+								<p>
+									Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis eaque.
+								</p>
+							</div><!--/.testimonial-comment-->
+						</div><!--/.testimonial-description-->
+					</div><!--/.single-testimonial-box-->
+				    <div class="single-testimonial-box">
+						<div class="testimonial-description">
+							<div class="testimonial-info">
+								<div class="testimonial-img">
+									<img src="  images/clients/c4.png" alt="clients">
+								</div><!--/.testimonial-img-->
+								<div class="testimonial-person">
+									<h2>Tom Leakar</h2>
 									<h4>london, UK</h4>
 									<div class="testimonial-person-star">
 										<i class="fa fa-star"></i>
@@ -554,7 +586,25 @@
 		     
         <!--Custom JS-->
         <script src="  js/custom.js"></script>
-        
-    </body>
-	
+
+                <!-- Begin Page Content -->
+              <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
+    
+</body>
 </html>
+        

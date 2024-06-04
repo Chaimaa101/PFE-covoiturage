@@ -50,6 +50,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     </style>
 </head>
 <body>
+     <div class="container-fluid">
+
+<div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Ajouter Trajet</h6>
+                        </div>
+                        <div class="card-body">
      <div class="container">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
@@ -117,6 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
 </div>
  
     </div>
+</div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>

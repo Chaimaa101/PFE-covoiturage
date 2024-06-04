@@ -1,23 +1,18 @@
 <?php
 include 'connection.php';
 
-
+if(isset($attribut) && isset($search)){
 $attribut = $_GET['attribut'];
 $search = $_GET['search'];
-
 
 $attribute = $conn->real_escape_string($attribut);
 $search = $conn->real_escape_string($search);
 
-if(isset($attribut) && isset($search)){
-
 $sql = "SELECT * FROM trajets WHERE $attribut LIKE '%$search%'";
 }else{
-$sql = "SELECT * FROM trajets ";
+$sql = "SELECT * FROM trajets order by date_depart ";
 
 }$result = $conn->query($sql);
-    
-
 
 ?>
 <!DOCTYPE html>
@@ -58,12 +53,12 @@ $sql = "SELECT * FROM trajets ";
                         <div class="card-body">
                                                         <form method="GET" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
-                            <label for="attribut">Filtrer par:</label>
-                            <select class="form-control bg-light border-0 small" name="attribut" id="attribut" placeholder="Search for..."
+                            <label for="">Filtrer par:</label>
+                            <select class="form-control bg-light border-0 small" name="attribut"  placeholder="Search for..."
                                 aria-label="Search" aria-describedby="basic-addon2">
                                 <option value="depart">Départ</option>
                                 <option value="destination">Déstination</option>
-                                <option value="status">Status</option>
+                                <option value="statut">Statut</option>
                                 <option value="date-depart">Date de départ</option>
                                 <option value="distance">Distance</option>
                                 
@@ -102,23 +97,56 @@ $sql = "SELECT * FROM trajets ";
                                     <tr>
                                     <td><?php echo ($row['id'])?></td>
                                     <td><?php echo ($row['passager_id'])?></td>
-                                    <td><?php echo ($row['depat'])?></td>
+                                    <td><?php echo ($row['depart'])?></td>
                                     <td><?php echo ($row['destination'])?></td>
                                     <td><?php echo ($row['date_depart'])?></td>
                                     <td><?php echo ($row['date_arrivee'])?></td>
-                                    <td><?php echo ($row['status'])?></td>
-                                    <td><?php echo ($row['email'])?></td>
-                                    <td><?php echo ($row['email'])?></td>
-                                    <td><?php echo ($row['email'])?></td>
-                                    <td><a href="profil.php"><i class="fa fa-eye" style='font-size:20px;color:bleu'></i><a></td>
-<?php }?>
+                                    <td><?php echo ($row['statut'])?></td>
+                                    <td><?php echo ($row['distance'])?></td>
+                                    <td><?php echo ($row[' '])?></td>
+                                    <td><?php echo ($row[' '])?></td>
+                                    <td><button class="btn btn-primary" onclick="showModal(<?php echo ($row['id']); ?>)">Voir</button></td>
+                                        </tr>
+                                        <?php } ?>
+                                    </tbody>
                                 </table>
-                            </div><td><?php echo ($row['email'])?></td><td><?php echo ($row['email'])?></td><td><?php echo ($row['email'])?></td><td><?php echo ($row['email'])?></td>
+                            </div>
                         </div>
                     </div>
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel"> Details trajets</h4>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
-
-
-
-</body>
-</html>
+                <div class="modal-body">
+   
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+                </div>
+                <script>
+                    function showModal(trajetId) {
+    // Effectuer une requête AJAX pour obtenir les informations de l'utilisateur
+    $.ajax({
+        url: 'showModeltraject.php', // Un fichier PHP pour obtenir les infos de l'utilisateur
+        type: 'GET',
+        data: { id: trajetId },
+        success: function(response) {
+            // Charger la réponse dans le corps du modal
+            $('#showModal .modal-body').html(response);
+            // Afficher le modal
+            $('#showModal').modal('show');
+        }
+    });
+}
+                </script>
+    </body> 
+    </html>     
