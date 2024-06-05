@@ -114,7 +114,7 @@
                             </a>
                              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="login/login.php" data-toggle="modal" data-target="#profilModal">
+                                <a class="dropdown-item" href="login/login.php">
                                     <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Administrateur
                                 </a>
@@ -122,7 +122,7 @@
                                     <i class="fas fa-parson-seat fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Conducteur
                                 </a>
-                                <a class="dropdown-item" href="login/login.php" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="login/login.php" >
                                     <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Passager
                                 </a>

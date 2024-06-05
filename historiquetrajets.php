@@ -101,44 +101,21 @@ $result = $conn->query($sql);
 <!-- Page Heading -->
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"></h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-             <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <form method="get" action="historiquetrajets.php" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0">
+        <select class="form-control bg-light" name="statut">
+            <option value="">Tous</option>
+                    <option value="proposé" <?php if ($statut == 'proposé') echo 'selected'; ?>>Proposé</option>
+                    <option value="validé" <?php if ($statut == 'validé') echo 'selected'; ?>>Validé</option>
+                    <option value="annuler" <?php if ($statut == 'annuler') echo 'selected'; ?>>Rejeter</option>
+                    <option value="choisi" <?php if ($statut == 'choisi') echo 'selected'; ?>>Choisi</option>
+        </select>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-search fa-sm"></i></button>
+    </form>
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Listes Des Trajets</h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-</div>
+    </div>
 </div>
 
-<?php
-
-include 'connection.php';
-
-
-
-// sql to to display students
-$sql = "SELECT * FROM trajets";
-
-
-function getTrajetsUtilises($conn, $id_passager) {
-    $sql = "SELECT trajets.*
-            FROM trajets 
-                        WHERE trajets.passager_id = $id_passager AND trajets.statut = 'valide'";
-    $result = $conn->query($sql);
-    $trajets = [];
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $trajets[] = $row;
-        }
-    }
-    return $trajets;
-}
-
-$trajetsUtilises = getTrajetsUtilises($conn, $user_id);
-
-?>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">

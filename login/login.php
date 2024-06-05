@@ -2,7 +2,7 @@
 session_start();
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+    $role = $_GET['role'];
     $email = $_POST['email'];
     $mot_de_passe = $_POST['mot_de_passe'];
 

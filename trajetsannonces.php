@@ -67,6 +67,30 @@ $result = $conn->query($sql);
  <!-- Begin Page Content -->
  <div class="container-fluid">
 
+<!-- Page Heading -->
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <form method="get" action="trajetsannonces.php" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0">
+        <select class="form-control bg-light" name="statut">
+                <option value="">Tous les trajets</option>
+                    <option value="proposé" <?php if ($statut == 'proposé') echo 'selected'; ?>>Proposé</option>
+                    <option value="choisi" <?php if ($statut == 'choisi') echo 'selected'; ?>>Choisi</option>
+                    <option value="annulé" <?php if ($statut == 'annulé') echo 'selected'; ?>>Annulé</option>
+                    <option value="validé" <?php if ($statut == 'validé') echo 'selected'; ?>>Validé</option>
+        </select>
+            <input type="text" class="form-control bg-light border-1" id="point_depart" placeholder="Départ" name="point_depart" value="<?php echo htmlspecialchars($point_depart); ?>">
+            <input type="text" class="form-control bg-light border-1" id="point_arrivee" placeholder="Arrivée" name="point_arrivee" value="<?php echo htmlspecialchars($point_arrivee); ?>">
+
+        <button type="submit" class="btn btn-primary"><i class="fas fa-search fa-sm"></i></button>
+    </form>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    
+   </div>
+</div>
+
+
+
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
