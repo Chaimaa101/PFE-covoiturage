@@ -10,7 +10,7 @@ $search = $conn->real_escape_string($search);
 
 $sql = "SELECT * FROM trajets WHERE $attribut LIKE '%$search%'";
 }else{
-$sql = "SELECT * FROM trajets order by date_depart ";
+$sql = "SELECT * FROM trajets";
 
 }$result = $conn->query($sql);
 

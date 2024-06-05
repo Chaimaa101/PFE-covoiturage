@@ -3,7 +3,7 @@
             <?php
             require'connection.php';
             if (isset($_GET['id'])) {
-    $trajetId = $_GET['id'];
+            $trajetId = $_GET['id'];
             $sql = "SELECT * FROM trajets where id = '$trajetId' ";
             $result = $conn->query($sql);
         if ($result->num_rows > 0) { 

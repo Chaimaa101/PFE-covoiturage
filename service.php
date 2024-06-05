@@ -16,15 +16,15 @@
     <link href="sotx.css" rel="stylesheet">
 
 </head>
-<body>
+
 
 <?php
         require("headerAcceuil.php");
 ?>
 
 
-                <!-- Begin Page Content -->
-                <body>
+<!-- Begin Page Content -->
+<body>
 
 <div class="container-fluid">
 

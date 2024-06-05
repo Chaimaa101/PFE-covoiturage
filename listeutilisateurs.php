@@ -8,7 +8,7 @@ $sql = "SELECT * FROM utilisateurs WHERE $attribut LIKE '%$search%' ORDER BY dat
 }else{
 $sql = "SELECT * FROM utilisateurs ORDER BY date_inscription";
 
-}$result = $conn->query($sql);
+}
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -85,7 +85,8 @@ $sql = "SELECT * FROM utilisateurs ORDER BY date_inscription";
                                             <th> </th>
                                         </tr>
                                     </thead>
-                                    <?php while($row = mysqli_fetch_assoc($result)) { ?>
+                                    <?php if($result = $conn->query($sql)){
+                                    while($row = mysqli_fetch_assoc($result)) { ?>
                                     <tbody>
                                     <tr>
                                             <td><?php echo ($row['nom'])." ".($row['prenom'])?></td>
@@ -97,7 +98,9 @@ $sql = "SELECT * FROM utilisateurs ORDER BY date_inscription";
                                             <td><?php echo ($row['role'])?></td>
                                             <td><button class="btn btn-primary" onclick="showModal(<?php echo ($row['id']); ?>)">Voir</button></td>
                                         </tr>
-                                        <?php } ?>
+                                        <?php }}else{
+                                            echo "Aucun utilisateur trouvé";
+                                        } ?>
                                     </tbody>
                                 </table>
                             </div>

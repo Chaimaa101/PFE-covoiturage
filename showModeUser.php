@@ -47,13 +47,13 @@
 } else {
     echo "ID de l'utilisateur non fourni";
 }?>
-    </form>
+   
 </table>
 <div style="height: 15px;"></div>
-<button class="btn btn-primary" data-toggle="modal" data-target="#changeModal" name="supprimer" >Supprimer Utilisateur</button>
-<button class="btn btn-primary" data-toggle="modal" data-target="#changeModal" name="modifier">Modifier les informations</button>
+<button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#changeModal" name="supprimer" >Supprimer Utilisateur</button>
+<button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#changeModal" name="modifier">Modifier les informations</button>
 
-
+ </form>
 <div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -64,7 +64,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <?php if(isset($_POST['supprimer'])){?>
+                <?php if(isset($_POST['submit'])=='supprimer'){?>
                 <div class="modal-body">Vous-voulez vraiment supprimer cet utilisateur?</div>
                 <div class="modal-footer">
                     <form action="" method="POST">
@@ -72,7 +72,7 @@
                         <button class="btn btn-secondary" type="submit" name="delete">Supprimer</button>
                     </form>
                 </div>
-                <?php }else if(isset($_POST['modifier'])){?>
+                <?php }else if(isset($_POST['submit'])=='modifier'){?>
                     <div class="modal-body">Vous-voulez vraiment modifier les informations de <?php echo $row['nom'];?>?</div>
                 <div class="modal-footer">
                     <form action="" method="POST">
@@ -93,10 +93,7 @@ if(isset($_POST['submit'])=='delete'){
 }
 } 
    
-if(isset($_POST['submit'])=='update*
-
-
-'){
+if(isset($_POST['submit'])=='update'){
   if (isset($_GET['id'])) {
      $sql = "UPDATE utilisateurs SET where id = '$userId' ";
      $result = $conn->query($sql);
