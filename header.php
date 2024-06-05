@@ -102,23 +102,7 @@ $user_role = $_SESSION['user_role'];
 
             <hr class="sidebar-divider my-0">
 
-            <!-- Nav Item - Dashboard -->
-
-            <li class="nav-item active">
-
-            <li class="nav-item ">
-                <a class="nav-link" href="trajetschoisi.php">
-                   <i class="fa fa-road"></i>
-                    <span>TRAJETS CHOISIS</span></a>
-            </li>
-
-            <hr class="sidebar-divider my-0">
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item ">
-                <a class="nav-link" href="trajetvalider.php">
-                <i class="fa fa-road"></i>
-                    <span>TRAJETS REALISES</span></a>
-            </li>
+            
             <hr class="sidebar-divider my-0">     
 <?php  }elseif($user_role == 'passager'){ ?>
 <!-- Divider -->
