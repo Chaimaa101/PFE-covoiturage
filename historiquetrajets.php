@@ -20,21 +20,107 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    <style>
+        .star-rating {
+            direction: rtl;
+            display: inline-block;
+            padding: 20px;
+        }
+        .star-rating input {
+            display: none;
+        }
+        .star-rating label {
+            color: #bbb;
+            font-size: 18px;
+            padding: 0;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .star-rating label:before {
+            content: '\2605';
+        }
+        .star-rating input:checked ~ label {
+            color: #f2b600;
+        }
+        .star-rating input:hover ~ label {
+            color: #f2b600;
+        }
+        </style>
 </head>
 
 <?php
         require("header.php");
+
+        
+include 'connection.php';
+$statut = isset($_GET['statut']) ? $_GET['statut'] : '';
+$sql = "
+SELECT
+    Trajets.*,
+    Utilisateurs.nom AS conducteur_nom,
+    Trajets_Conducteurs.valide,
+    Trajets_Conducteurs.choisi,
+    Trajets_Conducteurs.annuler,
+    Trajets_Conducteurs.conducteur_id
+FROM
+    Trajets
+LEFT JOIN
+    Trajets_Conducteurs ON Trajets.id = Trajets_Conducteurs.trajet_id
+LEFT JOIN
+    Utilisateurs ON Trajets_Conducteurs.conducteur_id = Utilisateurs.id
+WHERE
+    Trajets.passager_id = $user_id AND
+    (Trajets.statut = 'proposé'
+        OR (Trajets_Conducteurs.choisi = 1 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 0)
+        OR (Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 1)
+        OR (Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide = 1 AND Trajets_Conducteurs.annuler = 0))
+";
+if ($statut) {
+    if ($statut == 'proposé') {
+        $sql .= " AND Trajets.statut = '$statut'";
+    } elseif ($statut == 'validé') {
+        $sql .= " AND Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide = 1 AND Trajets_Conducteurs.annuler = 0";
+    } elseif ($statut == 'choisi') {
+        $sql .= " AND Trajets_Conducteurs.choisi = 1 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 0";
+    } elseif ($statut == 'annuler') {
+        $sql .= " AND Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 1";
+    } 
+}
+
+
+// Ajouter la clause ORDER BY pour trier les trajets par date de départ en ordre décroissant
+$sql .= " ORDER BY Trajets.date_depart DESC";
+
+$result = $conn->query($sql);
+
 ?>
 
  <!-- Begin Page Content -->
  <div class="container-fluid">
 
+<!-- Page Heading -->
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+             <!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Listes Des Trajets</h1>
+    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+</div>
+</div>
 
 <?php
 
 include 'connection.php';
+
+
+
 // sql to to display students
 $sql = "SELECT * FROM trajets";
+
 
 function getTrajetsUtilises($conn, $id_passager) {
     $sql = "SELECT trajets.*
@@ -68,20 +154,50 @@ $trajetsUtilises = getTrajetsUtilises($conn, $user_id);
                         <th>Depart</th>
                         <th>Destination</th>
                         <th>Date Depart</th>
-                        <th></th>
+                        <th>Conducteur</th>
+                        <th>Évaluer</th>
                         
                        
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($trajetsUtilises as $trajet) { ?>
                     <tr>
-                        <td><?= $trajet['depart'] ?></td>
-                        <td><?php echo ($trajet['destination']) ?></td>
-                        <td><?= $trajet['date_depart'] ?></td>
-                        <td></td>
-                    </tr>
-                  <?php } ?>         
+                <?php
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<td>" . $row['depart'] . "</td>";
+                        echo "<td>" . $row['destination'] . "</td>";
+                        echo "<td>" . $row['date_depart'] . "</td>";
+                        echo "<td>" . $row['conducteur_nom'] . "</td>";
+                        echo "<td>";
+                        if ($row['valide'] == 1 && $row['statut'] == 'validé') {
+                            echo "
+                            <form method='post' action='evaluer_conducteur.php'>
+                                <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
+                                <input type='hidden' name='id_conducteur' value='" . $row['id_conducteur'] . "'>
+                                <div class='star-rating'>
+                                    <input id='star-5-" . $row['id'] . "' type='radio' name='note' value='5'>
+                                    <label for='star-5-" . $row['id'] . "' title='5 stars'>5</label>
+                                    <input id='star-4-" . $row['id'] . "' type='radio' name='note' value='4'>
+                                    <label for='star-4-" . $row['id'] . "' title='4 stars'>4</label>
+                                    <input id='star-3-" . $row['id'] . "' type='radio' name='note' value='3'>
+                                    <label for='star-3-" . $row['id'] . "' title='3 stars'>3</label>
+                                    <input id='star-2-" . $row['id'] . "' type='radio' name='note' value='2'>
+                                    <label for='star-2-" . $row['id'] . "' title='2 stars'>2</label>
+                                    <input id='star-1-" . $row['id'] . "' type='radio' name='note' value='1'>
+                                    <label for='star-1-" . $row['id'] . "' title='1 star'>1</label>
+                                </div>
+                                <button type='submit' class='btn btn-primary'>Évaluer</button>
+                            </form>";
+                        }
+                        echo "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='8'>Aucun trajet trouvé</td></tr>";
+                }
+                ?>
+                     
              
                 </tbody>
             </table>
