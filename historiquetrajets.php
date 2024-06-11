@@ -61,11 +61,15 @@ SELECT
     Trajets_Conducteurs.valide,
     Trajets_Conducteurs.choisi,
     Trajets_Conducteurs.annuler,
-    Trajets_Conducteurs.conducteur_id
+    Trajets_Conducteurs.conducteur_id,
+    Evaluations.note,
+    Evaluations.commentaire
 FROM
     Trajets
 LEFT JOIN
     Trajets_Conducteurs ON Trajets.id = Trajets_Conducteurs.trajet_id
+LEFT JOIN
+    Evaluations ON Trajets.id = Evaluations.id_trajet AND Trajets_Conducteurs.conducteur_id = Evaluations.id_conducteur
 LEFT JOIN
     Utilisateurs ON Trajets_Conducteurs.conducteur_id = Utilisateurs.id
 WHERE
@@ -132,6 +136,7 @@ $result = $conn->query($sql);
                         <th>Destination</th>
                         <th>Date Depart</th>
                         <th>Conducteur</th>
+                        <th>Évaluation</th>
                         <th>Évaluer</th>
                         
                        
@@ -147,11 +152,19 @@ $result = $conn->query($sql);
                         echo "<td>" . $row['date_depart'] . "</td>";
                         echo "<td>" . $row['conducteur_nom'] . "</td>";
                         echo "<td>";
+                        if (isset($row['note'])) {
+                            echo "Note: " . $row['note'] . "/5<br>";
+                            echo "Commentaire: " . $row['commentaire'];
+                        } else {
+                            echo "Pas encore évalué";
+                        }
+                        echo "</td>";
+                        echo "<td>";
                         if ($row['valide'] == 1 && $row['statut'] == 'validé') {
                             echo "
-                            <form method='post' action='evaluer_conducteur.php'>
+                            <form method='post' action='historiquetrajets.php'>
                                 <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
-                                <input type='hidden' name='id_conducteur' value='" . $row['id_conducteur'] . "'>
+                                <input type='hidden' name='id_conducteur' value='" . $row['conducteur_id'] . "'>
                                 <div class='star-rating'>
                                     <input id='star-5-" . $row['id'] . "' type='radio' name='note' value='5'>
                                     <label for='star-5-" . $row['id'] . "' title='5 stars'>5</label>
@@ -164,6 +177,7 @@ $result = $conn->query($sql);
                                     <input id='star-1-" . $row['id'] . "' type='radio' name='note' value='1'>
                                     <label for='star-1-" . $row['id'] . "' title='1 star'>1</label>
                                 </div>
+                                <textarea name='commentaire' placeholder='Commentaire' class='form-control mb-2'></textarea>
                                 <button type='submit' class='btn btn-primary'>Évaluer</button>
                             </form>";
                         }
@@ -181,6 +195,35 @@ $result = $conn->query($sql);
         </div>
     </div>
 </div>
+<?php
+if (isset($_POST['id_trajet'], $_POST['id_conducteur'], $_POST['note'])) {
+    $id_trajet = $conn->real_escape_string($_POST['id_trajet']);
+    $id_conducteur = $conn->real_escape_string($_POST['id_conducteur']);
+    $note = $conn->real_escape_string($_POST['note']);
+    $commentaire = $conn->real_escape_string($_POST['commentaire']);
+// $id_trajet = $_POST['id_trajet'];
+// $id_conducteur = $_POST['id_conducteur'];
+
+// $note = $_POST['note'];
+// $commentaire = isset($_POST['commentaire']) ? $_POST['commentaire'] : '';
+
+$sql = "INSERT INTO Evaluations (id_trajet, id_conducteur, id_passager, note, commentaire) VALUES (?, ?, ?, ?, ?)";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("iiiis", $id_trajet, $id_conducteur, $user_id, $note, $commentaire);
+
+if ($stmt->execute()) {
+    echo "Évaluation enregistrée avec succès.";
+} else {
+    echo "Erreur: " . $stmt->error;
+}
+
+$stmt->close();
+}
+$conn->close();
+
+
+exit();
+?>
 
 </div>
 <!-- /.container-fluid -->
