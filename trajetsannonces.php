@@ -168,7 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($action == 'choisir') {
         $sql = "INSERT INTO Trajets_Conducteurs (trajet_id, conducteur_id, choisi, valide) VALUES ('$id_trajet', '$user_id', TRUE, FALSE)
-        ON DUPLICATE KEY UPDATE choisi=TRUE, valide=FALSE";
+        ON DUPLICATE KEY UPDATE choisi=TRUE, valide=FALSE,annuler=FALSE";
     } elseif ($action == 'annuler') {
         $sql = "UPDATE Trajets_Conducteurs SET choisi=FALSE, valide=FALSE, annuler=TRUE WHERE trajet_id='$id_trajet' AND conducteur_id='$user_id'";
     }

@@ -195,18 +195,19 @@ $result = $conn->query($sql);
     </div>
 </div>
 <?php
+$message = "";
 if (isset($_POST['id_trajet'], $_POST['id_conducteur'], $_POST['note'])) {
     $id_trajet = $conn->real_escape_string($_POST['id_trajet']);
     $id_conducteur = $conn->real_escape_string($_POST['id_conducteur']);
     $note = $conn->real_escape_string($_POST['note']);
     $commentaire = $conn->real_escape_string($_POST['commentaire']);
-    
+
 $sql = "INSERT INTO Evaluations (id_trajet, id_conducteur, id_passager, note, commentaire) VALUES (?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("iiiis", $id_trajet, $id_conducteur, $user_id, $note, $commentaire);
 
 if ($stmt->execute()) {
-    echo "Évaluation enregistrée avec succès.";
+    $message = "Évaluation enregistrée avec succès.";
 } else {
     echo "Erreur: " . $stmt->error;
 }
@@ -222,8 +223,20 @@ exit();
 </div>
 <!-- /.container-fluid -->
 
-    
-
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var message = "<?php echo $message; ?>";
+            if (message !== "") {
+                alert(message);
+            }
+        });
+</script>  
+<!-- Redirection après l'affichage du message -->
+<?php
+    if ($message !== "") {
+        echo '<script>window.location.href = "historiquetrajets.php";</script>';
+    }
+    ?>
 
 </body>
 
