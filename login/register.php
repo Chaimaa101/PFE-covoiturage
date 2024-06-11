@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hasError = true;
     }
 
+    
     // Validate phone
     if (!preg_match("/^\d{10}$/", $telephone)) {
         $phoneError = "Numéro de téléphone invalide";
@@ -66,14 +67,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     .error {
             color: red;
         }
+        body{
+           
+    background: linear-gradient(to right, #9face6, #74ebd5);
+    background-size: cover;
+ 
+        }
+        
 </style>
 <body>
+<div class="container-fluid">
+    <div class="main" >
 
-    <div class="main">
-
-        <section class="signup">
+        <section class="signup" >
            
-            <div class="container">
+            <div class="container" >
                 <div class="signup-content">
                     <form method="POST" id="signup-form" class="signup-form">
                         <h2 class="form-title">Inscription</h2>
@@ -103,6 +111,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="form-group">
                              <input type="date" class="form-input" name="date_naissance" id="date_naissance" placeholder="Date de naissance" required/>
                         </div>
+                        <?php if (isset($_GET['role']) && $_GET['role'] == 'conducteur') {?>
+                        <div class="form-group">
+                             <input type="text" class="form-input" name="voiture" id="voiture" placeholder="voiture" required/>
+                        </div>
+                        <div class="form-group">
+                             <input type="date" class="form-input" name="date_naissance" id="date_naissance" placeholder="Date de naissance" required/>
+                        </div>
+                        <?php }?>
                         <div class="form-group">
                             <input type="submit" name="register" id="submit" class="form-submit" value="S'inscrire"/>
                         </div>
@@ -115,6 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </section>
 
     </div>
+</div>
 
     <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>

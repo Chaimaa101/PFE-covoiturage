@@ -116,7 +116,6 @@ $result = $conn->query($sql);
         <button type="submit" class="btn btn-primary"><i class="fas fa-search fa-sm"></i></button>
     </form>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Listes Des Trajets</h1>
     </div>
 </div>
 
@@ -201,12 +200,7 @@ if (isset($_POST['id_trajet'], $_POST['id_conducteur'], $_POST['note'])) {
     $id_conducteur = $conn->real_escape_string($_POST['id_conducteur']);
     $note = $conn->real_escape_string($_POST['note']);
     $commentaire = $conn->real_escape_string($_POST['commentaire']);
-// $id_trajet = $_POST['id_trajet'];
-// $id_conducteur = $_POST['id_conducteur'];
-
-// $note = $_POST['note'];
-// $commentaire = isset($_POST['commentaire']) ? $_POST['commentaire'] : '';
-
+    
 $sql = "INSERT INTO Evaluations (id_trajet, id_conducteur, id_passager, note, commentaire) VALUES (?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("iiiis", $id_trajet, $id_conducteur, $user_id, $note, $commentaire);

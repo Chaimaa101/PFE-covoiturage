@@ -1,20 +1,14 @@
 <?php
-session_start();
-
-if($_SERVER["REQUEST_METHOD"] == "POST") {
-    $role = $_GET['role'];
-    $email = $_POST['email'];
-    $mot_de_passe = $_POST['mot_de_passe'];
-
 
 require_once '../connection.php';
+session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $mot_de_passe = $_POST['mot_de_passe'];
-
-
+    
     $sql = "SELECT * FROM utilisateurs WHERE email='$email'";
+    
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {
@@ -24,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_role'] = $user['role'];
             $_SESSION['nom'] = $user['nom'];
             $_SESSION['prenom'] = $user['prenom'];
-               if ($remember_me) {
+            if ($remember_me) {
                 setcookie('user_id', $user['id'], time() + (86400 * 30), "/"); // 86400 = 1 day
                 setcookie('user_role', $user['role'], time() + (86400 * 30), "/");
                 setcookie('user_nom', $user['nom'], time() + (86400 * 30), "/");
@@ -47,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Utilisateur non trouvé.";
     }
 }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,6 +59,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Main css -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+         body{
+           
+    background: linear-gradient(to right, #9face6, #74ebd5);
+    background-size: cover;
+ 
+        }
+        
+    </style>
 </head>
 <body>
     

@@ -181,7 +181,7 @@ body {
   -ms-transform: translate(-50%, -50%); }
 
 .signup-content {
-  background: #fff;
+  background: transparent;
   border-radius: 10px;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
