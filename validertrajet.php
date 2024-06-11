@@ -31,7 +31,7 @@ $sql = "SELECT t.*, tc.choisi, tc.valide, tc.annuler, u.nom AS conducteur_nom , 
             FROM trajets t 
             JOIN trajets_conducteurs tc ON  t.id = tc.trajet_id
             JOIN utilisateurs u ON tc.conducteur_id = u.id
-            WHERE t.passager_id = $user_id AND tc.choisi = TRUE AND tc.valide = FALSE AND tc.annuler = FALSE";
+            WHERE t.passager_id = $user_id AND tc.choisi = TRUE AND tc.valide = FALSE AND tc.annuler = FALSE AND t.statut != 'validé' ";
         $sql .= " ORDER BY t.date_depart DESC";
     $result = $conn->query($sql);
 
