@@ -19,63 +19,25 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="acc.css" rel="stylesheet">
-    
-
-    </head>
+    <link href="css/acc.css" rel="stylesheet">
+   
+    </head> 
+<body>
     <?php
         require("headerAcceuil.php");
 ?>
-       
-    <body>
-<div class="container-fluid">
-                <!-- Begin Page Content -->
+    <div class="container">
+        <div class="image">
+            <img src="img/driving3.jpg" alt="Carpooling">
+        </div>
+        <div class="text">
+            <h1>Bienvenue au Covoiturage</h1>
+            <p>Rejoignez notre communauté pour partager des trajets, économiser de l'argent et aider l'environnement. Le covoiturage permet de trouver facilement des personnes se dirigeant dans la même direction.</p>
+            <a href="login/login.php" class="button">Rejoindre</a>
+        </div>
+    </div>
+  
 
-                <div class="home">
-                
-             
-
-                <div  class="container-fluid">
-                
- 
-                    
- 
-                    
-                <h1>Bienvenue  </h1> 
-                <h2> le Covoiturage <br>
-                <span> à la portée </span> <br> de tous... </h2>
-
-</div>
-
-
-
-<div class="home-img">
-<div class="rhombus">
-    <img src="shor.png" alt="">
-</div>
-</div>
-
-
-</div>
-</div>
-</div>
-  <?php
-        require("footer.php");
-?>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 </body>
 </html>
         

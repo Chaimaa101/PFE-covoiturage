@@ -33,8 +33,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     <title>Ajouter trajets</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <style>
         #map {
@@ -84,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
         </div>
 
     </div> <div style="height: 10px;"></div>
-        <input type="button" value="Chercher" onclick="geocodeAddresses()" data-toggle="modal" data-target="#trajetModal">                              
+        <input type="button" value="Chercher" class="btn btn-primary" onclick="geocodeAddresses()" data-toggle="modal" data-target="#trajetModal">                              
   </div>
   <div class="modal fade" id="trajetModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -105,7 +106,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                                     <label for="cost" class="form-label">Coût en (Dh)</label>
                                     <input type="text" class="form-control" id="cost" name="cost" readonly/>
                                 </div>
-                                <input type="submit" name="submit" value="Ajouter trajet">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-primary" name="submit" value="Ajouter trajet">
 
 </form>   
                         </div>
@@ -117,10 +119,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
 </div>
  
     </div>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+    <script src="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="js/map.js"></script>
 </body>
 </html>
+

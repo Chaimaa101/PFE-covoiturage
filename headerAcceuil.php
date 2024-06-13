@@ -49,7 +49,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item ">
-                <a class="nav-link" href="#statistics">
+                <a class="nav-link" href="about.php">
                     <i class="fa fa-info"></i>
                     <span>A PROPOS NOUS</span></a>
             </li>
@@ -67,7 +67,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item ">
-                <a class="nav-link" href="contact.php">
+                <a class="nav-link" href="contact/index.php">
                     <i class="fas fa-envelope"></i>
                     <span>CONTACT</span></a>
                 
@@ -108,7 +108,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Se connecter
                             </a>
@@ -149,6 +149,8 @@
                     </ul>
 
                 </nav>
+   
+                      <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

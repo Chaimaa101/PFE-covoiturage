@@ -1,10 +1,11 @@
  // Initialize the map
-        var map = L.map('map').setView([31.794525 ,-7.0849336],6); // Centered on London
-
+        var map = L.map('map').setView([ 33.589886, -7.603869],12); 
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
+
+        
 
         var geocoder = L.Control.Geocoder.nominatim();
         var startPoint, endPoint;
@@ -22,6 +23,35 @@
             },
             show: false
         }).addTo(map);
+         // Add locate control
+        var locateControl = L.control.locate({
+            setView: true,
+            keepCurrentZoomLevel: true,
+            locateOptions: {
+                maxZoom: 16,
+                watch: true,
+                setView: true
+            }
+        }).addTo(map);
+
+        // Event listener for location found
+        map.on('locationfound', function(e) {
+            var latlng = e.latlng;
+            geocoder.reverse(latlng, map.options.crs.scale(map.getZoom()), function(results) {
+                var result = results[0];
+                if (result) {
+                    startPoint = latlng;
+                    routingControl.spliceWaypoints(0, 1, startPoint);
+                    if (startMarker) {
+                        map.removeLayer(startMarker);
+                    }
+                    startMarker = L.marker(startPoint).addTo(map).bindPopup(result.name).openPopup();
+                    document.getElementById("startAddress").value = result.name;
+                }
+            });
+        });
+
+       
 
         // Add geocoding control
         L.Control.geocoder({
@@ -168,4 +198,5 @@
                 .setContent("Direct Distance: " + distance.toFixed(2) + " km")
                 .openOn(map);
         }
+        
 map.on('click', onMapClick);

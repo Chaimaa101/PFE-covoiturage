@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet Map with Geocoding and Routing</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <style>
+        #map {
+            height: 80vh;
+        }
+        #controls {
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <form id="routeForm">
+            <label for="startAddress">Start Address:</label>
+            <input id="startAddress" type="text" placeholder="Enter start address" />
+            <br>
+            <label for="endAddress">End Address:</label>
+            <input id="endAddress" type="text" placeholder="Enter end address" />
+            <br>
+            <button type="button" onclick="geocodeAddresses()">Find Route</button>
+            <br/>
+            <label for="distance">Distance (km):</label>
+            <input type="text" id="distance" name="distance" readonly />
+            <br/>
+            <label for="cost">Cost ($):</label>
+            <input type="text" id="cost" name="cost" readonly />
+        </form>
+    </div>
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+    <script src="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([33.589886, -7.603869], 12); // Centered on Casablanca
+
+        // Add OpenStreetMap tiles
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var geocoder = L.Control.Geocoder.nominatim();
+        var startPoint, endPoint;
+        var startMarker, endMarker;
+        var prixKilometer = 1; // Default price per kilometer, you can configure it through config.json
+
+        // Routing control
+        var routingControl = L.Routing.control({
+            waypoints: [],
+            routeWhileDragging: true,
+            geocoder: geocoder,
+            createMarker: function(i, waypoint, n) {
+                var marker = L.marker(waypoint.latLng, {
+                    draggable: true
+                }).bindPopup(i === 0 ? "Start Point" : "End Point");
+                return marker;
+            },
+            show: false
+        }).addTo(map);
+
+        // Geocoding control
+        L.Control.geocoder({
+            defaultMarkGeocode: false
+        }).on('markgeocode', function(e) {
+            var latlng = e.geocode.center;
+            if (!startPoint) {
+                startPoint = latlng;
+                routingControl.spliceWaypoints(0, 1, startPoint);
+                startMarker = L.marker(startPoint).addTo(map).bindPopup(e.geocode.name).openPopup();
+            } else if (!endPoint) {
+                endPoint = latlng;
+                routingControl.spliceWaypoints(routingControl.getWaypoints().length - 1, 1, endPoint);
+                endMarker = L.marker(endPoint).addTo(map).bindPopup(e.geocode.name).openPopup();
+                calculateDistance(); // Calculate distance once both points are set
+            } else {
+                // Reset start and end points
+                startPoint = latlng;
+                endPoint = null;
+                routingControl.setWaypoints([startPoint]);
+                if (startMarker) {
+                    map.removeLayer(startMarker);
+                }
+                startMarker = L.marker(startPoint).addTo(map).bindPopup(e.geocode.name).openPopup();
+                if (endMarker) {
+                    map.removeLayer(endMarker);
+                }
+                map.eachLayer(function(layer) {
+                    if (layer instanceof L.Marker && !layer.options.icon.options.className.includes('leaflet-marker-icon leaflet-zoom-animated leaflet-interactive')) {
+                        map.removeLayer(layer);
+                    }
+                });
+            }
+        }).addTo(map);
+
+        // Add locate control
+        var locateControl = L.control.locate({
+            setView: true,
+            keepCurrentZoomLevel: true,
+            locateOptions: {
+                maxZoom: 16,
+                watch: true,
+                setView: true
+            }
+        }).addTo(map);
+
+        // Event listener for location found
+        map.on('locationfound', function(e) {
+            var latlng = e.latlng;
+            geocoder.reverse(latlng, map.options.crs.scale(map.getZoom()), function(results) {
+                var result = results[0];
+                if (result) {
+                    startPoint = latlng;
+                    routingControl.spliceWaypoints(0, 1, startPoint);
+                    if (startMarker) {
+                        map.removeLayer(startMarker);
+                    }
+                    startMarker = L.marker(startPoint).addTo(map).bindPopup(result.name).openPopup();
+                    document.getElementById("startAddress").value = result.name;
+                }
+            });
+        });
+
+        function onMapClick(e) {
+            var latlng = e.latlng;
+            geocoder.reverse(latlng, map.options.crs.scale(map.getZoom()), function(results) {
+                var result = results[0];
+                if (result) {
+                    if (!startPoint) {
+                        startPoint = latlng;
+                        routingControl.spliceWaypoints(0, 1, startPoint);
+                        startMarker = L.marker(startPoint).addTo(map);
+                        document.getElementById("startAddress").value = result.name;
+                    } else if (!endPoint) {
+                        endPoint = latlng;
+                        routingControl.spliceWaypoints(routingControl.getWaypoints().length - 1, 1, endPoint);
+                        endMarker = L.marker(endPoint).addTo(map);
+                        document.getElementById("endAddress").value = result.name;
+                        calculateDistance(); // Calculate distance once both points are set
+                    } else {
+                        // Reset start and end points
+                        startPoint = latlng;
+                        endPoint = null;
+                        routingControl.setWaypoints([startPoint]);
+                        if (startMarker) {
+                            map.removeLayer(startMarker);
+                        }
+                        startMarker = L.marker(startPoint).addTo(map).bindPopup(result.name).openPopup();
+                        if (endMarker) {
+                            map.removeLayer(endMarker);
+                        }
+                        map.eachLayer(function(layer) {
+                            if (layer instanceof L.Marker && !layer.options.icon.options.className.includes('leaflet-marker-icon leaflet-zoom-animated leaflet-interactive')) {
+                                map.removeLayer(layer);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        // Function to geocode addresses and update the map
+        function geocodeAddresses() {
+            var startAddress = document.getElementById("startAddress").value;
+            var endAddress = document.getElementById("endAddress").value;
+
+            if (startAddress) {
+                geocoder.geocode(startAddress, function(results) {
+                    if (results && results.length > 0) {
+                        var result = results[0];
+                        startPoint = result.center;
+                        routingControl.spliceWaypoints(0, 1, startPoint);
+                        if (startMarker) {
+                            map.removeLayer(startMarker);
+                        }
+                        startMarker = L.marker(startPoint).addTo(map).bindPopup(result.name).openPopup();
+                        checkRoute();
+                    } else {
+                        alert("Start address not found");
+                    }
+                });
+            }
+
+            if (endAddress) {
+                geocoder.geocode(endAddress, function(results) {
+                    if (results && results.length > 0) {
+                        var result = results[0];
+                        endPoint = result.center;
+                        routingControl.spliceWaypoints(routingControl.getWaypoints().length - 1, 1, endPoint);
+                        if (endMarker) {
+                            map.removeLayer(endMarker);
+                        }
+                        endMarker = L.marker(endPoint).addTo(map).bindPopup(result.name).openPopup();
+                        checkRoute();
+                    } else {
+                        alert("End address not found");
+                    }
+                });
+            }
+        }
+
+        // Check if both points are set and calculate distance
+        function checkRoute() {
+            if (startPoint && endPoint) {
+                calculateDistance();
+            }
+        }
+
+        // Fetch configuration for price per kilometer
+        fetch('config.json')
+            .then(response => response.json())
+            .then(data => {
+                prixKilometer = data.prixKilometer;
+            })
+            .catch(error => console.error('Error loading configuration:', error));
+
+        function calculateDistance() {
+            var from = turf.point([startPoint.lng, startPoint.lat]);
+            var to = turf.point([endPoint.lng, endPoint.lat]);
+            var options = {units: 'kilometers'};
+
+            var distance = turf.distance(from, to, options);
+            var cost = distance * prixKilometer;
+            document.getElementById("distance").value = distance.toFixed(2) + " km";
+            document.getElementById("cost").value = cost.toFixed(2);
+
+            // Optionally, you can display the distance on the map as a popup
+            var midpoint = L.latLng(
+                (startPoint.lat + endPoint.lat) / 2,
+                (startPoint.lng + endPoint.lng) / 2
+            );
+            L.popup()
+                .setLatLng(midpoint)
+                .setContent("Direct Distance: " + distance.toFixed(2) + " km")
+                .openOn(map);
+        }
+
+        map.on('click', onMapClick);
+    </script>
+</body>
+</html>

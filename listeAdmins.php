@@ -66,11 +66,15 @@ $sql = "SELECT * FROM utilisateurs WHERE role = 'administrateur' ORDER BY date_i
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
+                            
                         </div>
                         </div>
+                        <div style="height: 10px;"></div>
+                         <a href="ajouterUser" class="btn btn-primary">Ajouter un admin</a>
                     </form> 
+                
                     <div style="height: 10PX;"></div>
-
+                            
                             <div class="table-responsive">
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
@@ -103,6 +107,7 @@ $sql = "SELECT * FROM utilisateurs WHERE role = 'administrateur' ORDER BY date_i
                             </div>
                         </div>
                     </div>
+                    
 <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">

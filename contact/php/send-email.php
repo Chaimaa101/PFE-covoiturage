@@ -19,20 +19,20 @@ if($_POST) {
    $contact_message = trim(stripslashes($_POST['message']));
 
    
-	if ($subject == '') { $subject = "Contact Form Submission"; }
+	if ($subject == '') { $subject = "Soumission du Formulaire de Contact"; }
 
    // Set Message
-   $message .= "Email from: " . $name . "<br />";
-	 $message .= "Email address: " . $email . "<br />";
+   $message .= "E-mail de: " . $name . "<br />";
+	 $message .= "Adresse e-mail: " . $email . "<br />";
    $message .= "Message: <br />";
    $message .= nl2br($contact_message);
-   $message .= "<br /> ----- <br /> This email was sent from your site " . url() . " contact form. <br />";
+   $message .= "<br /> ----- <br /> Cet e-mail a été envoyé depuis votre site " . url() . " contact form. <br />";
 
    // Set From: header
    $from =  $name . " <" . $email . ">";
 
    // Email Headers
-	$headers = "From: " . $from . "\r\n";
+	$headers = "De: " . $from . "\r\n";
 	$headers .= "Reply-To: ". $email . "\r\n";
  	$headers .= "MIME-Version: 1.0\r\n";
 	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
@@ -41,7 +41,7 @@ if($_POST) {
    $mail = mail($to, $subject, $message, $headers);
 
 	if ($mail) { echo "OK"; }
-   else { echo "Something went wrong. Please try again."; }
+   else { echo "Quelque chose s'est mal passé. Veuillez réessayer."; }
 
 }
 
