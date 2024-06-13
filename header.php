@@ -108,6 +108,13 @@ $user_role = $_SESSION['user_role'];
             </li>
 
             <hr class="sidebar-divider my-0">
+            <li class="nav-item ">
+                <a class="nav-link" href="evaluations_conducteur.php">
+                   <i class="fa fa-road"></i>
+                    <span>Evaluations des Passagers</span></a>
+            </li>
+
+            <hr class="sidebar-divider my-0">
 
             
             <hr class="sidebar-divider my-0">     

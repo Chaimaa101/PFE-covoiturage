@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     $distance = $_POST['distance'];
     $passager_id = $user_id;
     $statut = 'proposé';
-    $prix =$_POST['prix']
+    $prix =$_POST['prix'];
 
      $stmt = $conn->prepare("INSERT INTO trajets (depart, destination, date_depart,date_arrivee,distance, statut, passager_id,ptix) VALUES (?, ?, ?, ?,?, ?, ?,?)");
        $stmt->bind_param("ssssssss",$depart, $destination, $date_depart,$date_arrivee,$distance,$statut,$passager_id,$prix);
