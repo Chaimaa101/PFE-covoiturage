@@ -139,7 +139,7 @@
                                     <i class="fas fa-parson-seat fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Conducteur
                                 </a>
-                                <a class="dropdown-item" href="login/register.php" >
+                                <a class="dropdown-item" href="login/register.php?role=passager" >
                                     <i class="fas fa-person-seat fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Passager
                                 </a>

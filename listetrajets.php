@@ -10,7 +10,7 @@ $search = $conn->real_escape_string($search);
 
 $sql = "SELECT * FROM trajets WHERE $attribut LIKE '%$search%'";
 }else{
-$sql = "SELECT * FROM trajets";
+$sql = "SELECT * FROM trajets ";
 
 }$result = $conn->query($sql);
 
@@ -81,7 +81,7 @@ $sql = "SELECT * FROM trajets";
                                     <thead>
                                         <tr>
                                             <th>id trajet</th>
-                                            <th>id passager</th>
+                                            <th>nom passager</th>
                                             <th>Depart</th>
                                             <th>Destination</th>
                                             <th>Date de depart</th>

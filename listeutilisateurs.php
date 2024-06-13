@@ -69,7 +69,7 @@ $sql = "SELECT * FROM utilisateurs ORDER BY date_inscription";
                         </div>
                         </div>
                          <div style="height: 10px;"></div>
-                         <a href="ajouterUser" class="btn btn-primary">Ajouter un admin</a>
+                    
                     </form> 
                     <div style="height: 10PX;"></div>
 

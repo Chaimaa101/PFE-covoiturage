@@ -6,10 +6,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $prenom = $_POST['prenom'];
     $email = $_POST['email'];
     $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_BCRYPT);
-    $role = 'passager';
+    
     $telephone = $_POST['tel'];
     $adresse = $_POST['adress'];
     $date_naissance = $_POST['date_naissance'];
+   
       $hasError = false;
     // Validate email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -31,14 +32,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!$hasError) {
         // Hash the password
         $hashed_password = password_hash($mot_de_passe, PASSWORD_DEFAULT);
-
-    $stmt = $conn->prepare(" INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance) VALUES (?, ?, ?, ?,?, ?, ?, ?)");
+        if (isset($_GET['role']) && $_GET['role'] == 'passager') {
+            $role = $_GET['role'];
+        $stmt = $conn->prepare(" INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance) VALUES (?, ?, ?, ?,?, ?, ?, ?)");
     if ($stmt === false) {
         die("Erreur de préparation de la requête: " . $conn->error);
     }
+    $stmt->bind_param("ssssssss",$nom, $prenom, $email, $mot_de_passe, $role, $telephone, $adresse, $date_naissance);
+}}elseif(isset($_GET['role']) && $_GET['role'] == 'conducteur') {
+     if (isset($_POST['voiture'])){
+         $voiture = $_POST['voiture'];
+ $stmt = $conn->prepare(" INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance,voiture) VALUES (?, ?, ?, ?,?, ?, ?, ?,?)");
+if ($stmt === false) {
+        die("Erreur de préparation de la requête: " . $conn->error);
+    }}
 
     // Lie les paramètres
-    $stmt->bind_param("ssssssss",$nom, $prenom, $email, $mot_de_passe, $role, $telephone, $adresse, $date_naissance);
+    $stmt->bind_param("sssssssss",$nom, $prenom, $email, $mot_de_passe, $role, $telephone, $adresse, $date_naissance,$voiture);
 }
     if ($stmt->execute()) {
     header('Location: login.php?success=1');

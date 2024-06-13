@@ -70,7 +70,7 @@ $sql = "SELECT * FROM utilisateurs WHERE role = 'administrateur' ORDER BY date_i
                         </div>
                         </div>
                         <div style="height: 10px;"></div>
-                         <a href="ajouterUser" class="btn btn-primary">Ajouter un admin</a>
+                         <a href="ajouterUser.php" class="btn btn-primary">Ajouter un admin</a>
                     </form> 
                 
                     <div style="height: 10PX;"></div>
