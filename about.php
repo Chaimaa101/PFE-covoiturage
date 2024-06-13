@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="abb.css" rel="stylesheet">
+    <link href="css/abb.css" rel="stylesheet">
     
 
 </head>
@@ -45,7 +45,7 @@
                      de tous les jours . davantage de covoiturage et moins de transport individuel</p>
 </div>
 <div class="hero-image">
-    <img src="joj.jpg" >
+    <img src="img/joj.jpg" >
 </div>
 </div>
 

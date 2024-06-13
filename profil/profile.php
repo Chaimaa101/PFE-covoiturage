@@ -3,7 +3,7 @@ include '../connection.php';
 if(isset($_GET['id']) ){
 $id = $_GET['id'];
 
-$sql = "SELECT * FROM utilisateurs WHERE id= $idL";
+$sql = "SELECT * FROM utilisateurs WHERE id= $id";
 }
 
 ?>
