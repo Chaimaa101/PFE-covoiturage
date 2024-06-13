@@ -21,10 +21,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     }
 
     if ($stmt->execute()) {
-    echo "<p style='color:green;'>Trajet a été ajouté avec succès.</p>";
+        $_SESSION['alert'] = "Trajet ajouté avec succès.";
+    //echo "<p style='color:green;'>Trajet a été ajouté avec succès.</p>";
     } else {
         echo "Erreur: " . $stmt->error;
-    }  
+    } 
+    // if ($conn->query($sql) === TRUE) {
+    //     $_SESSION['alert'] = "Trajet ajouté avec succès.";
+    // } else {
+    //     $_SESSION['alert'] = "Erreur: " . $conn->error;
+    // } 
 
 }
 ?>
