@@ -11,9 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     $distance = $_POST['distance'];
     $passager_id = $user_id;
     $statut = 'proposé';
+    $prix =$_POST['prix']
 
-     $stmt = $conn->prepare("INSERT INTO trajets (depart, destination, date_depart,date_arrivee,distance, statut, passager_id) VALUES (?, ?, ?, ?,?, ?, ?)");
-       $stmt->bind_param("sssssss",$depart, $destination, $date_depart,$date_arrivee,$distance,$statut,$passager_id);
+     $stmt = $conn->prepare("INSERT INTO trajets (depart, destination, date_depart,date_arrivee,distance, statut, passager_id,ptix) VALUES (?, ?, ?, ?,?, ?, ?,?)");
+       $stmt->bind_param("ssssssss",$depart, $destination, $date_depart,$date_arrivee,$distance,$statut,$passager_id,$prix);
      if ($stmt === false) {
         die("Erreur de préparation de la requête: " . $conn->error);
     }
@@ -104,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                                 </div>
                                 <div class="mb-3">
                                     <label for="cost" class="form-label">Coût en (Dh)</label>
-                                    <input type="text" class="form-control" id="cost" name="cost" readonly/>
+                                    <input type="text" class="form-control" id="cost" name="prix" readonly/>
                                 </div>
                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                                 <input type="submit" class="btn btn-primary" name="submit" value="Ajouter trajet">
