@@ -183,7 +183,7 @@ $conducteur_id = $_POST['id_conducteur'];
 
 if ($action == 'valider') {
     // Mettre à jour la table Trajets_Conducteurs
-    $sql = "UPDATE Trajets_Conducteurs SET valide = 1 , choisi = 0, annuler = 0 WHERE trajet_id = $id_trajet AND conducteur_id = $conducteur_id";
+    $sql = "UPDATE Trajets_Conducteurs SET choisi = 0, valide = 1 ,  annuler = 0 WHERE trajet_id = $id_trajet AND conducteur_id = $conducteur_id";
     $conn->query($sql);
 
     // Mettre à jour la table Trajets
@@ -191,7 +191,7 @@ if ($action == 'valider') {
     $conn->query($sql);
 } elseif ($action == 'rejeter') {
     // Mettre à jour la table Trajets_Conducteurs
-    $sql = "UPDATE Trajets_Conducteurs SET valide = 0 , choisi = 0 , annuler = 1 WHERE trajet_id = $id_trajet AND conducteur_id = $conducteur_id";
+    $sql = "UPDATE Trajets_Conducteurs SET choisi = 0 ,valide = 0 , annuler = 1 WHERE trajet_id = $id_trajet AND conducteur_id = $conducteur_id";
     $conn->query($sql);
 
 }
