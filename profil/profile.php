@@ -1,4 +1,12 @@
+<?php
+include '../connection.php';
+if(isset($_GET['id']) ){
+$id = $_GET['id'];
 
+$sql = "SELECT * FROM utilisateurs WHERE id= $idL";
+}
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +35,8 @@
 						
 				</div>
 			</div>
+			<?php if($result = $conn->query($sql)){
+            while($row = mysqli_fetch_assoc($result)) { ?>
 			<div class="col-8">
 				<div class="h2">Profile de l'utilisateur</div>
 				<table class="table table-striped">
@@ -36,8 +46,18 @@
 					<tr><th><i class="bi bi-person-square"></i> NOM </td></tr>
 					<tr><th><i class="bi bi-calendar-date"></i> DATE DE NAISSANCE </td></tr>
                     <tr><th><i class="bi bi-geo-alt-fill"></i> ADRESSE </td></tr>
-                    
+                    <tr>
+					<td><?php echo ($row['nom'])." ".($row['prenom'])?></td>
+                                            <td><?php echo ($row['email'])?></td>
+                                            <td><?php echo ($row['telephone'])?></td>
+                                            <td><?php echo ($row['adresse'])?></td>
+                                            <td><?php echo ($row['date_naissance'])?></td>
+                                            
+					</tr>
 				</table>
+				<?php }}else{
+                                            echo "Aucun utilisateur trouvé";
+                                        } ?>
 			</div>
 		</div>
 	
