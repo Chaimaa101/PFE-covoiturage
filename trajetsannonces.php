@@ -30,7 +30,7 @@ $point_depart = isset($_GET['point_depart']) ? $_GET['point_depart'] : '';
 $point_arrivee = isset($_GET['point_arrivee']) ? $_GET['point_arrivee'] : '';
 $statut = isset($_GET['statut']) ? $_GET['statut'] : '';
 
-$sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.choisi, Trajets_Conducteurs.valide
+$sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.choisi, Trajets_Conducteurs.valide , Trajets_Conducteurs.annuler
         FROM Trajets
         LEFT JOIN Trajets_Conducteurs ON Trajets.id = Trajets_Conducteurs.trajet_id AND Trajets_Conducteurs.conducteur_id = $user_id
         WHERE
@@ -107,7 +107,6 @@ $result = $conn->query($sql);
                         <th>Destination</th>
                         <th>Date Depart</th>
                         <th>Choisir</th>
-                        <th>Annuler</th>
                        
                     </tr>
                 </thead>
@@ -119,26 +118,20 @@ $result = $conn->query($sql);
                         <td><?php echo ($row['date_depart']) ?></td>
                         <td>
                            <?php 
-                           if ($row['choisi'] == 1) {
-                            echo "Choisi";
-                        } else {
+                           if ($row['choisi'] == 0 AND $row['valide'] == 0 AND $row['annuler'] == 0) {
                             echo "<form method='post' action='trajetsannonces.php'>
                                 <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
                                 <input type='hidden' name='action' value='choisir'>
                                 <input type='submit' value='Choisir'>
                             </form>";
                         }
-                        echo "</td>";
-                        echo "<td>";
                         if ($row['choisi'] == 1) {
                             echo "<form method='post' action='trajetsannonces.php'>
                                 <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
                                 <input type='hidden' name='action' value='annuler'>
                                 <input type='submit' value='Annuler'>
                             </form>";
-                        } else {
-                            echo "Non choisi";
-                        }
+                        } 
                            ?> 
                            
                         </td>
