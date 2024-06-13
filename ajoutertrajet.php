@@ -4,7 +4,7 @@ require('connection.php');
  require("header.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     if(isset($_POST['depart'])&& isset($_POST['destination'])){
-        $depart = $_POST['depart'];
+    $depart = $_POST['depart'];
     $destination = $_POST['destination'];
     $date_depart = $_POST['date_depart'];
     $date_arrivee = $_POST['date_arrivee'];
@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     $statut = 'proposé';
     $prix =$_POST['prix'];
 
-     $stmt = $conn->prepare("INSERT INTO trajets (depart, destination, date_depart,date_arrivee,distance, statut, passager_id,ptix) VALUES (?, ?, ?, ?,?, ?, ?,?)");
+     $stmt = $conn->prepare("INSERT INTO trajets (depart, destination, date_depart,date_arrivee,distance, statut, passager_id,prix) VALUES (?, ?, ?, ?,?, ?, ?,?)");
        $stmt->bind_param("ssssssss",$depart, $destination, $date_depart,$date_arrivee,$distance,$statut,$passager_id,$prix);
      if ($stmt === false) {
         die("Erreur de préparation de la requête: " . $conn->error);

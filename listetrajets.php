@@ -103,8 +103,8 @@ $sql = "SELECT * FROM trajets ";
                                     <td><?php echo ($row['date_arrivee'])?></td>
                                     <td><?php echo ($row['statut'])?></td>
                                     <td><?php echo ($row['distance'])?></td>
-                                    <td><?php echo ($row[' '])?></td>
-                                    <td><?php echo ($row[' '])?></td>
+                                    <td><?php echo ($row['date_depart'])->diff($row['date_arrivee'])->days;?></td>
+                                    <td><?php echo ($row['prix'])?></td>
                                     <td><button class="btn btn-primary" onclick="showModal(<?php echo ($row['id']); ?>)">Voir</button></td>
                                         </tr>
                                         <?php } ?>
