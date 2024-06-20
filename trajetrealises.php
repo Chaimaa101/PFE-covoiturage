@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>TRAJETS ANNONCES</title>
+    <title>TRAJETS REALISES</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -29,13 +29,11 @@ require("header.php");
 $point_depart = isset($_GET['point_depart']) ? $_GET['point_depart'] : '';
 $point_arrivee = isset($_GET['point_arrivee']) ? $_GET['point_arrivee'] : '';
 
-$sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.choisi , Trajets_Conducteurs.annuler , Trajets_Conducteurs.valide
+$sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.valide
         FROM Trajets
-        LEFT JOIN Trajets_Conducteurs ON Trajets.id = Trajets_Conducteurs.trajet_id AND Trajets_Conducteurs.conducteur_id = $user_id
+        LEFT JOIN Trajets_Conducteurs ON Trajets.id = Trajets_Conducteurs.trajet_id
         WHERE
-        (Trajets.statut = 'proposé' OR
-        (Trajets_Conducteurs.choisi = 1 AND Trajets_Conducteurs.valide=0 AND Trajets_Conducteurs.annuler = 0) OR
-        (Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide=0 AND Trajets_Conducteurs.annuler = 0))";
+        (Trajets.statut = 'validé' AND Trajets_Conducteurs.conducteur_id = $user_id AND Trajets_Conducteurs.valide = 1)";
         
         if ($point_depart) {
             $sql .= " AND Trajets.depart LIKE '%$point_depart%'";
@@ -57,7 +55,7 @@ $result = $conn->query($sql);
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"></h1>
-    <form method="get" action="trajetsannonces.php" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0">
+    <form method="get" action="trajetsrealises.php" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0">
             <input type="text" class="form-control bg-light border-1" id="point_depart" placeholder="Départ" name="point_depart" value="<?php echo htmlspecialchars($point_depart); ?>">
             <input type="text" class="form-control bg-light border-1" id="point_arrivee" placeholder="Arrivée" name="point_arrivee" value="<?php echo htmlspecialchars($point_arrivee); ?>">
 
@@ -73,7 +71,7 @@ $result = $conn->query($sql);
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Les Trajets Annonces</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Les Trajets Réalisés</h6>
     </div>
     <div class="card-body">
         
@@ -85,7 +83,6 @@ $result = $conn->query($sql);
                         <th>Depart</th>
                         <th>Destination</th>
                         <th>Date Depart</th>
-                        <th>Choisir</th>
                        
                     </tr>
                 </thead>
@@ -95,25 +92,6 @@ $result = $conn->query($sql);
                         <td><?php echo ($row['depart']) ?></td>
                         <td><?php echo ($row['destination']) ?></td>
                         <td><?php echo ($row['date_depart']) ?></td>
-                        <td>
-                           <?php 
-                           if ($row['choisi'] == 0 AND $row['valide'] == 0 AND $row['annuler'] == 0) {
-                            echo "<form method='post' action='trajetsannonces.php'>
-                                <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
-                                <input type='hidden' name='action' value='choisir'>
-                                <input type='submit' value='Choisir'>
-                            </form>";
-                        }
-                        if ($row['choisi'] == 1) {
-                            echo "<form method='post' action='trajetsannonces.php'>
-                                <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
-                                <input type='hidden' name='action' value='annuler'>
-                                <input type='submit' value='Annuler'>
-                            </form>";
-                        } 
-                           ?> 
-                           
-                        </td>
                     </tr>
                   <?php 
                
@@ -129,33 +107,6 @@ $result = $conn->query($sql);
 
 </div>
 <!-- /.container-fluid -->
-
-<?php
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id_trajet = $_POST['id_trajet'];
-    $action = $_POST['action'];
-
-
-    if ($action == 'choisir') {
-        $sql = "INSERT INTO Trajets_Conducteurs (trajet_id, conducteur_id, choisi, valide) VALUES ('$id_trajet', '$user_id', TRUE, FALSE)
-        ON DUPLICATE KEY UPDATE choisi=TRUE, valide=FALSE,annuler=FALSE";
-    } elseif ($action == 'annuler') {
-        $sql = "UPDATE Trajets_Conducteurs SET choisi=FALSE, valide=FALSE, annuler=TRUE WHERE trajet_id='$id_trajet' AND conducteur_id='$user_id'";
-    }
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Action réussie";
-    } else {
-        echo "Erreur: " . $sql . "<br>" . $conn->error;
-    }
-
-    $conn->close();
-    exit();
-}
-?>
-
 
 </body>
 

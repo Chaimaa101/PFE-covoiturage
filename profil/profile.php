@@ -1,11 +1,11 @@
 <?php
-include '../connection.php';
+require_once '../connection.php';
 if(isset($_GET['id']) ){
 $id = $_GET['id'];
 
 $sql = "SELECT * FROM utilisateurs WHERE id= $id";
 }
-
+$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,7 +35,7 @@ $sql = "SELECT * FROM utilisateurs WHERE id= $id";
 						
 				</div>
 			</div>
-			<?php if($result = $conn->query($sql)){
+			<?php 
             while($row = mysqli_fetch_assoc($result)) { ?>
 			<div class="col-8">
 				<div class="h2">Profile de l'utilisateur</div>
@@ -55,9 +55,9 @@ $sql = "SELECT * FROM utilisateurs WHERE id= $id";
                                             
 					</tr>
 				</table>
-				<?php }}else{
+				<?php }
                                             echo "Aucun utilisateur trouvé";
-                                        } ?>
+                                    ?>
 			</div>
 		</div>
 	

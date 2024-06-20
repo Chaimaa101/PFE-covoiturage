@@ -104,14 +104,21 @@ $user_role = $_SESSION['user_role'];
             <li class="nav-item ">
                 <a class="nav-link" href="trajetsannonces.php">
                    <i class="fa fa-road"></i>
-                    <span>TRAJETS ANNONCES</span></a>
+                    <span>LES ANNONCES</span></a>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item ">
+                <a class="nav-link" href="trajetrealises.php">
+                   <i class="fa fa-road"></i>
+                    <span>TRAJETS REALISES</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
             <li class="nav-item ">
                 <a class="nav-link" href="evaluations_conducteur.php">
                    <i class="fa fa-road"></i>
-                    <span>Evaluations des Passagers</span></a>
+                    <span>Mes Evaluations</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -134,9 +141,9 @@ $user_role = $_SESSION['user_role'];
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
             <li class="nav-item ">
-                <a class="nav-link" href="validertrajet.php">
+                <a class="nav-link" href="trajetencours.php">
                     <i class="fa fa-road"></i>
-                    <span>TRAJETS ANNONCES</span></a>
+                    <span>TRAJETS EN COURS</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -145,7 +152,7 @@ $user_role = $_SESSION['user_role'];
             <li class="nav-item ">
                 <a class="nav-link" href="historiquetrajets.php">
                    <i class="fa fa-road"></i>
-                    <span>HISTORIQUE TRAJETS</span></a>
+                    <span>TRAJETS REALISES</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
