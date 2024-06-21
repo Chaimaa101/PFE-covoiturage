@@ -56,8 +56,7 @@ include 'connection.php';
 
 $point_depart = isset($_GET['point_depart']) ? $_GET['point_depart'] : '';
 $point_arrivee = isset($_GET['point_arrivee']) ? $_GET['point_arrivee'] : '';
-$sql = "
-SELECT
+$sql = "SELECT
     Trajets.*,
     Utilisateurs.nom AS conducteur_nom,
     Trajets_Conducteurs.valide,

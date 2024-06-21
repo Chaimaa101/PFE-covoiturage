@@ -29,7 +29,7 @@ require("header.php");
 $point_depart = isset($_GET['point_depart']) ? $_GET['point_depart'] : '';
 $point_arrivee = isset($_GET['point_arrivee']) ? $_GET['point_arrivee'] : '';
 
-$sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.valide
+$sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.valide 
         FROM Trajets
         LEFT JOIN Trajets_Conducteurs ON Trajets.id = Trajets_Conducteurs.trajet_id
         WHERE

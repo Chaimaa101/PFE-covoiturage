@@ -29,13 +29,10 @@ require("header.php");
 $point_depart = isset($_GET['point_depart']) ? $_GET['point_depart'] : '';
 $point_arrivee = isset($_GET['point_arrivee']) ? $_GET['point_arrivee'] : '';
 
-$sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.choisi , Trajets_Conducteurs.annuler , Trajets_Conducteurs.valide
+$sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.choisi
         FROM Trajets
         LEFT JOIN Trajets_Conducteurs ON Trajets.id = Trajets_Conducteurs.trajet_id AND Trajets_Conducteurs.conducteur_id = $user_id
-        WHERE
-        (Trajets.statut = 'proposé' OR
-        (Trajets_Conducteurs.choisi = 1 AND Trajets_Conducteurs.valide=0 AND Trajets_Conducteurs.annuler = 0) OR
-        (Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide=0 AND Trajets_Conducteurs.annuler = 0))";
+        WHERE Trajets.statut = 'proposé'";
         
         if ($point_depart) {
             $sql .= " AND Trajets.depart LIKE '%$point_depart%'";
@@ -97,13 +94,7 @@ $result = $conn->query($sql);
                         <td><?php echo ($row['date_depart']) ?></td>
                         <td>
                            <?php 
-                           if ($row['choisi'] == 0 AND $row['valide'] == 0 AND $row['annuler'] == 0) {
-                            echo "<form method='post' action='trajetsannonces.php'>
-                                <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
-                                <input type='hidden' name='action' value='choisir'>
-                                <input type='submit' value='Choisir'>
-                            </form>";
-                        }
+                           
                         if ($row['choisi'] == 1) {
                             echo "<form method='post' action='trajetsannonces.php'>
                                 <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
@@ -111,6 +102,13 @@ $result = $conn->query($sql);
                                 <input type='submit' value='Annuler'>
                             </form>";
                         } 
+                        else {
+                            echo "<form method='post' action='trajetsannonces.php'>
+                                <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
+                                <input type='hidden' name='action' value='choisir'>
+                                <input type='submit' value='Choisir'>
+                            </form>";
+                        }
                            ?> 
                            
                         </td>
@@ -141,6 +139,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($action == 'choisir') {
         $sql = "INSERT INTO Trajets_Conducteurs (trajet_id, conducteur_id, choisi, valide) VALUES ('$id_trajet', '$user_id', TRUE, FALSE)
         ON DUPLICATE KEY UPDATE choisi=TRUE, valide=FALSE,annuler=FALSE";
+        echo "insert";
     } elseif ($action == 'annuler') {
         $sql = "UPDATE Trajets_Conducteurs SET choisi=FALSE, valide=FALSE, annuler=TRUE WHERE trajet_id='$id_trajet' AND conducteur_id='$user_id'";
     }
@@ -150,7 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         echo "Erreur: " . $sql . "<br>" . $conn->error;
     }
-
+    
     $conn->close();
     exit();
 }

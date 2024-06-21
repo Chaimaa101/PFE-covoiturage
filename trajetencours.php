@@ -206,8 +206,8 @@ if ($action == 'valider') {
     $conn->query($sql);
 
     // Mettre à jour la table Trajets
-    $sql = "UPDATE Trajets SET statut = 'validé' WHERE id = $id_trajet";
-    $conn->query($sql);
+    $sql1 = "UPDATE Trajets SET statut = 'validé' WHERE id = $id_trajet";
+    $conn->query($sql1);
 } 
 
 $conn->close();
