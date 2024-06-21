@@ -55,7 +55,7 @@ $result = $conn->query($sql);
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"></h1>
-    <form method="get" action="trajetsrealises.php" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0">
+    <form method="get" action="trajetrealises.php" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0">
             <input type="text" class="form-control bg-light border-1" id="point_depart" placeholder="Départ" name="point_depart" value="<?php echo htmlspecialchars($point_depart); ?>">
             <input type="text" class="form-control bg-light border-1" id="point_arrivee" placeholder="Arrivée" name="point_arrivee" value="<?php echo htmlspecialchars($point_arrivee); ?>">
 
