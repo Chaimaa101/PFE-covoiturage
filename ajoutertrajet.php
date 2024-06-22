@@ -1,7 +1,7 @@
 
 <?php 
 require('connection.php');
- require("header.php");
+require("header.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     if(isset($_POST['depart'])&& isset($_POST['destination'])){
     $depart = $_POST['depart'];
@@ -22,22 +22,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
 
     if ($stmt->execute()) {
         $_SESSION['alert'] = "Trajet ajouté avec succès.";
-    //echo "<p style='color:green;'>Trajet a été ajouté avec succès.</p>";
+    echo "<p style='color:green;'>Trajet a été ajouté avec succès.</p>";
     } else {
         echo "Erreur: " . $stmt->error;
     } 
-    // if ($conn->query($sql) === TRUE) {
-    //     $_SESSION['alert'] = "Trajet ajouté avec succès.";
-    // } else {
-    //     $_SESSION['alert'] = "Erreur: " . $conn->error;
-    // } 
 
 }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Ajouter trajets</title>
+    <title>Ajouter trajet</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
@@ -52,13 +47,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
             padding: 10px;
         }
         .col{
-           margin-bottom: 20px;
+            margin-bottom: 20px;
         }
         
     </style>
 </head>
 <body>
-     <div class="container">
+    <div class="container">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -70,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Ajouter trajet</h1>
                             </div>
-                           <form method="POST">
+<form method="POST">
   <div class="row">
     <div class="col">
       <label for="startAddress" class="form-label">Départ du trajet</label>

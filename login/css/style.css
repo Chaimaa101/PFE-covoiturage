@@ -7,7 +7,8 @@ display-flex, .display-flex, .display-flex-center {
 list-type-ulli {
   list-style-type: none;
   margin: 0;
-  padding: 0; }
+  padding: 0; 
+}
 
 /* Montserrat-300 - latin */
 @font-face {

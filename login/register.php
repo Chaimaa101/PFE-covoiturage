@@ -5,58 +5,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nom = $_POST['nom'];
     $prenom = $_POST['prenom'];
     $email = $_POST['email'];
-    $mot_de_passe = password_hash($_POST['mot_de_passe'], PASSWORD_BCRYPT);
-    
+    $mot_de_passe = $_POST['mot_de_passe'];
     $telephone = $_POST['tel'];
     $adresse = $_POST['adress'];
     $date_naissance = $_POST['date_naissance'];
-   
-      $hasError = false;
+    $role = $_GET['role']; // Get the role from the URL
+    $hasError = false;
+
     // Validate email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $emailError = "Format d'e-mail non valide";
         $hasError = true;
     }
 
-    
     // Validate phone
     if (!preg_match("/^\d{10}$/", $telephone)) {
         $phoneError = "Numéro de téléphone invalide";
         $hasError = true;
     }
+
     // Validate password
-    if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/",$mot_de_passe)) {
+    if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/", $mot_de_passe)) {
         $passwordError = "Mot de passe invalide";
         $hasError = true;
     }
+
     if (!$hasError) {
         // Hash the password
-        $hashed_password = password_hash($mot_de_passe, PASSWORD_DEFAULT);
-        if (isset($_GET['role']) && $_GET['role'] == 'passager') {
-            $role = $_GET['role'];
-        $stmt = $conn->prepare(" INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance) VALUES (?, ?, ?, ?,?, ?, ?, ?)");
-    if ($stmt === false) {
-        die("Erreur de préparation de la requête: " . $conn->error);
-    }
-    $stmt->bind_param("ssssssss",$nom, $prenom, $email, $mot_de_passe, $role, $telephone, $adresse, $date_naissance);
-}}elseif(isset($_GET['role']) && $_GET['role'] == 'conducteur') {
-     if (isset($_POST['voiture'])){
-         $voiture = $_POST['voiture'];
- $stmt = $conn->prepare(" INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance,voiture) VALUES (?, ?, ?, ?,?, ?, ?, ?,?)");
-if ($stmt === false) {
-        die("Erreur de préparation de la requête: " . $conn->error);
-    }}
+        $hashed_password = password_hash($mot_de_passe, PASSWORD_BCRYPT);
 
-    // Lie les paramètres
-    $stmt->bind_param("sssssssss",$nom, $prenom, $email, $mot_de_passe, $role, $telephone, $adresse, $date_naissance,$voiture);
-}
-    if ($stmt->execute()) {
-    header('Location: login.php?success=1');
-    } else {
-        echo "Erreur: " . $stmt->error;
-    }  
+        if ($role == 'passager') {
+            $stmt = $conn->prepare("INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssssss", $nom, $prenom, $email, $hashed_password, $role, $telephone, $adresse, $date_naissance);
+        } elseif ($role == 'conducteur' && isset($_POST['voiture'])) {
+            $voiture = $_POST['voiture'];
+            $stmt = $conn->prepare("INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, role, telephone, adresse, date_naissance, voiture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssssss", $nom, $prenom, $email, $hashed_password, $role, $telephone, $adresse, $date_naissance, $voiture);
+        }
+
+        if (isset($stmt) && $stmt->execute()) {
+            header('Location: login.php?success=1');
+            exit();
+        } else {
+            echo "Erreur: " . $stmt->error;
+        }
+    }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,7 +75,7 @@ if ($stmt === false) {
         }
         body{
            
-    background: linear-gradient(to right, #9face6, #74ebd5);
+    background: linear-gradient(to right, #e0dede, #82c1cc);
     background-size: cover;
  
         }
@@ -119,14 +115,14 @@ if ($stmt === false) {
                              <input type="text" class="form-input" name="adress" id="adress" placeholder="Adresse" required/>
                         </div>
                         <div class="form-group">
-                             <input type="date" class="form-input" name="date_naissance" id="date_naissance" placeholder="Date de naissance" required/>
+                            <input type="date" class="form-input" name="date_naissance" id="date_naissance" placeholder="Date de naissance" required/>
                         </div>
                         <?php if (isset($_GET['role']) && $_GET['role'] == 'conducteur') {?>
                         <div class="form-group">
-                             <input type="text" class="form-input" name="voiture" id="voiture" placeholder="voiture" required/>
+                            <input type="text" class="form-input" name="voiture" id="voiture" placeholder="voiture" required/>
                         </div>
                         <div class="form-group">
-                             <input type="date" class="form-input" name="date_naissance" id="date_naissance" placeholder="Date de naissance" required/>
+                            <input type="date" class="form-input" name="date_naissance" id="date_naissance" placeholder="Date de naissance" required/>
                         </div>
                         <?php }?>
                         <div class="form-group">

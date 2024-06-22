@@ -23,7 +23,6 @@
 </head>
 <?php
 
-include 'connection.php';
 require("header.php");
 
 $point_depart = isset($_GET['point_depart']) ? $_GET['point_depart'] : '';
@@ -61,6 +60,47 @@ $sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.choisi, Trajets_Conducteu
         }
     $sql .= " ORDER BY Trajets.date_depart DESC";       
 $result = $conn->query($sql);
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id_trajet = $_POST['id_trajet'];
+    $action = $_POST['action'];
+
+    if ($action == 'choisir') {
+
+
+// Check if the trajectory status is "proposé"
+$ride_sql = "SELECT passager_id, statut FROM trajets WHERE id = '$id_trajet' AND statut = 'proposé'";
+$result = $conn->query($ride_sql);
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $passager_id = $row['passager_id'];
+
+    // Update the ride status to "choisi"
+     $sql = "INSERT INTO Trajets_Conducteurs (trajet_id, conducteur_id, choisi, valide) VALUES ('$id_trajet', '$user_id', TRUE, FALSE)
+        ON DUPLICATE KEY UPDATE choisi=TRUE, valide=FALSE,annuler=FALSE";
+    if ($conn->query($sql) === TRUE) {
+        // Insert notification for the passenger
+        $message = "Un conducteur a choisi votre trajectoire.";
+        $notif_sql = "INSERT INTO notification (user_id, message) VALUES ('$passager_id', '$message')";
+    } else {
+        echo "Error: " . $update_sql . "<br>" . $conn->error;
+    }
+} else {
+    echo "Trajet introuvable ou non en statut' proposé'.";
+}
+       
+    } elseif ($action == 'annuler') {
+        $sql = "UPDATE Trajets_Conducteurs SET choisi=FALSE, valide=FALSE, annuler=TRUE WHERE trajet_id='$id_trajet' AND conducteur_id='$user_id'";
+    }
+
+    if ($conn->query($sql) === TRUE) {
+        echo "<p>Action réussie</p>";
+    } else {
+        echo "Erreur: " . $sql . "<br>" . $conn->error;
+    }
+}
 ?>
 
 
@@ -86,7 +126,7 @@ $result = $conn->query($sql);
     </form>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     
-   </div>
+</div>
 </div>
 
 
@@ -99,26 +139,24 @@ $result = $conn->query($sql);
     <div class="card-body">
         
         <div class="table-responsive">
-          
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                 <thead>
+                <thead>
                     <tr>
                         <th>Depart</th>
                         <th>Destination</th>
                         <th>Date Depart</th>
                         <th>Choisir</th>
-                       
                     </tr>
                 </thead>
                 <tbody>
                 <?php while ($row = $result->fetch_assoc()) { ?>
-                    <tr>
+                   <tr onclick="showModal(<?php echo $row['id']; ?>)">
                         <td><?php echo ($row['depart']) ?></td>
                         <td><?php echo ($row['destination']) ?></td>
                         <td><?php echo ($row['date_depart']) ?></td>
                         <td>
-                           <?php 
-                           if ($row['choisi'] == 0 AND $row['valide'] == 0 AND $row['annuler'] == 0) {
+                        <?php 
+                        if ($row['choisi'] == 0 AND $row['valide'] == 0 AND $row['annuler'] == 0) {
                             echo "<form method='post' action='trajetsannonces.php'>
                                 <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
                                 <input type='hidden' name='action' value='choisir'>
@@ -132,8 +170,8 @@ $result = $conn->query($sql);
                                 <input type='submit' value='Annuler'>
                             </form>";
                         } 
-                           ?> 
-                           
+                        ?> 
+
                         </td>
                     </tr>
                   <?php 
@@ -149,35 +187,19 @@ $result = $conn->query($sql);
 </div>
 
 </div>
-<!-- /.container-fluid -->
-
-<?php
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id_trajet = $_POST['id_trajet'];
-    $action = $_POST['action'];
-
-
-    if ($action == 'choisir') {
-        $sql = "INSERT INTO Trajets_Conducteurs (trajet_id, conducteur_id, choisi, valide) VALUES ('$id_trajet', '$user_id', TRUE, FALSE)
-        ON DUPLICATE KEY UPDATE choisi=TRUE, valide=FALSE,annuler=FALSE";
-    } elseif ($action == 'annuler') {
-        $sql = "UPDATE Trajets_Conducteurs SET choisi=FALSE, valide=FALSE, annuler=TRUE WHERE trajet_id='$id_trajet' AND conducteur_id='$user_id'";
-    }
-
-    if ($conn->query($sql) === TRUE) {
-        echo "Action réussie";
-    } else {
-        echo "Erreur: " . $sql . "<br>" . $conn->error;
-    }
-
-    $conn->close();
-    exit();
+<script>
+function showModal(trajetId) {
+    $.ajax({
+        url: 'showModeltraject.php',
+        type: 'GET',
+        data: { id: trajetId },
+        success: function(response) {
+            $('#showModal .modal-body').html(response);
+            $('#showModal').modal('show');
+        }
+    });
 }
-?>
-
-
+</script>
 </body>
 
 </html>

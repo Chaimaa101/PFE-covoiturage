@@ -1,6 +1,5 @@
 
 <?php
-include 'connection.php';
 session_start();
 
 if (!isset($_SESSION['user_id']) && isset($_COOKIE['id'])) {
@@ -20,15 +19,7 @@ $user_id = $_SESSION['user_id'];
 $user_nom = $_SESSION['nom'];
 $user_role = $_SESSION['user_role'];
 
-$sql = "SELECT * FROM notification WHERE user_id = '$user_id' AND is_read = FALSE ORDER BY created_at DESC";
-$result = $conn->query($sql);
 
-$notifications = [];
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $notifications[] = $row;
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -325,61 +316,6 @@ if ($result->num_rows > 0) {
 function confirmDelete() {
     return confirm("Êtes-vous sûr de vouloir supprimer votre compte ?");
 }
-
-    function fetchNotifications() {
-            $.ajax({
-                url: 'get_notifications.php',
-                method: 'GET',
-                success: function(response) {
-                    let notifications = JSON.parse(response);
-                    let notifCount = notifications.length;
-                    $('#notif-count').text(notifCount > 0 ? notifCount : '0');
-                    
-                    let notifItems = $('#notif-items');
-                    notifItems.empty(); // Clear previous notifications
-
-                    if (notifCount > 0) {
-                        notifications.forEach(function(notification) {
-                            let notifHtml = `
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">${new Date(notification.created_at).toLocaleDateString()}</div>
-                                        <span class="font-weight-bold">${notification.message}</span>
-                                    </div>
-                                </a>`;
-                            notifItems.append(notifHtml);
-                        });
-
-                        // Optionally mark notifications as read
-                        markNotificationsAsRead(notifications.map(n => n.id));
-                    } else {
-                        notifItems.append('<div class="dropdown-item text-center small text-gray-500">No new notifications</div>');
-                    }
-                }
-            });
-        }
-
-        function markNotificationsAsRead(ids) {
-            $.ajax({
-                url: 'mark_notifications_as_read.php',
-                method: 'POST',
-                data: { ids: ids },
-                success: function(response) {
-                    console.log("Notifications marked as read");
-                }
-            });
-        }
-
-        // Fetch notifications every 30 seconds
-        setInterval(fetchNotifications, 30000);
-
-        // Fetch notifications on page load
-        fetchNotifications();
 </script>
 
 <!-- Bootstrap core JavaScript-->

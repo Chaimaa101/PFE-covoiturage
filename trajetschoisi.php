@@ -66,13 +66,12 @@ require("header.php");
                         <th>Depart</th>
                         <th>Destination</th>
                         <th>Date Depart</th>
-                        
-                       
+
                     </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($trajetsPassagers as $trajet)  { ?> 
-                    <tr>
+                    <tr onclick="showModal(<?php echo $row['id']; ?>)">
                         <td><?php echo ($trajet['depart']) ?></td>
                         <td><?php echo ($trajet['destination']) ?></td>
                         <td><?php echo ($trajet['date_depart']) ?></td>
@@ -90,11 +89,19 @@ require("header.php");
 </div>
 
 </div>
-<!-- /.container-fluid -->
-
-    
-
-
+<script>
+function showModal(trajetId) {
+    $.ajax({
+        url: 'showModeltraject.php',
+        type: 'GET',
+        data: { id: trajetId },
+        success: function(response) {
+            $('#showModal .modal-body').html(response);
+            $('#showModal').modal('show');
+        }
+    });
+}
+</script>
 </body>
 
 </html>

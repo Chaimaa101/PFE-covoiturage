@@ -42,7 +42,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="index.php">
                 <i class="fa fa-home"></i>
-                    <span>ACCEUIL</span></a>
+                    <span>Acceuil</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -51,7 +51,7 @@
             <li class="nav-item ">
                 <a class="nav-link" href="about.php">
                     <i class="fa fa-info"></i>
-                    <span>A PROPOS NOUS</span></a>
+                    <span>A propos de nous</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -60,7 +60,7 @@
             <li class="nav-item ">
                 <a class="nav-link" href="service.php">
                    <i class="fa fa-wrench"></i>
-                    <span>SERVICES</span></a>
+                    <span>Services</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -69,7 +69,7 @@
             <li class="nav-item ">
                 <a class="nav-link" href="contact/index.php">
                     <i class="fas fa-envelope"></i>
-                    <span>CONTACT</span></a>
+                    <span>Contact</span></a>
                 
             </li>
 
@@ -128,12 +128,12 @@
                                 </a>
                             </div>
                         </li>
-                           <li class="nav-item dropdown no-arrow">
-                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 S'inscrire
                             </a>
-                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="login/register.php?role=conducteur">
                                     <i class="fas fa-parson-seat fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -149,8 +149,7 @@
                     </ul>
 
                 </nav>
-   
-                      <!-- Bootstrap core JavaScript-->
+    <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

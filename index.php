@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ACCEUIL</title>    
+    <title>Acceuil</title>    
 <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -36,7 +36,6 @@
             <a href="login/login.php" class="button">Rejoindre</a>
         </div>
     </div>
-  
 
 </body>
 </html>

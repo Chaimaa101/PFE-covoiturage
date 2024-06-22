@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>a propos de nous</title>
+    <title>A propos de nous</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -20,7 +18,6 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <link href="css/abb.css" rel="stylesheet">
-    
 
 </head>
 <?php
@@ -31,39 +28,23 @@
                 
                 <section class="hero">
                     <div class="heading">
-
-                
-                      <h1>A propos nous</h1>
+                    <h1>A propos nous</h1>
 </div>
 
-                   <div class="container">
+                <div class="container">
                     <div class="hero-content">
                         <h2>Notre Vision</h2>
 
                     <p>Nous repensons la mobilité et voulons ancrer le covoiturage <br>
                     comme partie intégrante des déplacements quotidiens et de la mobilité<br>
-                     de tous les jours . davantage de covoiturage et moins de transport individuel</p>
+                    de tous les jours . davantage de covoiturage et moins de transport individuel</p>
 </div>
 <div class="hero-image">
     <img src="img/joj.jpg" >
 </div>
 </div>
-
-
 </section>
-                   
-
-
-
-             
-
-               
-
-           
-
-         
-
-              <!-- Bootstrap core JavaScript-->
+<!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -71,9 +52,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    
-                
-                <script src="js/sb-admin-2.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
