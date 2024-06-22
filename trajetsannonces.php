@@ -27,16 +27,11 @@ require("header.php");
 
 $point_depart = isset($_GET['point_depart']) ? $_GET['point_depart'] : '';
 $point_arrivee = isset($_GET['point_arrivee']) ? $_GET['point_arrivee'] : '';
-$statut = isset($_GET['statut']) ? $_GET['statut'] : '';
 
-$sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.choisi, Trajets_Conducteurs.valide , Trajets_Conducteurs.annuler
+$sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.choisi
         FROM Trajets
         LEFT JOIN Trajets_Conducteurs ON Trajets.id = Trajets_Conducteurs.trajet_id AND Trajets_Conducteurs.conducteur_id = $user_id
-        WHERE
-        (Trajets.statut = 'proposé'
-        OR (Trajets_Conducteurs.conducteur_id = $user_id AND Trajets_Conducteurs.choisi = 1)
-        OR (Trajets_Conducteurs.conducteur_id = $user_id AND Trajets_Conducteurs.choisi = 0)
-        OR (Trajets_Conducteurs.conducteur_id = $user_id AND Trajets_Conducteurs.valide = 1))";
+        WHERE Trajets.statut = 'proposé'";
         
         if ($point_depart) {
             $sql .= " AND Trajets.depart LIKE '%$point_depart%'";
@@ -46,18 +41,6 @@ $sql = "SELECT DISTINCT Trajets.*, Trajets_Conducteurs.choisi, Trajets_Conducteu
             $sql .= " AND Trajets.destination LIKE '%$point_arrivee%'";
         }
 
-        
-        if ($statut) {
-            if ($statut == 'choisi') {
-                $sql .= " AND Trajets_Conducteurs.choisi = 1 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 0";
-            } elseif ($statut == 'annulé') {
-                $sql .= " AND Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 1";
-            } elseif ($statut == 'validé') {
-                $sql .= " AND Trajets_Conducteurs.valide = 1 AND Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.annuler = 0";
-            } else {
-                $sql .= " AND Trajets.statut = '$statut'";
-            }
-        }
     $sql .= " ORDER BY Trajets.date_depart DESC";       
 $result = $conn->query($sql);
 
@@ -112,13 +95,6 @@ if ($result->num_rows > 0) {
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"></h1>
     <form method="get" action="trajetsannonces.php" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0">
-        <select class="form-control bg-light" name="statut">
-                <option value="">Tous les trajets</option>
-                    <option value="proposé" <?php if ($statut == 'proposé') echo 'selected'; ?>>Proposé</option>
-                    <option value="choisi" <?php if ($statut == 'choisi') echo 'selected'; ?>>Choisi</option>
-                    <option value="annulé" <?php if ($statut == 'annulé') echo 'selected'; ?>>Annulé</option>
-                    <option value="validé" <?php if ($statut == 'validé') echo 'selected'; ?>>Validé</option>
-        </select>
             <input type="text" class="form-control bg-light border-1" id="point_depart" placeholder="Départ" name="point_depart" value="<?php echo htmlspecialchars($point_depart); ?>">
             <input type="text" class="form-control bg-light border-1" id="point_arrivee" placeholder="Arrivée" name="point_arrivee" value="<?php echo htmlspecialchars($point_arrivee); ?>">
 
@@ -155,6 +131,7 @@ if ($result->num_rows > 0) {
                         <td><?php echo ($row['destination']) ?></td>
                         <td><?php echo ($row['date_depart']) ?></td>
                         <td>
+<<<<<<< HEAD
                         <?php 
                         if ($row['choisi'] == 0 AND $row['valide'] == 0 AND $row['annuler'] == 0) {
                             echo "<form method='post' action='trajetsannonces.php'>
@@ -163,6 +140,10 @@ if ($result->num_rows > 0) {
                                 <input type='submit' value='Choisir'>
                             </form>";
                         }
+=======
+                           <?php 
+                           
+>>>>>>> fd088541ddec313433bf213f9c197f8b9c90d9aa
                         if ($row['choisi'] == 1) {
                             echo "<form method='post' action='trajetsannonces.php'>
                                 <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
@@ -170,8 +151,20 @@ if ($result->num_rows > 0) {
                                 <input type='submit' value='Annuler'>
                             </form>";
                         } 
+<<<<<<< HEAD
                         ?> 
 
+=======
+                        else {
+                            echo "<form method='post' action='trajetsannonces.php'>
+                                <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
+                                <input type='hidden' name='action' value='choisir'>
+                                <input type='submit' value='Choisir'>
+                            </form>";
+                        }
+                           ?> 
+                           
+>>>>>>> fd088541ddec313433bf213f9c197f8b9c90d9aa
                         </td>
                     </tr>
                   <?php 
@@ -187,6 +180,7 @@ if ($result->num_rows > 0) {
 </div>
 
 </div>
+<<<<<<< HEAD
 <script>
 function showModal(trajetId) {
     $.ajax({
@@ -198,6 +192,34 @@ function showModal(trajetId) {
             $('#showModal').modal('show');
         }
     });
+=======
+<!-- /.container-fluid -->
+
+<?php
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id_trajet = $_POST['id_trajet'];
+    $action = $_POST['action'];
+
+
+    if ($action == 'choisir') {
+        $sql = "INSERT INTO Trajets_Conducteurs (trajet_id, conducteur_id, choisi, valide) VALUES ('$id_trajet', '$user_id', TRUE, FALSE)
+        ON DUPLICATE KEY UPDATE choisi=TRUE, valide=FALSE,annuler=FALSE";
+        echo "insert";
+    } elseif ($action == 'annuler') {
+        $sql = "UPDATE Trajets_Conducteurs SET choisi=FALSE, valide=FALSE, annuler=TRUE WHERE trajet_id='$id_trajet' AND conducteur_id='$user_id'";
+    }
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Action réussie";
+    } else {
+        echo "Erreur: " . $sql . "<br>" . $conn->error;
+    }
+    
+    $conn->close();
+    exit();
+>>>>>>> fd088541ddec313433bf213f9c197f8b9c90d9aa
 }
 </script>
 </body>

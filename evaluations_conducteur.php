@@ -28,10 +28,10 @@ require("header.php");
 
 // Requête SQL pour récupérer les évaluations du conducteur
 $sql = "
-SELECT Evaluations.note, Evaluations.commentaire, Trajets.depart, Trajets.destination, Trajets.date_depart, Utilisateurs.nom AS passager_nom, Utilisateurs.prenom AS passager_prenom
+SELECT Evaluations.note, Evaluations.commentaire, Trajets.depart, Trajets.destination, Trajets.date_depart, Utilisateurs.nom AS passager_nom, Utilisateurs.prenom AS passager_prenom, Utilisateurs.moyenne_evaluation as moyenne
 FROM Evaluations
-JOIN Trajets ON Evaluations.id_trajet = Trajets.id
-JOIN Utilisateurs ON Trajets.passager_id = Utilisateurs.id
+LEFT JOIN Trajets ON Evaluations.id_trajet = Trajets.id
+LEFT JOIN Utilisateurs ON Trajets.passager_id = Utilisateurs.id
 WHERE Evaluations.id_conducteur = $user_id
 ORDER BY Evaluations.id DESC";
 
@@ -46,7 +46,9 @@ $result = $stmt->get_result();
 <!-- Page Heading -->
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800"></h1>
+    <h1 class="h3 mb-0 text-gray-800">
+       <?php //echo "Moyenne d'évaluation: " . htmlspecialchars($row['moyenne']);  ?>
+    </h1>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     
    </div>
@@ -76,8 +78,9 @@ $result = $stmt->get_result();
         </thead>
         <tbody>
         <?php
-        if ($result->num_rows > 0) {
+         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
+            
                 echo "<tr>";
                 echo "<td>" . htmlspecialchars($row['depart']) . "</td>";
                 echo "<td>" . htmlspecialchars($row['destination']) . "</td>";
@@ -90,6 +93,11 @@ $result = $stmt->get_result();
         } else {
             echo "<tr><td colspan='6'>Aucune évaluation trouvée.</td></tr>";
         }
+        
+$stmt->close();
+$conn->close();
+
+        
         ?>
                 </thead>
                 <tbody>
@@ -108,10 +116,7 @@ $result = $stmt->get_result();
 </html>
 
 
-<?php
-$stmt->close();
-$conn->close();
-?>
+
 
 
 

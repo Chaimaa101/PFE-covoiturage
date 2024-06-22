@@ -53,9 +53,10 @@
 
         
 include 'connection.php';
-$statut = isset($_GET['statut']) ? $_GET['statut'] : '';
-$sql = "
-SELECT
+
+$point_depart = isset($_GET['point_depart']) ? $_GET['point_depart'] : '';
+$point_arrivee = isset($_GET['point_arrivee']) ? $_GET['point_arrivee'] : '';
+$sql = "SELECT
     Trajets.*,
     Utilisateurs.nom AS conducteur_nom,
     Trajets_Conducteurs.valide,
@@ -73,23 +74,16 @@ LEFT JOIN
 LEFT JOIN
     Utilisateurs ON Trajets_Conducteurs.conducteur_id = Utilisateurs.id
 WHERE
-    Trajets.passager_id = $user_id AND
-    (Trajets.statut = 'proposé'
-        OR (Trajets_Conducteurs.choisi = 1 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 0)
-        OR (Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 1)
-        OR (Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide = 1 AND Trajets_Conducteurs.annuler = 0))
-";
-if ($statut) {
-    if ($statut == 'proposé') {
-        $sql .= " AND Trajets.statut = '$statut'";
-    } elseif ($statut == 'validé') {
-        $sql .= " AND Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide = 1 AND Trajets_Conducteurs.annuler = 0";
-    } elseif ($statut == 'choisi') {
-        $sql .= " AND Trajets_Conducteurs.choisi = 1 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 0";
-    } elseif ($statut == 'annuler') {
-        $sql .= " AND Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide = 0 AND Trajets_Conducteurs.annuler = 1";
-    } 
-}
+    Trajets.passager_id = $user_id AND Trajets.statut = 'validé' AND 
+    (Trajets_Conducteurs.choisi = 0 AND Trajets_Conducteurs.valide = 1 AND Trajets_Conducteurs.annuler = 0)";
+
+    if ($point_depart) {
+        $sql .= " AND Trajets.depart LIKE '%$point_depart%'";
+    }
+
+    if ($point_arrivee) {
+        $sql .= " AND Trajets.destination LIKE '%$point_arrivee%'";
+    }
 
 
 // Ajouter la clause ORDER BY pour trier les trajets par date de départ en ordre décroissant
@@ -106,13 +100,8 @@ $result = $conn->query($sql);
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <form method="get" action="historiquetrajets.php" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0">
-        <select class="form-control bg-light" name="statut">
-            <option value="">Tous</option>
-                    <option value="proposé" <?php if ($statut == 'proposé') echo 'selected'; ?>>Proposé</option>
-                    <option value="validé" <?php if ($statut == 'validé') echo 'selected'; ?>>Validé</option>
-                    <option value="annuler" <?php if ($statut == 'annuler') echo 'selected'; ?>>Rejeter</option>
-                    <option value="choisi" <?php if ($statut == 'choisi') echo 'selected'; ?>>Choisi</option>
-        </select>
+    <input type="text" class="form-control bg-light border-1" id="point_depart" placeholder="Départ" name="point_depart" value="<?php echo htmlspecialchars($point_depart); ?>">
+            <input type="text" class="form-control bg-light border-1" id="point_arrivee" placeholder="Arrivée" name="point_arrivee" value="<?php echo htmlspecialchars($point_arrivee); ?>">
         <button type="submit" class="btn btn-primary"><i class="fas fa-search fa-sm"></i></button>
     </form>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -136,9 +125,7 @@ $result = $conn->query($sql);
                         <th>Date Depart</th>
                         <th>Conducteur</th>
                         <th>Évaluation</th>
-                        <th>Évaluer</th>
-                        
-                       
+                        <th>Évaluer</th>   
                     </tr>
                 </thead>
                 <tbody>
@@ -210,8 +197,24 @@ if ($stmt->execute()) {
 } else {
     echo "Erreur: " . $stmt->error;
 }
+// Recalculer la moyenne d'évaluation pour le conducteur
+$sql_moyenne = "SELECT AVG(note) as moyenne FROM Evaluations WHERE id_conducteur = ?";
+$stmt_moyenne = $conn->prepare($sql_moyenne);
+$stmt_moyenne->bind_param("i", $id_conducteur);
+$stmt_moyenne->execute();
+$result_moyenne = $stmt_moyenne->get_result();
+$moyenne = $result_moyenne->fetch_assoc()['moyenne'];
+
+// Mettre à jour la moyenne d'évaluation dans la table Utilisateurs
+$sql_update = "UPDATE Utilisateurs SET moyenne_evaluation = ? WHERE id = ?";
+$stmt_update = $conn->prepare($sql_update);
+$stmt_update->bind_param("di", $moyenne, $id_conducteur);
+$stmt_update->execute();
 
 $stmt->close();
+$stmt_moyenne->close();
+$stmt_update->close();
+
 }
 $conn->close();
 

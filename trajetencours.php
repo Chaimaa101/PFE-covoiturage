@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>TRAJETS</title>
+    <title>TRAJETS EN COURS</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -27,13 +27,18 @@ include 'connection.php';
 
 require("header.php");
 
-$sql = "SELECT t.*, tc.choisi, tc.valide, tc.annuler, u.nom AS conducteur_nom , u.id as conducteur_id
-            FROM trajets t 
-            JOIN trajets_conducteurs tc ON  t.id = tc.trajet_id
-            JOIN utilisateurs u ON tc.conducteur_id = u.id
-            WHERE t.passager_id = $user_id AND tc.choisi = TRUE AND tc.valide = FALSE AND tc.annuler = FALSE AND t.statut != 'validé' ";
-        $sql .= " ORDER BY t.date_depart DESC";
-    $result = $conn->query($sql);
+// $sql = "SELECT t.*, u.nom AS conducteur_nom , u.id as conducteur_id , moyenne_evaluation
+//             FROM trajets t 
+//             JOIN trajets_conducteurs tc ON  t.id = tc.trajet_id
+//             JOIN utilisateurs u ON tc.conducteur_id = u.id
+//             WHERE t.passager_id = $user_id AND t.statut = 'proposé' ";
+//         $sql .= " ORDER BY t.date_depart DESC";
+//     $result = $conn->query($sql);
+
+$sql = "SELECT t.id AS trajet_id,t.depart,t.destination,t.date_depart
+        FROM Trajets t
+        WHERE t.passager_id = $user_id AND t.statut = 'proposé'";
+$result = $conn->query($sql);
 
 ?>
 
@@ -45,13 +50,9 @@ $sql = "SELECT t.*, tc.choisi, tc.valide, tc.annuler, u.nom AS conducteur_nom , 
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"></h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-             <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Listes Des Trajets</h1>
-    <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-            class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+  
 </div>
 </div>
 
@@ -59,7 +60,7 @@ $sql = "SELECT t.*, tc.choisi, tc.valide, tc.annuler, u.nom AS conducteur_nom , 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Trajets à Valider</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Trajets en cours</h6>
     </div>
     <div class="card-body">
         
@@ -71,53 +72,71 @@ $sql = "SELECT t.*, tc.choisi, tc.valide, tc.annuler, u.nom AS conducteur_nom , 
                         <th>Destination</th>
                         <th>Date Depart</th>
                         <th>Conducteur</th>
-                        <th>Statut</th>
-                        <th>Valider</th>
-                        <th>Rejeter</th>
-                        <th>Détails</th>
                        
                     </tr>
                 </thead>
                 <tbody>
-               <?php while ($row = $result->fetch_assoc()) { ?>  
-                <tr>
-                    <td><?php echo$row['depart']?></td>
-                    <td><?php echo$row['destination']?></td>
-                    <td><?php echo$row['date_depart']?></td>
-                    <td><?php echo$row['conducteur_nom']?></td>
-                    <td><?php echo$row['statut']?></td>
-                    <td>
+                <?php if ($result->num_rows > 0): ?>
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <?php
+                    // Récupérer les conducteurs intéressés par ce trajet
+                    $trajet_id = $row['trajet_id'];
+                    $sql_conducteurs = "SELECT u.nom, u.prenom, u.moyenne_evaluation,u.id,t.id as id_trajet
+                                        FROM Trajets_Conducteurs tc
+                                        JOIN Utilisateurs u ON tc.conducteur_id = u.id
+                                        JOIN trajets t ON  t.id = tc.trajet_id
+                                        WHERE tc.trajet_id = ? AND tc.choisi = 1
+                                        GROUP BY u.id";
+                    $stmt_conducteurs = $conn->prepare($sql_conducteurs);
+                    $stmt_conducteurs->bind_param("i", $trajet_id);
+                    $stmt_conducteurs->execute();
+                    $result_conducteurs = $stmt_conducteurs->get_result();
+                    ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($row['depart']); ?></td>
+                        <td><?php echo htmlspecialchars($row['destination']); ?></td>
+                        <td><?php echo htmlspecialchars($row['date_depart']); ?></td>
+                        <td>
+                            <table>
+                                    <?php if ($result_conducteurs->num_rows > 0): ?>
+                                        <?php while ($row_conducteur = $result_conducteurs->fetch_assoc()): ?>
+                                            <tr>
+                                                <td><?php echo htmlspecialchars($row_conducteur['nom'] . ' ' . $row_conducteur['prenom']); ?></td>
+                                                <td><?php echo htmlspecialchars(number_format($row_conducteur['moyenne_evaluation'], 1)); ?>/5</td>
+                                                <td>
+                                                <button type='button' class='btn btn-info' data-toggle='modal' data-target='#detailsModal' data-conducteur_id="<?php echo $row_conducteur['id']; ?>">Détails</button>
+                                                </td>
+                                                <td>
                         <?php
-                        if ($row['valide'] == 1) {
-                            echo "Validé";
-                        } else {
-                            echo "<form method='post' action='validertrajet.php'>
-                                <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
-                                <input type='hidden' name='id_conducteur' value='" . $row['conducteur_id'] . "'>
+                            echo "<form method='post' action='trajetencours.php'>
+                                <input type='hidden' name='id_trajet' value='" . $row_conducteur['id_trajet'] . "'>
+                                <input type='hidden' name='id_conducteur' value='" . $row_conducteur['id'] . "'>
                                 <input type='hidden' name='action' value='valider'>
                                 <input type='submit' value='Valider' class='btn btn-success'>
                             </form>";
-                        }
-                        echo "</td>";
-                        echo "<td>";
-                        if ($row['valide'] == 0) {
-                            echo "<form method='post' action='validertrajet.php'>
-                                <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
-                                <input type='hidden' name='id_conducteur' value='" . $row['conducteur_id'] . "'>
-                                <input type='hidden' name='action' value='rejeter'>
-                                <input type='submit' value='Rejeter' class='btn btn-danger'>
-                            </form>";
-                        } else {
-                            echo "Non validé";
-                        }
-                        echo "</td>";
-                        echo "<td>";
-                        echo "<button type='button' class='btn btn-info' data-toggle='modal' data-target='#detailsModal' data-conducteur_id='" . $row['conducteur_id'] . "'>Détails</button>";
                         ?>
-                    </td>
-                  </tr>  
-                    
-                <?php }?>
+                                                </td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="4" class="text-center">Aucun conducteur n'a encore choisi ce trajet.</td>
+                                        </tr>
+                                    <?php endif; ?>
+                            </table>
+                        </td>
+                    </tr>
+                    <?php
+                    $stmt_conducteurs->close();
+                    ?>
+                <?php endwhile; ?>
+            <?php else: ?>    
+                        
+                <tr>
+                    <td colspan="5" class="text-center">Aucun trajet en cours trouvé.</td>
+                </tr>
+            <?php endif; ?>
+               
                 </tbody>
             </table>
         </div>
@@ -187,14 +206,9 @@ if ($action == 'valider') {
     $conn->query($sql);
 
     // Mettre à jour la table Trajets
-    $sql = "UPDATE Trajets SET statut = 'validé' WHERE id = $id_trajet";
-    $conn->query($sql);
-} elseif ($action == 'rejeter') {
-    // Mettre à jour la table Trajets_Conducteurs
-    $sql = "UPDATE Trajets_Conducteurs SET choisi = 0 ,valide = 0 , annuler = 1 WHERE trajet_id = $id_trajet AND conducteur_id = $conducteur_id";
-    $conn->query($sql);
-
-}
+    $sql1 = "UPDATE Trajets SET statut = 'validé' WHERE id = $id_trajet";
+    $conn->query($sql1);
+} 
 
 $conn->close();
 exit();
