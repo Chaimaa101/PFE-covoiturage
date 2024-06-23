@@ -131,19 +131,12 @@ if ($result->num_rows > 0) {
                         <td><?php echo ($row['destination']) ?></td>
                         <td><?php echo ($row['date_depart']) ?></td>
                         <td>
-<<<<<<< HEAD
-                        <?php 
-                        if ($row['choisi'] == 0 AND $row['valide'] == 0 AND $row['annuler'] == 0) {
-                            echo "<form method='post' action='trajetsannonces.php'>
-                                <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
-                                <input type='hidden' name='action' value='choisir'>
-                                <input type='submit' value='Choisir'>
-                            </form>";
-                        }
-=======
+
+                        
+
                            <?php 
                            
->>>>>>> fd088541ddec313433bf213f9c197f8b9c90d9aa
+
                         if ($row['choisi'] == 1) {
                             echo "<form method='post' action='trajetsannonces.php'>
                                 <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
@@ -151,10 +144,10 @@ if ($result->num_rows > 0) {
                                 <input type='submit' value='Annuler'>
                             </form>";
                         } 
-<<<<<<< HEAD
-                        ?> 
 
-=======
+                      
+
+
                         else {
                             echo "<form method='post' action='trajetsannonces.php'>
                                 <input type='hidden' name='id_trajet' value='" . $row['id'] . "'>
@@ -164,14 +157,10 @@ if ($result->num_rows > 0) {
                         }
                            ?> 
                            
->>>>>>> fd088541ddec313433bf213f9c197f8b9c90d9aa
+
                         </td>
                     </tr>
-                  <?php 
-               
-            
-               
-                } ?>         
+                  <?php   } ?>         
              
                 </tbody>
             </table>
@@ -180,7 +169,7 @@ if ($result->num_rows > 0) {
 </div>
 
 </div>
-<<<<<<< HEAD
+
 <script>
 function showModal(trajetId) {
     $.ajax({
@@ -192,9 +181,10 @@ function showModal(trajetId) {
             $('#showModal').modal('show');
         }
     });
-=======
-<!-- /.container-fluid -->
+}
 
+</script>
+<!-- /.container-fluid -->
 <?php
 
 
@@ -206,7 +196,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($action == 'choisir') {
         $sql = "INSERT INTO Trajets_Conducteurs (trajet_id, conducteur_id, choisi, valide) VALUES ('$id_trajet', '$user_id', TRUE, FALSE)
         ON DUPLICATE KEY UPDATE choisi=TRUE, valide=FALSE,annuler=FALSE";
-        echo "insert";
+        
     } elseif ($action == 'annuler') {
         $sql = "UPDATE Trajets_Conducteurs SET choisi=FALSE, valide=FALSE, annuler=TRUE WHERE trajet_id='$id_trajet' AND conducteur_id='$user_id'";
     }
@@ -219,9 +209,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $conn->close();
     exit();
->>>>>>> fd088541ddec313433bf213f9c197f8b9c90d9aa
-}
-</script>
-</body>
 
-</html>
+}
+
