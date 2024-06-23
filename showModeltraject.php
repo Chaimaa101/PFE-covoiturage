@@ -39,11 +39,16 @@
             </tr>
              <tr>
             <th>Côut</th>
-            <td> <input type="text" class="form-control" value="<?php echo $row['adresse'];?>" name="adresse"/></td>
+            <td> <input type="text" class="form-control" value="<?php echo $row['prix'];?>" name="adresse"/></td>
             </tr>
             <tr>
             <th>Durée</th>
-            <td> <input type="text" class="form-control" value="<?php echo $row['adresse'];?>" name="adresse"/></td>
+            <td> <input type="text" class="form-control" value="<?php 
+                                $date_depart = new DateTime($row['date_depart']);
+                                $date_arrivee = new DateTime($row['date_arrivee']);
+                                $interval = $date_depart->diff($date_arrivee);
+                                echo $interval->format('%d days %h hours %i minutes'); 
+                            ?>" name="adresse"/></td>
             </tr>
            <?php } else {
         echo "Aucun utilisateur trouvé";
@@ -53,5 +58,7 @@
 }?>
     </form>
 </table>
-<input type="submit" value="supprimer">
-<input type="submit" value="modifier">
+<div style="height: 10px;"></div>
+<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+<input type="submit" class="btn btn-danger" value="supprimer">
+<input type="submit"  class="btn btn-primary" value="modifier">

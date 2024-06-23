@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>TRAJETS EN COURS</title>
+    <link rel="shortcut icon" href="img/logoblue.png" type="image/png">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -21,6 +22,8 @@
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
+<body>
+
 <?php
 
 include 'connection.php';
@@ -51,8 +54,7 @@ $result = $conn->query($sql);
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800"></h1>
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Listes Des Trajets</h1>
-  
+
 </div>
 </div>
 
@@ -92,19 +94,21 @@ $result = $conn->query($sql);
                     $stmt_conducteurs->execute();
                     $result_conducteurs = $stmt_conducteurs->get_result();
                     ?>
-                    <tr>
+                    <tr >
                         <td><?php echo htmlspecialchars($row['depart']); ?></td>
                         <td><?php echo htmlspecialchars($row['destination']); ?></td>
                         <td><?php echo htmlspecialchars($row['date_depart']); ?></td>
                         <td>
+                    
                             <table>
                                     <?php if ($result_conducteurs->num_rows > 0): ?>
                                         <?php while ($row_conducteur = $result_conducteurs->fetch_assoc()): ?>
-                                            <tr>
+                                             <tr >
                                                 <td><?php echo htmlspecialchars($row_conducteur['nom'] . ' ' . $row_conducteur['prenom']); ?></td>
                                                 <td><?php echo htmlspecialchars(number_format($row_conducteur['moyenne_evaluation'], 1)); ?>/5</td>
                                                 <td>
                                                 <button type='button' class='btn btn-info' data-toggle='modal' data-target='#detailsModal' data-conducteur_id="<?php echo $row_conducteur['id']; ?>">Détails</button>
+
                                                 </td>
                                                 <td>
                         <?php
@@ -163,6 +167,7 @@ $result = $conn->query($sql);
         </div>
     </div>
 
+
     <!-- Inclure les scripts de Bootstrap et jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -210,9 +215,34 @@ if ($action == 'valider') {
     $conn->query($sql1);
 } 
 
-$conn->close();
-exit();
 ?>
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Details trajets</h4>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showModal(trajetId) {
+    $.ajax({
+        url: 'showModeltraject.php',
+        type: 'GET',
+        data: { id: trajetId },
+        success: function(response) {
+            $('#showModal .modal-body').html(response);
+            $('#showModal').modal('show');
+        }
+    });
+}
+</script>
 </body>
 
 </html>

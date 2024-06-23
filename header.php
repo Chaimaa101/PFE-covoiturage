@@ -41,6 +41,7 @@ if ($result->num_rows > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="shortcut icon" href="img/logoblue.png" type="image/png">
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -67,7 +68,7 @@ if ($result->num_rows > 0) {
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-car"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Covoiturage</div>
+                <div class="sidebar-brand-text mx-3">CovoitFacile</div>
             </a>
             <?php if($user_role == 'administrateur'){ ?>
                 
@@ -81,7 +82,7 @@ if ($result->num_rows > 0) {
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item ">
+            <li class="nav-item active ">
                 <a class="nav-link" href="listeutilisateurs.php">
                     <i class="fa fa-users"></i>
                     <span>Gestion utilisateurs</span></a>
@@ -90,14 +91,14 @@ if ($result->num_rows > 0) {
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item ">
+            <li class="nav-item active">
                 <a class="nav-link" href="listetrajets.php">
                    <i class="fas fa-road"></i>
                     <span>Gestion Trajets</span></a>
             </li>
              <hr class="sidebar-divider my-0">
 
-            <li class="nav-item ">
+            <li class="nav-item active">
                 <a class="nav-link" href="listeadmins.php">
                     <i class="fa fa-users"></i>
                     <span>Gestion Admins</span></a>
@@ -111,21 +112,21 @@ if ($result->num_rows > 0) {
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item ">
+            <li class="nav-item active">
                 <a class="nav-link" href="trajetsannonces.php">
                    <i class="fa fa-road"></i>
-                    <span>LES ANNONCES</span></a>
+                    <span>Les annonces</span></a>
             </li>
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item ">
+            <li class="nav-item active">
                 <a class="nav-link" href="trajetrealises.php">
                    <i class="fa fa-road"></i>
-                    <span>TRAJETS REALISES</span></a>
+                    <span>Trajets réalisés</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
-            <li class="nav-item ">
+            <li class="nav-item active">
                 <a class="nav-link" href="evaluations_conducteur.php">
                    <i class="fa fa-road"></i>
                     <span>Mes Evaluations</span></a>
@@ -142,35 +143,27 @@ if ($result->num_rows > 0) {
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item ">
+            <li class="nav-item active">
                 <a class="nav-link" href="ajoutertrajet.php">
                     <i class="fa fa-road"></i>
-                    <span>AJOUT TRAJETS</span></a>
+                    <span>Ajout trajets</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item ">
+            <li class="nav-item active">
                 <a class="nav-link" href="trajetencours.php">
                     <i class="fa fa-road"></i>
-<<<<<<< HEAD
-                    <span>Trajets réalisés</span></a>
-=======
-                    <span>TRAJETS EN COURS</span></a>
->>>>>>> fd088541ddec313433bf213f9c197f8b9c90d9aa
+                    <span>Trajets en cours</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item ">
+            <li class="nav-item active">
                 <a class="nav-link" href="historiquetrajets.php">
                    <i class="fa fa-road"></i>
-<<<<<<< HEAD
-                    <span>Trajets en cours</span></a>
-=======
-                    <span>TRAJETS REALISES</span></a>
->>>>>>> fd088541ddec313433bf213f9c197f8b9c90d9aa
+                    <span>Trajets réalisés</span></a>
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -222,11 +215,11 @@ if ($result->num_rows > 0) {
         <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
             aria-labelledby="alertsDropdown" id="notif-dropdown">
             <h6 class="dropdown-header">
-                Alerts Center
+                Centre d'Alertes
             </h6>
             <!-- Notifications will be dynamically inserted here -->
             <div id="notif-items"></div>
-            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+            <a class="dropdown-item text-center small text-gray-500" href="#" onclick="showAllNotifications()">Afficher Toutes Les Alertes</a>
         </div>
     </li>              
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -328,17 +321,56 @@ if ($result->num_rows > 0) {
 </table>
 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-primary" onclick="confirmDelete(<?php echo ($row['id']); ?>)">Modiffier infos</a>
-                    <a class="btn btn-primary red" href="">Supprimer compte </a>
-                    <button class="btn btn-secondary" onclick="confirmDelete(<?php echo ($row['id']); ?>)">Cancel</button>
+                    <a class="btn btn-primary" onclick="updateUser(<?php echo ($row['id']); ?>)">Modiffier infos</a>
+                    <a class="btn btn-primary red" onclick="DeleteUser(<?php echo ($row['id']); ?>)">Supprimer compte </a>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 
         <script>
-function confirmDelete() {
-    return confirm("Êtes-vous sûr de vouloir supprimer votre compte ?");
+
+// Function to confirm deletion and then trigger AJAX call to deleteuser.php
+function DeleteUser(userId) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer votre compte ?")) {
+        // AJAX call to deleteuser.php
+        $.ajax({
+            type: "POST",
+            url: "deleteUser.php",
+            data: { id: userId },
+            success: function(response) {
+                // Handle success response if needed
+                console.log(response);
+                // Optionally, reload the page or handle UI update
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error(xhr.responseText);
+            }
+        });
+    }
+}
+
+// Function to update user info and trigger AJAX call to updateUser.php
+function updateUser(userId) {
+     if (confirm("Êtes-vous sûr de vouloir modifier votre compte ?")) {
+    // AJAX call to updateUser.php
+    $.ajax({
+        type: "POST",
+        url: "updateUser.php",
+        data: { id: userId },
+        success: function(response) {
+            // Handle success response if needed
+            console.log(response);
+            // Optionally, reload the page or handle UI update
+        },
+        error: function(xhr, status, error) {
+            // Handle error
+            console.error(xhr.responseText);
+        }
+     });
+    }   
 }
 
     function fetchNotifications() {
@@ -356,7 +388,7 @@ function confirmDelete() {
                     if (notifCount > 0) {
                         notifications.forEach(function(notification) {
                             let notifHtml = `
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center" href="trajetencours.php">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-primary">
                                             <i class="fas fa-file-alt text-white"></i>
@@ -373,7 +405,7 @@ function confirmDelete() {
                         // Optionally mark notifications as read
                         markNotificationsAsRead(notifications.map(n => n.id));
                     } else {
-                        notifItems.append('<div class="dropdown-item text-center small text-gray-500">No new notifications</div>');
+                        notifItems.append('<div class="dropdown-item text-center small text-gray-500">Pas de nouvelles notifications < / div>');
                     }
                 }
             });
@@ -395,6 +427,40 @@ function confirmDelete() {
 
         // Fetch notifications on page load
         fetchNotifications();
+        function showAllNotifications() {
+    $.ajax({
+        url: 'get_all_notifications.php', // Update the URL to your backend script
+        method: 'GET',
+        success: function(response) {
+            let notifications = JSON.parse(response);
+            let notifItems = $('#notif-items');
+            notifItems.empty(); // Clear previous notifications
+
+            if (notifications.length > 0) {
+                notifications.forEach(function(notification) {
+                    let notifHtml = `
+                        <a class="dropdown-item d-flex align-items-center" href="trajetencours.php">
+                            <div class="mr-3">
+                                <div class="icon-circle bg-primary">
+                                    <i class="fas fa-file-alt text-white"></i>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="small text-gray-500">${new Date(notification.created_at).toLocaleDateString()}</div>
+                                <span class="font-weight-bold">${notification.message}</span>
+                            </div>
+                        </a>`;
+                    notifItems.append(notifHtml);
+                });
+
+                // Optionally mark notifications as read
+                markNotificationsAsRead(notifications.map(n => n.id));
+            } else {
+                notifItems.append('<div class="dropdown-item text-center small text-gray-500">Pas de nouvelles notifications');
+            }
+        }
+    });
+}
 </script>
 
 <!-- Bootstrap core JavaScript-->

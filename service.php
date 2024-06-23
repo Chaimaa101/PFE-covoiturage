@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>Service</title>
+    <link rel="shortcut icon" href="img/logoblue.png" type="image/png">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">

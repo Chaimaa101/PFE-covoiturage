@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/style.css">
 
     <title>Contact </title>
+    <link rel="shortcut icon" href="../img/logoblue.png" type="image/png">
   </head>
  
   <body>
@@ -81,7 +82,7 @@
 
   </div>
     
-    
+    <?php include ('../footer.php');?>
 
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>

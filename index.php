@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>Acceuil</title>    
+    <link rel="shortcut icon" href="img/logoblue.png" type="image/png">
 <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

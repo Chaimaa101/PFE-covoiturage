@@ -11,6 +11,7 @@
     <meta name="author" content="">
 
     <title>Administrateur</title>
+    <link rel="shortcut icon" href="img/logoblue.png" type="image/png">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -21,6 +22,8 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
+<body>
+
 <?php
         require("header.php");
 ?>

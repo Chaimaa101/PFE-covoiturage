@@ -33,6 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
 <html>
 <head>
     <title>Ajouter trajet</title>
+    <link rel="shortcut icon" href="img/logoblue.png" type="image/png">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />

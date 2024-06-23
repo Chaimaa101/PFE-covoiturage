@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>TRAJETS</title>
+    <link rel="shortcut icon" href="img/logoblue.png" type="image/png">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -129,7 +130,7 @@ $result = $conn->query($sql);
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                     <tr onclick="showModal(<?php echo $row['id']; ?>)">
                 <?php
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
@@ -223,9 +224,35 @@ exit();
 ?>
 
 </div>
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel">Details trajets</h4>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>
+
 <!-- /.container-fluid -->
 
-    
+    <script>
+function showModal(trajetId) {
+    $.ajax({
+        url: 'showModeltraject.php',
+        type: 'GET',
+        data: { id: trajetId },
+        success: function(response) {
+            $('#showModal .modal-body').html(response);
+            $('#showModal').modal('show');
+        }
+    });
+}
+</script>
 
 
 </body>

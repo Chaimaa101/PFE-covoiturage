@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">  
+    <link rel="shortcut icon" href="img/logoblue.png" type="image/png">
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -32,7 +33,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-car"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Covoiturage</div>
+                <div class="sidebar-brand-text mx-3">CovoitFacile</div>
             </a>
 
             <!-- Divider -->

@@ -29,11 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ajouter Administrateur</title>
+    <link rel="shortcut icon" href="img/logoblue.png" type="image/png">
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 </head>
-<?php require_once 'header.php' ;?>
 <body>
+    <?php require_once 'header.php' ;?>
     <div class="container">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
