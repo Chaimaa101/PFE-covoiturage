@@ -154,7 +154,13 @@ if ($result->num_rows > 0) {
             <li class="nav-item active">
                 <a class="nav-link" href="trajetencours.php">
                     <i class="fa fa-road"></i>
+<<<<<<< HEAD
                     <span>Trajets en cours</span></a>
+=======
+
+                    <span>TRAJETS EN COURS</span></a>
+
+>>>>>>> a0df65f67001f3e10752941674c1230ff9ce1411
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -163,7 +169,14 @@ if ($result->num_rows > 0) {
             <li class="nav-item active">
                 <a class="nav-link" href="historiquetrajets.php">
                    <i class="fa fa-road"></i>
+<<<<<<< HEAD
                     <span>Trajets réalisés</span></a>
+=======
+
+
+                    <span>TRAJETS REALISES</span></a>
+
+>>>>>>> a0df65f67001f3e10752941674c1230ff9ce1411
             </li>
 
             <hr class="sidebar-divider my-0">
