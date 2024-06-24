@@ -32,9 +32,9 @@
           <div class="row justify-content-center">
             <div class="col-md-6">
               
-              <h3 class="heading mb-4">Let's talk about everything!</h3>
+              <h3 class="heading mb-4">Contactez-nous!</h3>
 
-              <p><img src="images/undraw-contact.svg" alt="Image" class="img-fluid"></p>
+              <p>Merci de faire confiance à CovoitFacile pour vos déplacements partagés !<img src="images/undraw-contact.svg" alt="Image" class="img-fluid"> </p>
 
 
             </div>
@@ -71,7 +71,7 @@
 
               <div id="form-message-warning mt-4"></div> 
               <div id="form-message-success">
-                Your message was sent, thank you!
+                
               </div>
             </div>
           </div>

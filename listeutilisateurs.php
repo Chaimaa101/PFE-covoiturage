@@ -1,16 +1,26 @@
 <?php
-include 'connection.php';
+ require ("connection.php");
+ require("header.php");
+$attribut = '';
+$search = '';
 
-if(isset($_GET['search']) && isset($_GET['attribut'])){
-    $attribut = $_GET['attribut'];
-    $search = $_GET['search'];
+$attribut = isset($_GET['attribut']) ? $_GET['attribut'] : '';
+$search = isset($_GET['search']) ? $_GET['search'] : '';
 
-    $sql = "SELECT * FROM utilisateurs WHERE $attribut LIKE '%$search%' ORDER BY date_inscription";
-}else{
-    $sql = "SELECT * FROM utilisateurs ORDER BY date_inscription";
+$attribute = $conn->real_escape_string($attribut);
+$search = $conn->real_escape_string($search);
+
+$sql = "SELECT * FROM utilisateurs";
+if ($attribute && $search) {
+    $sql .= " WHERE $attribute LIKE '%$search%'";
 }
 
+
 $result = $conn->query($sql);
+
+if (!$result) {
+    echo "Erreur: " . $conn->error;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +37,6 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-<?php require("header.php"); ?>
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
@@ -39,14 +48,14 @@ $result = $conn->query($sql);
                 <div class="input-group">
                     <label for="attribut">Filtrer par:</label>
                     <select class="form-control bg-light border-0 small" name="attribut" aria-label="Search" aria-describedby="basic-addon2">
-                        <option value="nom">Nom</option>
-                        <option value="email">Email</option>
-                        <option value="telephone">Téléphone</option>
-                        <option value="date_naissance">Date de naissance</option>
-                        <option value="role">Rôle</option>
+                        <option value="nom" <?php if($attribut == 'nom') echo 'selected'; ?>>Nom</option>
+                        <option value="email" <?php if($attribut == 'email') echo 'selected'; ?>>Email</option>
+                        <option value="telephone" <?php if($attribut == 'telephone') echo 'selected'; ?>>Téléphone</option>
+                        <option value="date_naissance" <?php if($attribut == 'date_naissance') echo 'selected'; ?>>Date de naissance</option>
+                        <option value="role" <?php if($attribut == 'role') echo 'selected'; ?>>Rôle</option>
                     </select>
                     <div style="width: 10px;"></div>
-                    <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="rechercher..." aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="rechercher..." aria-label="Search" aria-describedby="basic-addon2" value="<?php echo htmlspecialchars($search); ?>">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search fa-sm"></i>
@@ -69,16 +78,17 @@ $result = $conn->query($sql);
                         </tr>
                     </thead>
                     <tbody>
+                         
                         <?php if($result) { 
-                            while($row = mysqli_fetch_assoc($result)>0) { ?>
-                        <tr onclick="showModal(<?php echo $row['id']; ?>)">
-                            <td><?php echo $row['nom'] . " " . $row['prenom']; ?></td>
-                            <td><?php echo $row['email']; ?></td>
-                            <td><?php echo $row['telephone']; ?></td>
-                            <td><?php echo $row['adresse']; ?></td>
-                            <td><?php echo $row['date_naissance']; ?></td>
-                            <td><?php echo $row['date_inscription']; ?></td>
-                            <td><?php echo $row['role']; ?></td>
+                            while($row = $result->fetch_assoc()) { ?>
+                       <tr onclick="showModal(<?php echo $row['id']; ?>)">
+                            <td><?php echo htmlspecialchars($row['nom']) . " " . htmlspecialchars($row['prenom']); ?></td>
+                            <td><?php echo htmlspecialchars($row['email']); ?></td>
+                            <td><?php echo htmlspecialchars($row['telephone']); ?></td>
+                            <td><?php echo htmlspecialchars($row['adresse']); ?></td>
+                            <td><?php echo htmlspecialchars($row['date_naissance']); ?></td>
+                            <td><?php echo htmlspecialchars($row['date_inscription']); ?></td>
+                            <td><?php echo htmlspecialchars($row['role']); ?></td>
                         </tr>
                         <?php }} else { ?>
                         <tr>
@@ -106,10 +116,6 @@ $result = $conn->query($sql);
     </div>
 </div>
 
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="js/sb-admin-2.min.js"></script>
 <script>
 function showModal(userId) {
     $.ajax({

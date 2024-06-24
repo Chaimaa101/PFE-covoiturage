@@ -1,5 +1,6 @@
 <?php
-include 'connection.php';
+require 'connection.php';
+require 'header.php';
 
 $attribut = isset($_GET['attribut']) ? $_GET['attribut'] : '';
 $search = isset($_GET['search']) ? $_GET['search'] : '';
@@ -7,13 +8,16 @@ $search = isset($_GET['search']) ? $_GET['search'] : '';
 $attribute = $conn->real_escape_string($attribut);
 $search = $conn->real_escape_string($search);
 
-$sql = "SELECT * FROM trajets";
+$sql = "SELECT trajets.*, utilisateurs.nom AS nom_passager 
+        FROM trajets 
+        JOIN utilisateurs ON trajets.passager_id = utilisateurs.id";
 if ($attribute && $search) {
     $sql .= " WHERE $attribute LIKE '%$search%'";
 }
-
+$sql .= " ORDER BY trajets.date_creation";
 $result = $conn->query($sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,7 +33,6 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-<?php require("header.php"); ?>
 
 <div class="container-fluid">
     <div class="card shadow mb-4">
@@ -41,17 +44,18 @@ $result = $conn->query($sql);
                 <div class="input-group">
                     <label for="attribut">Filtrer par:</label>
                     <select class="form-control bg-light border-0 small" name="attribut" aria-label="Search" aria-describedby="basic-addon2">
-                        <option value="depart">Départ</option>
-                        <option value="destination">Déstination</option>
-                        <option value="statut">Statut</option>
-                        <option value="date-depart">Date de départ</option>
-                        <option value="distance">Distance</option>
+                        <option value="depart" <?php if($attribute == 'depart') echo 'selected'; ?>>Départ</option>
+                        <option value="destination" <?php if($attribute == 'destination') echo 'selected'; ?>>Déstination</option>
+                        <option value="statut" <?php if($attribute == 'statut') echo 'selected'; ?>>Statut</option>
+                        <option value="date_depart" <?php if($attribute == 'date_depart') echo 'selected'; ?>>Date de départ</option>
+                        <option value="distance" <?php if($attribute == 'distance') echo 'selected'; ?>>Distance</option>
                     </select>
                     <div style="width: 10px;"></div>
-                    <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="rechercher..." aria-label="Search" aria-describedby="basic-addon2">
+                    <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="rechercher..." aria-label="Search" aria-describedby="basic-addon2" value="<?php echo htmlspecialchars($search); ?>">
                     <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary" title="Search">
                             <i class="fas fa-search fa-sm"></i>
+                            <span class="sr-only">Search</span>
                         </button>
                     </div>
                 </div>
@@ -63,33 +67,41 @@ $result = $conn->query($sql);
                         <tr>
                             <th>id trajet</th>
                             <th>nom passager</th>
-                            <th>Depart</th>
+                            <th>Départ</th>
                             <th>Destination</th>
-                            <th>Date de depart</th>
-                            <th>status</th>
+                            <th>Date de départ</th>
+                            <th>Statut</th>
                             <th>Distance</th>
                             <th>Temps</th>
                             <th>Prix</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while($row = mysqli_fetch_assoc($result)) { ?>
-                        <tr onclick="showModal(<?php echo $row['id']; ?>)">
-                            <td><?php echo $row['id']; ?></td>
-                            <td><?php echo $row['passager_id']; ?></td>
-                            <td><?php echo $row['depart']; ?></td>
-                            <td><?php echo $row['destination']; ?></td>
-                            <td><?php echo $row['date_depart']; ?></td>
-                            <td><?php echo $row['statut']; ?></td>
-                            <td><?php echo $row['distance']; ?></td>
-                            <td><?php 
-                                $date_depart = new DateTime($row['date_depart']);
-                                $date_arrivee = new DateTime($row['date_arrivee']);
-                                $interval = $date_depart->diff($date_arrivee);
-                                echo $interval->format('%d days %h hours %i minutes'); 
-                            ?></td>
-                            <td><?php echo $row['prix']; ?></td>
-                        </tr>
+                        <?php if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) { ?>
+                                <tr onclick="showModal(<?php echo $row['id']; ?>)">
+                                    <td><?php echo $row['id']; ?></td>
+                                    <td><?php echo $row['nom_passager']; ?></td>
+                                    <td><?php echo $row['depart']; ?></td>
+                                    <td><?php echo $row['destination']; ?></td>
+                                    <td><?php echo $row['date_depart']; ?></td>
+                                    <td><?php echo $row['statut']; ?></td>
+                                    <td><?php echo $row['distance']; ?></td>
+                                    <td>
+                                        <?php
+                                        $date_depart = new DateTime($row['date_depart']);
+                                        $date_arrivee = new DateTime($row['date_arrivee']);
+                                        $interval = $date_depart->diff($date_arrivee);
+                                        echo $interval->format('%d days %h hours %i minutes');
+                                        ?>
+                                    </td>
+                                    <td><?php echo $row['prix']; ?></td>
+                                </tr>
+                            <?php }
+                        } else { ?>
+                            <tr>
+                                <td colspan="9">Aucun trajet trouvé</td>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>
@@ -98,13 +110,14 @@ $result = $conn->query($sql);
     </div>
 </div>
 
-<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelUnique" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel">Details trajets</h4>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title" id="exampleModalLabelUnique">Details trajets</h4>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close" title="Close">
                     <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
                 </button>
             </div>
             <div class="modal-body"></div>
@@ -112,22 +125,24 @@ $result = $conn->query($sql);
     </div>
 </div>
 
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="js/sb-admin-2.min.js"></script>
 <script>
 function showModal(trajetId) {
+    console.log("showModal called with trajetId:", trajetId); // Debugging
     $.ajax({
         url: 'showModeltraject.php',
         type: 'GET',
         data: { id: trajetId },
         success: function(response) {
+            console.log("AJAX response:", response); // Debugging
             $('#showModal .modal-body').html(response);
             $('#showModal').modal('show');
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX error:", status, error); // Debugging
         }
     });
 }
 </script>
+
 </body>
 </html>

@@ -43,25 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Vérifiez les cookies pour la connexion automatique
-if (isset($_COOKIE['user_id']) && isset($_COOKIE['user_role']) && isset($_COOKIE['user_nom']) && isset($_COOKIE['user_prenom'])) {
-    $_SESSION['user_id'] = $_COOKIE['user_id'];
-    $_SESSION['user_role'] = $_COOKIE['user_role'];
-    $_SESSION['nom'] = $_COOKIE['user_nom'];
-    $_SESSION['prenom'] = $_COOKIE['user_prenom'];
-
-    if ($_SESSION['user_role'] == 'passager') {
-        header("Location: ../ajoutertrajet.php?success=1");
-    } elseif ($_SESSION['user_role'] == 'conducteur') {
-        header("Location: ../trajetsannonces.php?success=1");
-    } elseif ($_SESSION['user_role'] == 'administrateur') {
-        header("Location: ../admin.php?success=1");
-    } else {
-        echo "Rôle utilisateur non reconnu.";
-    }
-    exit;
-}
-
 ?>
 
 <!DOCTYPE html>

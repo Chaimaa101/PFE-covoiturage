@@ -1,4 +1,5 @@
 <?php
+
 require 'connection.php';
 
 if (isset($_GET['id'])) {
@@ -24,28 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "Utilisateur supprimé";
         } else {
             echo "Erreur: " . $conn->error;
-        }
-        exit;
-    } elseif (isset($_POST['confirm_update'])) {
-        $nom = $_POST['nom'];
-        $prenom = $_POST['prenom'];
-        $email = $_POST['email'];
-        $telephone = $_POST['telephone'];
-        $date_naissance = $_POST['date_naissance'];
-        $role = $_POST['role'];
-        $adresse = $_POST['adresse'];
-
-        $sql = "UPDATE utilisateurs SET nom = '$nom', prenom = '$prenom', email = '$email', telephone = '$telephone', date_naissance = '$date_naissance', role = '$role', adresse = '$adresse' WHERE id = '$userId'";
-        if ($conn->query($sql) === TRUE) {
-            echo "Informations mises à jour";
-        } else {
-            echo "Erreur: " . $conn->error;
-        }
-        exit;
-    }
-}
+        }}}
 ?>
-
 <form id="userForm" action="" method="POST">
     <table>
         <tr>
@@ -82,66 +63,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </tr>
     </table>
     <div style="height: 15px;"></div>
-    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-    <button class="btn btn-primary" type="button" onclick="confirmAction('delete')">Supprimer Utilisateur</button>
-    <button class="btn btn-primary" type="button" onclick="confirmAction('update')">Modifier les informations</button>
+    <div class="modal-footer">
+        <a class="btn btn-primary" onclick="updateUser(<?php echo ($row['id']); ?>)">Modifier infos</a>
+        <a class="btn btn-danger" onclick="DeleteUser(<?php echo ($row['id']); ?>)">Supprimer compte</a>
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+    </div>
 </form>
 
-<!-- Confirmation Modal -->
-<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body" id="modalBody">Êtes-vous sûr de vouloir effectuer cette action?</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <form action="" method="POST" id="confirmForm">
-                    <input type="hidden" name="confirm_delete" id="confirmDelete" value="">
-                    <input type="hidden" name="confirm_update" id="confirmUpdate" value="">
-                    <!-- Hidden inputs for the updated data -->
-                    <input type="hidden" name="nom" id="hiddenNom" value="">
-                    <input type="hidden" name="prenom" id="hiddenPrenom" value="">
-                    <input type="hidden" name="email" id="hiddenEmail" value="">
-                    <input type="hidden" name="telephone" id="hiddenTelephone" value="">
-                    <input type="hidden" name="date_naissance" id="hiddenDateNaissance" value="">
-                    <input type="hidden" name="role" id="hiddenRole" value="">
-                    <input type="hidden" name="adresse" id="hiddenAdresse" value="">
-                    <button class="btn btn-primary" type="submit">Confirmer</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <script>
-function confirmAction(action) {
-    let modalBody = document.getElementById('modalBody');
-    let confirmDelete = document.getElementById('confirmDelete');
-    let confirmUpdate = document.getElementById('confirmUpdate');
-
-    if (action === 'delete') {
-        modalBody.textContent = 'Êtes-vous sûr de vouloir supprimer cet utilisateur?';
-        confirmDelete.value = 'true';
-        confirmUpdate.value = '';
-    } else if (action === 'update') {
-        modalBody.textContent = 'Êtes-vous sûr de vouloir modifier les informations de cet utilisateur?';
-        confirmDelete.value = '';
-        confirmUpdate.value = 'true';
-
-        // Set the hidden input values
-        document.getElementById('hiddenNom').value = document.querySelector('input[name="nom"]').value;
-        document.getElementById('hiddenPrenom').value = document.querySelector('input[name="prenom"]').value;
-        document.getElementById('hiddenEmail').value = document.querySelector('input[name="email"]').value;
-        document.getElementById('hiddenTelephone').value = document.querySelector('input[name="telephone"]').value;
-        document.getElementById('hiddenDateNaissance').value = document.querySelector('input[name="date_naissance"]').value;
-        document.getElementById('hiddenRole').value = document.querySelector('input[name="role"]').value;
-        document.getElementById('hiddenAdresse').value = document.querySelector('input[name="adresse"]').value;
+// Function to confirm deletion and then trigger AJAX call to deleteUser.php
+function DeleteUser(userId) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer votre compte ?")) {
+        // AJAX call to deleteUser.php
+        $.ajax({
+            type: "POST",
+            url: "deleteUser.php",
+            data: { id: userId },
+            success: function(response) {
+                // Handle success response if needed
+                console.log(response);
+                // Optionally, reload the page or handle UI update
+                alert('Compte supprimé avec succès.');
+                location.reload();  // Reload the page
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error(xhr.responseText);
+            }
+        });
     }
+}
 
-    $('#confirmationModal').modal('show');
+// Function to update user info and trigger AJAX call to updateUser.php
+function updateUser(userId) {
+    if (confirm("Êtes-vous sûr de vouloir modifier votre compte ?")) {
+        var formData = $('#userForm').serialize();  // Gather all form data
+
+        // AJAX call to updateUser.php
+        $.ajax({
+            type: "POST",
+            url: "updateUser.php",
+            data: formData,  // Send form data
+            success: function(response) {
+                // Handle success response if needed
+                console.log(response);
+                // Optionally, reload the page or handle UI update
+                alert('Informations mises à jour avec succès.');
+                location.reload();  // Reload the page
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error(xhr.responseText);
+            }
+        });
+    }
 }
 </script>

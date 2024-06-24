@@ -154,13 +154,7 @@ if ($result->num_rows > 0) {
             <li class="nav-item active">
                 <a class="nav-link" href="trajetencours.php">
                     <i class="fa fa-road"></i>
-<<<<<<< HEAD
                     <span>Trajets en cours</span></a>
-=======
-
-                    <span>TRAJETS EN COURS</span></a>
-
->>>>>>> a0df65f67001f3e10752941674c1230ff9ce1411
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -169,14 +163,8 @@ if ($result->num_rows > 0) {
             <li class="nav-item active">
                 <a class="nav-link" href="historiquetrajets.php">
                    <i class="fa fa-road"></i>
-<<<<<<< HEAD
                     <span>Trajets réalisés</span></a>
-=======
 
-
-                    <span>TRAJETS REALISES</span></a>
-
->>>>>>> a0df65f67001f3e10752941674c1230ff9ce1411
             </li>
 
             <hr class="sidebar-divider my-0">
@@ -232,7 +220,7 @@ if ($result->num_rows > 0) {
             </h6>
             <!-- Notifications will be dynamically inserted here -->
             <div id="notif-items"></div>
-            <a class="dropdown-item text-center small text-gray-500" href="#" onclick="showAllNotifications()">Afficher Toutes Les Alertes</a>
+            <a class="dropdown-item text-center small text-gray-500"  onclick="showAllNotifications()">Afficher Toutes Les Alertes</a>
         </div>
     </li>              
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -324,7 +312,7 @@ if ($result->num_rows > 0) {
             </tr>
             <tr>
             <th>Role</th>
-            <td> <input type="text" class="form-control" value="<?php echo $row['role'];?>" name="role"/></td>
+            <td> <input type="text" class="form-control" value="<?php echo $row['role'];?>" name="role" readonly/></td>
             </tr>
             <tr>
             <th>Adresse</th>
@@ -335,19 +323,18 @@ if ($result->num_rows > 0) {
 </div>
                 <div class="modal-footer">
                     <a class="btn btn-primary" onclick="updateUser(<?php echo ($row['id']); ?>)">Modiffier infos</a>
-                    <a class="btn btn-primary red" onclick="DeleteUser(<?php echo ($row['id']); ?>)">Supprimer compte </a>
+                    <a class="btn btn-danger" onclick="DeleteUser(<?php echo ($row['id']); ?>)">Supprimer compte </a>
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
 
-        <script>
-
-// Function to confirm deletion and then trigger AJAX call to deleteuser.php
+    <script>
+// Function to confirm deletion and then trigger AJAX call to deleteUser.php
 function DeleteUser(userId) {
     if (confirm("Êtes-vous sûr de vouloir supprimer votre compte ?")) {
-        // AJAX call to deleteuser.php
+        // AJAX call to deleteUser.php
         $.ajax({
             type: "POST",
             url: "deleteUser.php",
@@ -356,6 +343,8 @@ function DeleteUser(userId) {
                 // Handle success response if needed
                 console.log(response);
                 // Optionally, reload the page or handle UI update
+                alert('Compte supprimé avec succès.');
+                location.reload();  // Reload the page
             },
             error: function(xhr, status, error) {
                 // Handle error
@@ -367,23 +356,27 @@ function DeleteUser(userId) {
 
 // Function to update user info and trigger AJAX call to updateUser.php
 function updateUser(userId) {
-     if (confirm("Êtes-vous sûr de vouloir modifier votre compte ?")) {
-    // AJAX call to updateUser.php
-    $.ajax({
-        type: "POST",
-        url: "updateUser.php",
-        data: { id: userId },
-        success: function(response) {
-            // Handle success response if needed
-            console.log(response);
-            // Optionally, reload the page or handle UI update
-        },
-        error: function(xhr, status, error) {
-            // Handle error
-            console.error(xhr.responseText);
-        }
-     });
-    }   
+    if (confirm("Êtes-vous sûr de vouloir modifier votre compte ?")) {
+        var formData = $('#userForm').serialize();  // Gather all form data
+
+        // AJAX call to updateUser.php
+        $.ajax({
+            type: "POST",
+            url: "updateUser.php",
+            data: formData,  // Send form data
+            success: function(response) {
+                // Handle success response if needed
+                console.log(response);
+                // Optionally, reload the page or handle UI update
+                alert('Informations mises à jour avec succès.');
+                location.reload();  // Reload the page
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error(xhr.responseText);
+            }
+        });
+    }
 }
 
     function fetchNotifications() {
@@ -442,7 +435,7 @@ function updateUser(userId) {
         fetchNotifications();
         function showAllNotifications() {
     $.ajax({
-        url: 'get_all_notifications.php', // Update the URL to your backend script
+        url: 'get_all_notification.php', // Update the URL to your backend script
         method: 'GET',
         success: function(response) {
             let notifications = JSON.parse(response);

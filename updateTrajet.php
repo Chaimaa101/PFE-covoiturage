@@ -6,16 +6,14 @@ require 'connection.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize inputs if necessary
     $id = $_POST['id'];
-    $nom = $_POST['nom'];
-    $prenom = $_POST['prenom'];
-    $email = $_POST['email'];
-    $telephone = $_POST['telephone'];
-    $date_naissance = $_POST['date_naissance'];
-
-    $adresse = $_POST['adresse'];
+    $depart = $_POST['depart'];
+    $destination = $_POST['destination'];
+    $date_depart = $_POST['date_depart'];
+    $date_arrivee = $_POST['datae_arrivee'];
+    $distance = $_POST['distance'];
 
     // Prepare update query
-    $sql = "UPDATE utilisateurs SET nom='$nom', prenom='$prenom', email='$email', telephone='$telephone', date_naissance='$date_naissance', adresse='$adresse' WHERE id='$id'";
+    $sql = "UPDATE trajets SET nom='$nom', prenom='$prenom', email='$email', telephone='$telephone', date_naissance='$date_naissance', adresse='$adresse' WHERE id='$id'";
 
     // Execute query
     if ($conn->query($sql) === TRUE) {

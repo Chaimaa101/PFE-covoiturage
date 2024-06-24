@@ -1,6 +1,6 @@
 <?php
-include 'connection.php';
-
+ require'connection.php';
+ require("header.php");
 if(isset($_GET['search']) && isset($_GET['attribut'])){
     $attribut = $_GET['attribut'];
     $search = $_GET['search'];
@@ -31,7 +31,7 @@ $result = $conn->query($sql);
 </head>
 
 <body>
-<?php require("header.php"); ?>
+
 
 <div class="container-fluid">
     <!-- DataTables Example -->
@@ -105,10 +105,6 @@ $result = $conn->query($sql);
     </div>
 </div>
 
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<script src="js/sb-admin-2.min.js"></script>
 <script>
 function showModal(userId) {
     $.ajax({

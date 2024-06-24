@@ -62,3 +62,52 @@
 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
 <input type="submit" class="btn btn-danger" value="supprimer">
 <input type="submit"  class="btn btn-primary" value="modifier">
+<script>
+// Function to confirm deletion and then trigger AJAX call to deleteUser.php
+function DeleteUser(userId) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer ce trajet ?")) {
+        // AJAX call to deleteUser.php
+        $.ajax({
+            type: "POST",
+            url: "deleteTrajet.php",
+            data: { id: userId },
+            success: function(response) {
+                // Handle success response if needed
+                console.log(response);
+                // Optionally, reload the page or handle UI update
+                alert('trajet supprimé avec succès.');
+                location.reload();  // Reload the page
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error(xhr.responseText);
+            }
+        });
+    }
+}
+
+// Function to update user info and trigger AJAX call to updateUser.php
+function updateUser(userId) {
+    if (confirm("Êtes-vous sûr de vouloir modifier ce trajet ?")) {
+        var formData = $('#userForm').serialize();  // Gather all form data
+
+        // AJAX call to updateUser.php
+        $.ajax({
+            type: "POST",
+            url: "updateTrajet.php",
+            data: formData,  // Send form data
+            success: function(response) {
+                // Handle success response if needed
+                console.log(response);
+                // Optionally, reload the page or handle UI update
+                alert('trajet mises à jour avec succès.');
+                location.reload();  // Reload the page
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error(xhr.responseText);
+            }
+        });
+    }
+}
+</script>
