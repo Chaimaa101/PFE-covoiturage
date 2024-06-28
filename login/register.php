@@ -52,8 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $prix_km = $_POST['prix_km'];
 
                 // Préparation de l'insertion dans la table voitures
-                $stmt_voiture = $conn->prepare("INSERT INTO voitures (conducteur_id, modele, marque, annee, couleur, prix_km) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt_voiture->bind_param("issss", $utilisateur_id, $voiture, $marque, $annee, $couleur, $prix_km);
+                $stmt_voiture = $conn->prepare("INSERT INTO voitures (conducteur_id, modele, marque, annee, couleur, prix_km) VALUES ( ?, ?, ?, ?, ?, ?)");
+                $stmt_voiture->bind_param("isssss", $utilisateur_id, $voiture, $marque, $annee, $couleur, $prix_km);
 
                 if ($stmt_voiture->execute()) {
                     header('Location: login.php?success=1');
@@ -149,10 +149,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <input type="text" class="form-input" name="matricule" id="matricule" placeholder="Matricule" required/>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-input" name="annee" id="annee" placeholder="Année" required/>
+                                <input type="year" class="form-input" name="annee" id="annee" placeholder="Année" required/>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-input" name="couleur" id="couleur" placeholder="Couleur" required/>
+                            </div>
+                             <div class="form-group">
+                                <input type="number" class="form-input" name="nb_place" id="nb_place" placeholder="Nombre des places" required/>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-input" name="prix_km" id="prix_km" placeholder="Prix/km" required/>

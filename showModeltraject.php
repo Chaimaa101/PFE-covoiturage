@@ -1,82 +1,87 @@
- <table>
-        <form action="" method="POST"></form>
-            <?php
-            require'connection.php';
-            if (isset($_GET['id'])) {
-            $trajetId = $_GET['id'];
-            $sql = "SELECT * FROM trajets where id = '$trajetId' ";
-            $result = $conn->query($sql);
+<table id="trajetTable">
+    <form id="userForm" action="" method="POST"></form>
+    <?php
+    require 'connection.php';
+    if (isset($_GET['id'])) {
+        $trajetId = $_GET['id'];
+        $sql = "SELECT * FROM trajets WHERE id = '$trajetId' ";
+        $result = $conn->query($sql);
         if ($result->num_rows > 0) { 
             $row = $result->fetch_assoc();
             ?>  
-             <tr>
-            <th>Id</th>
-            <td> <input type="text" class="form-control" value="<?php echo $row['id'];?>" name="id" readonly/></td>
-            </tr>
-             <tr>
-            <th>Depart</th>
-            <td> <input type="text" class="form-control" value="<?php echo $row['depart'];?>" name="depart" /></td>
-            </tr>
-             <tr>
-            <th>Destination</th>
-            <td> <input type="text" class="form-control" value="<?php echo $row['destination'];?>" name="destination"/></td>
+            <tr id="trajet-<?php echo $row['id']; ?>">
+                <th>Id</th>
+                <td><input type="text" class="form-control" value="<?php echo $row['id']; ?>" name="id" readonly /></td>
             </tr>
             <tr>
-            <th>Date de depart</th>
-            <td> <input type="datetime-local" class="form-control" value="<?php echo $row['date_depart'];?>" name="date_depart"/></td>
+                <th>Depart</th>
+                <td><input type="text" class="form-control" value="<?php echo $row['depart']; ?>" name="depart" /></td>
             </tr>
             <tr>
-            <th>Date d'arrivée</th>
-            <td> <input type="datetime-local" class="form-control" value="<?php echo $row['date_arrivee'];?>" name="date_arrivee"/></td>
+                <th>Destination</th>
+                <td><input type="text" class="form-control" value="<?php echo $row['destination']; ?>" name="destination" /></td>
             </tr>
             <tr>
-            <th>Distance</th>
-            <td> <input type="text" class="form-control" value="<?php echo $row['distance'];?>" name="distance"/></td>
+                <th>Date de depart</th>
+                <td><input type="datetime-local" class="form-control" value="<?php echo $row['date_depart']; ?>" name="date_depart" /></td>
             </tr>
             <tr>
-            <th>Statut</th>
-            <td> <input type="text" class="form-control" value="<?php echo $row['statut'];?>" name="status"/></td>
-            </tr>
-             <tr>
-            <th>Côut</th>
-            <td> <input type="text" class="form-control" value="<?php echo $row['prix'];?>" name="adresse"/></td>
+                <th>Date d'arrivée</th>
+                <td><input type="datetime-local" class="form-control" value="<?php echo $row['date_arrivee']; ?>" name="date_arrivee" /></td>
             </tr>
             <tr>
-            <th>Durée</th>
-            <td> <input type="text" class="form-control" value="<?php 
-                                $date_depart = new DateTime($row['date_depart']);
-                                $date_arrivee = new DateTime($row['date_arrivee']);
-                                $interval = $date_depart->diff($date_arrivee);
-                                echo $interval->format('%d days %h hours %i minutes'); 
-                            ?>" name="adresse"/></td>
+                <th>Distance</th>
+                <td><input type="text" class="form-control" value="<?php echo $row['distance']; ?>" name="distance" /></td>
             </tr>
-           <?php } else {
-        echo "Aucun utilisateur trouvé";
-    }
-} else {
-    echo "ID de l'utilisateur non fourni";
-}?>
+            <tr>
+                <th>Statut</th>
+                <td><input type="text" class="form-control" value="<?php echo $row['statut']; ?>" name="status" /></td>
+            </tr>
+            <tr>
+                <th>Coût</th>
+                <td><input type="text" class="form-control" value="<?php echo $row['prix']; ?>" name="prix" /></td>
+            </tr>
+            <tr>
+                <th>Durée</th>
+                <td><input type="text" class="form-control" value="<?php 
+                    $date_depart = new DateTime($row['date_depart']);
+                    $date_arrivee = new DateTime($row['date_arrivee']);
+                    $interval = $date_depart->diff($date_arrivee);
+                    echo $interval->format('%d days %h hours %i minutes'); 
+                ?>" name="duree" /></td>
+            </tr>
+            <?php 
+        } else {
+            echo "Aucun trajet trouvé";
+        }
+    } else {
+        echo "ID du trajet non fourni";
+    } ?>
     </form>
 </table>
 <div style="height: 10px;"></div>
-<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-<input type="submit" class="btn btn-danger" value="supprimer">
-<input type="submit"  class="btn btn-primary" value="modifier">
+<div class="modal-footer">
+    <a class="btn btn-primary" onclick="updateUser(<?php echo ($row['id']); ?>)">Modifier infos</a>
+    <a class="btn btn-danger" onclick="DeleteUser(<?php echo ($row['id']); ?>)">Supprimer trajet</a>
+    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+</div>
+
 <script>
-// Function to confirm deletion and then trigger AJAX call to deleteUser.php
-function DeleteUser(userId) {
+function DeleteUser(trajetId) {
     if (confirm("Êtes-vous sûr de vouloir supprimer ce trajet ?")) {
-        // AJAX call to deleteUser.php
+        // AJAX call to deleteTrajet.php
         $.ajax({
             type: "POST",
             url: "deleteTrajet.php",
-            data: { id: userId },
+            data: { id: trajetId },
             success: function(response) {
                 // Handle success response if needed
                 console.log(response);
-                // Optionally, reload the page or handle UI update
-                alert('trajet supprimé avec succès.');
-                location.reload();  // Reload the page
+                // Remove the row from the table
+                document.getElementById('trajet-' + trajetId).remove();
+                alert('Trajet supprimé avec succès.');
+                // Hide the modal
+                $('#myModal').modal('hide');
             },
             error: function(xhr, status, error) {
                 // Handle error
@@ -87,11 +92,11 @@ function DeleteUser(userId) {
 }
 
 // Function to update user info and trigger AJAX call to updateUser.php
-function updateUser(userId) {
+function updateUser(trajetId) {
     if (confirm("Êtes-vous sûr de vouloir modifier ce trajet ?")) {
         var formData = $('#userForm').serialize();  // Gather all form data
 
-        // AJAX call to updateUser.php
+        // AJAX call to updateTrajet.php
         $.ajax({
             type: "POST",
             url: "updateTrajet.php",
@@ -100,7 +105,7 @@ function updateUser(userId) {
                 // Handle success response if needed
                 console.log(response);
                 // Optionally, reload the page or handle UI update
-                alert('trajet mises à jour avec succès.');
+                alert('Trajet mis à jour avec succès.');
                 location.reload();  // Reload the page
             },
             error: function(xhr, status, error) {

@@ -11,10 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
     $role = 'administrateur'; // Set the role to administrateur
 
-    $sql = "INSERT INTO utilisateurs (nom, prenom, email, telephone, adresse, date_naissance, password, role) 
+    $sql = "INSERT INTO utilisateurs (nom, prenom, email, telephone, adresse, date_naissance, mot_de_passe, role) 
             VALUES ('$nom', '$prenom', '$email', '$telephone', '$adresse', '$date_naissance', '$password', '$role')";
 
-    if ($conn->query($sql) === TRUE) {
+    if ($conn->query($sql)) {
         echo "<p>Nouvel administrateur ajouté avec succès</p>";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
@@ -75,11 +75,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
-
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="js/sb-admin-2.min.js"></script>
 </body>
 
 </html>

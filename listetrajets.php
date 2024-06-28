@@ -14,7 +14,7 @@ $sql = "SELECT trajets.*, utilisateurs.nom AS nom_passager
 if ($attribute && $search) {
     $sql .= " WHERE $attribute LIKE '%$search%'";
 }
-$sql .= " ORDER BY trajets.date_creation";
+$sql .= " ORDER BY trajets.date_creation DESC";
 $result = $conn->query($sql);
 ?>
 

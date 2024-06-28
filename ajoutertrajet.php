@@ -26,7 +26,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     } else {
         echo "Erreur: " . $stmt->error;
     } 
-
 }
 ?>
 <!DOCTYPE html>
@@ -39,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="st   ²ylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
     <style>
         #map {
             height: 80vh;

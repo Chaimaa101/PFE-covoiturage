@@ -62,9 +62,7 @@ require("header.php");
                     <tr>
                         <th>Depart</th>
                         <th>Destination</th>
-                        <th>Date Depart</th>
-                        
-                       
+                        <th>Date Depart</th>                 
                     </tr>
                 </thead>
                 <tbody>
@@ -72,8 +70,7 @@ require("header.php");
                     <tr onclick="showModal(<?php echo $row['id']; ?>)">
                         <td><?php echo ($trajet['depart']) ?></td>
                         <td><?php echo ($trajet['destination']) ?></td>
-                        <td><?php echo ($trajet['date_depart']) ?></td>
-                        
+                        <td><?php echo ($trajet['date_depart']) ?></td>            
                     </tr>
                   <?php 
             

@@ -13,10 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $distance = $_POST['distance'];
 
     // Prepare update query
-    $sql = "UPDATE trajets SET nom='$nom', prenom='$prenom', email='$email', telephone='$telephone', date_naissance='$date_naissance', adresse='$adresse' WHERE id='$id'";
-
+    $sql = "UPDATE trajets SET depart='$depart', destination='$destination', date_depart='$date_depart', date_arrivee='$date_arrivee', distance='$distance' WHERE id ='$id';";
     // Execute query
-    if ($conn->query($sql) === TRUE) {
+    if ($conn->query($sql)) {
         echo "Enregistrement mis à jour avec succès";
         // Optionally redirect or perform additional actions after successful update
     } else {
@@ -24,6 +23,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Close database connection
-$conn->close();
 ?>

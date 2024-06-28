@@ -18,14 +18,6 @@ if (isset($_GET['id'])) {
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['confirm_delete'])) {
-        $sql = "DELETE FROM utilisateurs WHERE id = '$userId'";
-        if ($conn->query($sql) === TRUE) {
-            echo "Utilisateur supprimé";
-        } else {
-            echo "Erreur: " . $conn->error;
-        }}}
 ?>
 <form id="userForm" action="" method="POST">
     <table>
@@ -82,7 +74,7 @@ function DeleteUser(userId) {
             success: function(response) {
                 // Handle success response if needed
                 console.log(response);
-                // Optionally, reload the page or handle UI update
+        
                 alert('Compte supprimé avec succès.');
                 location.reload();  // Reload the page
             },

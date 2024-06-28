@@ -1,13 +1,13 @@
 <?php
  require ("connection.php");
  require("header.php");
-$attribut = '';
+$attribute = '';
 $search = '';
 
-$attribut = isset($_GET['attribut']) ? $_GET['attribut'] : '';
+$attribute = isset($_GET['attribute']) ? $_GET['attribute'] : '';
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-$attribute = $conn->real_escape_string($attribut);
+$attribute = $conn->real_escape_string($attribute);
 $search = $conn->real_escape_string($search);
 
 $sql = "SELECT * FROM utilisateurs";
@@ -15,7 +15,7 @@ if ($attribute && $search) {
     $sql .= " WHERE $attribute LIKE '%$search%'";
 }
 
-
+ 
 $result = $conn->query($sql);
 
 if (!$result) {
@@ -48,11 +48,11 @@ if (!$result) {
                 <div class="input-group">
                     <label for="attribut">Filtrer par:</label>
                     <select class="form-control bg-light border-0 small" name="attribut" aria-label="Search" aria-describedby="basic-addon2">
-                        <option value="nom" <?php if($attribut == 'nom') echo 'selected'; ?>>Nom</option>
-                        <option value="email" <?php if($attribut == 'email') echo 'selected'; ?>>Email</option>
-                        <option value="telephone" <?php if($attribut == 'telephone') echo 'selected'; ?>>Téléphone</option>
-                        <option value="date_naissance" <?php if($attribut == 'date_naissance') echo 'selected'; ?>>Date de naissance</option>
-                        <option value="role" <?php if($attribut == 'role') echo 'selected'; ?>>Rôle</option>
+                        <option value="nom" <?php if($attribute == 'nom') echo 'selected'; ?>>Nom</option>
+                        <option value="email" <?php if($attribute == 'email') echo 'selected'; ?>>Email</option>
+                        <option value="telephone" <?php if($attribute == 'telephone') echo 'selected'; ?>>Téléphone</option>
+                        <option value="date_naissance" <?php if($attribute == 'date_naissance') echo 'selected'; ?>>Date de naissance</option>
+                        <option value="role" <?php if($attribute == 'role') echo 'selected'; ?>>Rôle</option>
                     </select>
                     <div style="width: 10px;"></div>
                     <input type="text" name="search" class="form-control bg-light border-0 small" placeholder="rechercher..." aria-label="Search" aria-describedby="basic-addon2" value="<?php echo htmlspecialchars($search); ?>">

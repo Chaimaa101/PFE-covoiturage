@@ -20,7 +20,7 @@
   </head>
  
   <body>
-  
+
 
   <div class="content">
     
@@ -32,9 +32,12 @@
           <div class="row justify-content-center">
             <div class="col-md-6">
               
-              <h3 class="heading mb-4">Contactez-nous!</h3>
+              <h3 class="heading mb-4">vous voulez nous dire
+quelque chose ?</h3>
 
-              <p>Merci de faire confiance à CovoitFacile pour vos déplacements partagés !<img src="images/undraw-contact.svg" alt="Image" class="img-fluid"> </p>
+              <p>Nous sommes ravis de vous accompagner dans vos
+déplacements quotidiens. N'hésitez pas à nous contacter pour
+toute question, suggestion ou assistance. <img src="images/undraw-contact.svg" alt="Image" class="img-fluid"> </p>
 
 
             </div>
