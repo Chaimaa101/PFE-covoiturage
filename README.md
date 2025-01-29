@@ -1,12 +1,9 @@
 <h1 align="center">
-	<img
-		width="300"
-		alt="EduMate"
-		src="https://github.com/Chaimaa101/PFE-covoiturage/blob/main/img/logo.jpg">
+	<img width="300" alt="CovoitFacile" src="https://github.com/Chaimaa101/PFE-covoiturage/blob/main/img/logo.jpg">
 </h1>
 
 <h3 align="center">
-	CovoitFacile – Carpooling Web Application
+	🚗 CovoitFacile – Carpooling Web Application
 </h3>
 
 ## 📖 Table of Contents
@@ -15,87 +12,91 @@
 <summary>Click to expand</summary>
 
 - [📖 Table of Contents](#-table-of-contents)
-- [📷Demo](#-Demo) 
-- [⛓ Description ](#-description)
-    - [User Management ](#user-management)
-    - [Course Management ](#course-management)
-    - [Blog Management ](#blog-management)
-    - [Student Management ](#student-management)
-    - [Fully Responsive](#fully-responsive)
+- [📷 Demo](#-demo) 
+- [⛓ Description](#-description)
+  - [User Authentication](#user-authentication)
+  - [Ride Posting](#ride-posting)
+  - [Ride Booking](#ride-booking)
+  - [Messaging System](#messaging-system)
+  - [Ride Management](#ride-management)
+  - [Search & Filters](#search--filters)
+  - [Admin Dashboard](#admin-dashboard)
+  - [Fully Responsive](#fully-responsive)
 - [🔨 Development](#-development)
-    - [Tech Stack](#tech-stack)
-- [☑️ Installation](#installation)
-    - [Usage ](#usage)
--[🤝 Collaborators](#collaborators)
+  - [Tech Stack](#tech-stack)
+- [☑️ Installation](#-installation)
+  - [Usage](#usage)
+- [🤝 Collaborators](#-collaborators)
 </details>
 
-# 📷 Demo: 
+# 📷 Demo 
 
-https://github.com/user-attachments/assets/d39e62b7-bf71-4759-badb-df514f7ecff0
+Uploading video_CovoitFacile.mp4…
 
+# ⛓ Description
 
+**CovoitFacile** is a web application designed to facilitate **carpooling** by connecting **drivers and passengers**. The platform allows users to share rides efficiently, reducing travel costs and promoting eco-friendly transportation. This project was developed as part of a **final-year project**.
 
-# ⛓ Description:
+## 🚀 Features
 
-<p align="center">
-	This project was developed as part of a final-year project to create an efficient and user-friendly carpooling solution. It aims to reduce travel costs and environmental impact by encouraging shared rides.
-	CovoitFacile is a web application designed to facilitate carpooling by connecting drivers and passengers. The platform allows users to share rides efficiently, reducing travel costs and promoting eco-friendly transportation.
-</p>
+### ✅ User Authentication  
+- Users can **register**, **log in**, and manage their accounts securely.
 
-## User Authentication 
-– Users can register, log in, and manage their accounts.
-## Ride Posting 
-– Drivers can create ride offers, specifying the route, date, time, and available seats.
-## Ride Booking 
-– Passengers can search for available rides and book seats.
-## Messaging System 
-– Allows communication between drivers and passengers.
-## Ride Management 
-– Users can edit or cancel their rides.
-## Search & Filters 
-– Users can search for rides based on destination, date, and time.
-## Admin Dashboard 
-– Admin users can monitor and manage users and rides.
+### ✅ Ride Posting  
+- **Drivers** can create ride offers by specifying the **route, date, time, and available seats**.
 
-## Fully Responsive:
-Edumate is designed to adapt to all device types, whether you're using a desktop, tablet, or mobile. The platform ensures a smooth and user-friendly experience across all screen sizes.
+### ✅ Ride Booking  
+- **Passengers** can search for available rides and book seats instantly.
+
+### ✅ Messaging System  
+- Built-in **communication** between drivers and passengers.
+
+### ✅ Ride Management  
+- Users can **edit or cancel** their ride details anytime.
+
+### ✅ Search & Filters  
+- Users can **search for rides** based on **destination, date, and time**.
+
+### ✅ Admin Dashboard  
+- **Admin users** can monitor and manage **users, rides, and bookings**.
+
+### ✅ Fully Responsive  
+- **CovoitFacile** adapts to **all devices**, ensuring a smooth experience across **desktops, tablets, and mobile**.
+
+---
 
 # 🔨 Development
 
-## Tech Stack 
-- Backend: Core PHP
-- Frontend: HTML, CSS, JavaScript
-- Database: MySQL
-- Authentication: Session-based login system
-- Styling: CSS
-  
-# ☑️ Installation
+## 🛠️ Tech Stack  
+- **Backend:** Core PHP  
+- **Frontend:** HTML, CSS, JavaScript  
+- **Database:** MySQL  
+- **Authentication:** Session-based login system  
+- **Styling:** CSS  
 
-1. Clone the repository:
-```shell
-git clone https://github.com/your-username/covoitfacile.git
-```
-2. Set up your database and import the provided .sql file.
-3. Update database credentials in the configuration file.
-4. Start a local server using XAMPP or WAMP.
-5. Open the project in a browser: http://localhost/covoitfacile/
+---
 
+# ☑️ Installation  
 
-### Usage
-1. Implement Google Maps API for real-time location tracking.
-2. Add a rating and review system for drivers and passengers.
-3. Improve the UI/UX with modern frameworks like Tailwind CSS.
+1. **Clone the repository:**  
+   ```bash
+   git clone https://github.com/Chaimaa101/PFE-covoiturage.git
+Set up the database and import the provided .sql file.
+Update database credentials in the configuration file.
+Start a local server using XAMPP or WAMP.
+Run the project in your browser: http://localhost/covoitfacile/**
+
+# ☑️ Usage
+### ✅ Implement Google Maps API for real-time ride tracking.  
+### ✅ Add a rating and review system for drivers and passengers.  
+### ✅ Improve UI/UX with modern frameworks like Tailwind CSS.
 
 # 🤝 Collaborators
 
-We collaborated to develop **Edumate**, each contributing to different aspects of the project:
+We collaborated to develop **CovoitFacile**, each contributing to different aspects of the project:
 
-| Name                | GitHub Profile                                      |
+| Name                | GitHub Profile                                      | 
 |-------------------- |---------------------------------------------------- |
-| **Ikram AMINE**  | [BoukrimYounes](https://github.com/BoukrimYounes)   | 
-| **Chaimaa AFKIR**   | [Chaimaa101](https://github.com/Chaimaa101)         |
-| **Ezahia ESSAIDI**  | [BoukrimYounes](https://github.com/BoukrimYounes)   | 
-
-
-
-
+| **Ikram AMINE**     | [IKRAM-iN](https://github.com/IKRAM-iN)             | 
+| **Chaimaa AFKIR**   | [Chaimaa101](https://github.com/Chaimaa101)         | 
+| **Ezahia Essaidi**  | [zahittah](https://github.com/zahittah)             |   
