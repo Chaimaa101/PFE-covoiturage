@@ -81,10 +81,10 @@ https://github.com/user-attachments/assets/c21124a1-1591-4247-9ef1-2c9020da774a
 1. **Clone the repository:**  
    ```bash
    git clone https://github.com/Chaimaa101/PFE-covoiturage.git
-Set up the database and import the provided .sql file.
-Update database credentials in the configuration file.
-Start a local server using XAMPP or WAMP.
-Run the project in your browser: http://localhost/covoitfacile/**
+2. **Set up the database and import the provided .sql file.**
+3. **Update database credentials in the configuration file.**
+4. **Start a local server using XAMPP or WAMP.**
+5. **Run the project in your browser: http://localhost/covoitfacile/**
 
 # ☑️ Usage
 ### ✅ Implement Google Maps API for real-time ride tracking.  
